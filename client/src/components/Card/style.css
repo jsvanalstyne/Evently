@@ -1,0 +1,17 @@
+.card {
+    background-size: cover;
+    background-position: center;
+    background-clip: content-box;
+    border: 6px solid white;
+    height: 400px;
+    width: 400px;
+    
+    position: relative;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }
+  .title{
+    padding-top:15px;
+    text-align: center;
+  }
