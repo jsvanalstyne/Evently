@@ -11,7 +11,7 @@ class Dashboard extends Component {
   render() {
     return (
      
-      <Container fluid>
+      <div className="container">
         <h1 className="text-center dashboard"> Dashboard</h1>
         <Row>
           <Col size="6">
@@ -28,7 +28,8 @@ class Dashboard extends Component {
           </Col>
         </Row>
         <Footer />
-      </Container>
+      
+      </div>
     );
   }
 }
