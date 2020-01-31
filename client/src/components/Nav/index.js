@@ -1,32 +1,27 @@
 import React from "react";
+import NavLink from "../NavLink"
 import "./style.css";
 
 function Nav(props) {
     return (
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">{props.children}
             <a class="navbar-brand landing-title" href="/">Evently</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Thing 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Thing 2</a>
-                    </li>
+                   <NavLink 
+                    link={"/features"}
+                    text={"Features"}
+                   />
                 </ul>
                 <span class="navbar-text">
                     <button type="button" class="btn btn-outline-success bg-light mr-1" data-toggle="modal" data-target="#exampleModal">Sign up</button>
                     <button type="button" class="btn btn-success">Log in</button>
                 </span>
             </div>
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {/* <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -67,10 +62,15 @@ function Nav(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </nav>
 
     )
 }
 
 export default Nav;
+
+// change the list items to components, so I would have a a <NavLink> with props that would be props.link props.text for each header components
+// components for login and sign up button
+// move the body styling stuff to the css sheet for the landing page js file
+// features page
