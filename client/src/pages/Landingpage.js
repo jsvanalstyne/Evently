@@ -15,7 +15,6 @@ class Landingpage extends Component {
     return (
         <Wrapper>
           <Nav />
-            <LoginForm />
         </Wrapper>
         
     );
