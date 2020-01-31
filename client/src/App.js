@@ -13,7 +13,7 @@ function App() {
         <Dashboard/>
         </Route>
         <Route exact path="/funtivity"><Funtivity/></Route>
-        <Route exact path="/calendar"><Calendar/></Route>
+       
 
       </div>
     </Router>
