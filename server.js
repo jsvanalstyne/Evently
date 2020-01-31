@@ -3,6 +3,10 @@ var express = require("express");
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+// Connect to the Mongo DB
+const dbconn = process.env.MONGO_URL || "mongodb://localhost/Evently"
+mongoose.connect(dbconn, { useNewUrlParser: true });
+
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
