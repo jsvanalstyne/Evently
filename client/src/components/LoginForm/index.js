@@ -3,7 +3,7 @@ import React, {Component} from "react";
 // importing styles from index.css
 import "./index.css";
 // importing Input component to be reused in our form
-import Input from "../../presentational/Input";
+import Input from "./Input";
 
 /* creating stateful login component
 ** state: 
@@ -31,16 +31,7 @@ class LoginForm extends Component {
         this.state = {
             email: "", 
             password: "",
-            hidePassword: true, 
-            firstName: "", 
-            lastName: "", 
-            dayOfBirth: "", 
-            monthOfBirth: "", 
-            yearOfBirth: "", 
-            street: "", 
-            zipcode: "",
-            city: "", 
-            stateCode: ""
+            hidePassword: true
         }
     }
 
@@ -50,7 +41,7 @@ class LoginForm extends Component {
         // grab name and value by destructuring target object 
         // on event
         const {name, value} = event.target;
-        console.log(event.target);
+
         // generically referencing property of respective
         // state value 
         this.setState({
@@ -73,37 +64,17 @@ class LoginForm extends Component {
     render() {
         return (
             <form className="auth-form">
-                <h3 className="auth-header">Sign Up</h3>
-                <h4>Profile</h4>
-                <hr className="auth-section-divider"/>
-                <div className="inline-input-container">
-                    <Input
-                        name="firstName"
-                        value={this.state.firstName} 
-                        onChange={this.handleInputChange}
-                        type="text"
-                        cleanname="First name"
-                        inline="true"
-                    />
-                    <Input
-                        name="lastName"
-                        value={this.state.firstName} 
-                        onChange={this.handleInputChange}
-                        type="text"
-                        cleanname="Last name"
-                        inline="true"
-                    />
-                </div>
+                <h3 className="auth-header" align="center">Sign in</h3>
                 <Input 
-                    name="email"
-                    value={this.state.email}
+                    name={"email"}
+                    value={this.state.value}
                     onChange={this.handleInputChange}
                     type="text"
                     cleanname="Email"
                 />
                 <Input 
-                    name="password"
-                    value={this.state.password}
+                    name={"password"}
+                    value={this.state.value}
                     onChange={this.handleInputChange}
                     // changing input type to hide password based on hidePassword
                     type={this.state.hidePassword ? "password" : "text"}
@@ -117,39 +88,7 @@ class LoginForm extends Component {
                 >
                 </input>
                 <label className="auth-checkbox-label">Show password</label>
-                <h4>Address</h4>
-                <hr className="auth-section-divider"/>
-                <Input
-                    name="street"
-                    value={this.state.street} 
-                    onChange={this.handleInputChange}
-                    type="text"
-                    cleanname="Street"
-                />
-                <Input
-                    name="city"
-                    value={this.state.city} 
-                    onChange={this.handleInputChange}
-                    type="text"
-                    cleanname="City"
-                />
-                <Input
-                    name="zipcode"
-                    value={this.state.zipcode} 
-                    onChange={this.handleInputChange}
-                    type="number"
-                    cleanname="Zipcode"
-                    inline="true"
-                />
-                <Input
-                    name="stateCode"
-                    value={this.state.stateCode} 
-                    onChange={this.handleInputChange}
-                    type="text"
-                    cleanname="State Code"
-                    inline="true"
-                />
-                <button className="auth-submit-button">Sign up</button>
+                <button className="auth-submit-button">Sign in</button>
             </form>
         )
     }
