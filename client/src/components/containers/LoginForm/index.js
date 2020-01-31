@@ -66,17 +66,19 @@ class LoginForm extends Component {
             <form className="auth-form">
                 <h3 className="auth-header" align="center">Sign in</h3>
                 <Input 
-                    name={"Email"}
+                    name={"email"}
                     value={this.state.value}
                     onChange={this.handleInputChange}
                     type="text"
+                    cleanname="Email"
                 />
                 <Input 
-                    name={"Password"}
+                    name={"password"}
                     value={this.state.value}
                     onChange={this.handleInputChange}
                     // changing input type to hide password based on hidePassword
                     type={this.state.hidePassword ? "password" : "text"}
+                    cleanname="Password"
                 />
                 <input 
                     className="auth-checkbox"

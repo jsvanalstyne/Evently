@@ -1,8 +1,8 @@
 .auth-form {
-    color: white;
+    color: rgba(12, 73, 153, 0.849);
     width: 20%;
     padding: 20px;
-    background-color: rgba(12, 84, 177, 0.87);
+    background-color: rgba(230, 230, 230, 0.87);
     border-radius: 7.5px;
     margin: 30px 0 0 30px ;
     border: none;
