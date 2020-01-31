@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
+import { Col, Row} from "../components/Grid";
 import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
-import Calendars from "../components/Calendar";
+// import Calendars from "../components/Calendar";
 const upcoming = [{
   event: "Dolphin Swim Practice",
   date: "February 1, 2020 at 6pm"
