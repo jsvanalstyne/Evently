@@ -1,3 +1,13 @@
+@font-face {
+    font-family: evently;
+    src: url(./SFSportsNight.ttf)
+  }
+
+.landing-title {
+    font-family: evently;
+    font-size: 2em;
+}
+
 /* html {
   height: 100%;
 }
@@ -8,13 +18,3 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 } */
-
-@font-face {
-    font-family: evently;
-    src: url(./SFSportsNight.ttf)
-  }
-
-.landing-title {
-    font-family: evently;
-    font-size: 2em;
-}
