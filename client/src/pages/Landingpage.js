@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Nav from "../components/Nav";
 import Wrapper from "../components/Wrapper";
 import LoginForm from "../components/LoginForm";
+import HomeJumbo from "../components/HomeJumbo"
 // import { Link } from "react-router-dom";
 // import { Col, Row, Container } from "../components/Grid";
 // import Card from "../components/Card";
@@ -15,6 +16,10 @@ class Landingpage extends Component {
     return (
         <Wrapper>
           <Nav />
+            <HomeJumbo 
+              mainText={"Welcome!"}
+              smallText={"This is some text that briefly describes what evently is about."}
+            />
             <LoginForm />
         </Wrapper>
         
