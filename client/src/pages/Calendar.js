@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
 
-class MyCalendars extends Component {
+class MyCalendar extends Component {
   constructor() {
     super();
     const now = new Date();
@@ -131,7 +131,9 @@ class MyCalendars extends Component {
   render() {
     return (
       <div>
-        
+        <p>
+          A test for the React Big Calendar.
+        </p>
         <div style={{ height: '500pt'}}>
           <Calendar
             events={this.state.events}
@@ -145,4 +147,4 @@ class MyCalendars extends Component {
     );
   }
 }
-export default MyCalendars;
+export default MyCalendar;
