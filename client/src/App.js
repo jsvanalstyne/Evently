@@ -4,7 +4,7 @@ import SignUpForm from "./components/containers/SignUpForm";
 
 function App() {
   return (
-    <SignUpForm/>
+    <div></div>
   );
 }
 
