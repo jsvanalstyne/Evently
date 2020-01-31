@@ -1,5 +1,6 @@
 import React from "react";
-import NavLink from "../NavLink"
+import NavLink from "../NavLink";
+import SignUpBtn from "../SignUpBtn"
 import "./style.css";
 
 function Nav(props) {
@@ -17,52 +18,12 @@ function Nav(props) {
                    />
                 </ul>
                 <span class="navbar-text">
-                    <button type="button" class="btn btn-outline-success bg-light mr-1" data-toggle="modal" data-target="#exampleModal">Sign up</button>
-                    <button type="button" class="btn btn-success">Log in</button>
+                    <SignUpBtn
+                        link={"/signup"}
+                        text={"Sign up"}
+                    />
                 </span>
             </div>
-            {/* <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleFormControlInput1">First name</label>
-                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="John" />
-                                </div>
-                                <div className="form-group">
-                                    <label for="exampleFormControlInput1">Last Name</label>
-                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Doe" />
-                                </div>
-                                <div className="form-group">
-                                    <label for="exampleFormControlInput1">Email</label>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="john.doe@gmail.com" />
-                                </div>
-                                <div className="form-group">
-                                    <label for="exampleFormControlInput1">Username</label>
-                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" />
-                                </div>
-                                <div className="form-group">
-                                    <label for="exampleFormControlInput1">Password</label>
-                                    <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password" />
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
         </nav>
 
     )
