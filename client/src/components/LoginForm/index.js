@@ -4,6 +4,9 @@ import React, { Component } from "react";
 import "./index.css";
 // importing Input component to be reused in our form
 import Input from "../Input"
+import OktaAuth from '@okta/okta-auth-js';
+import { withAuth } from '@okta/okta-react';
+
 
 /* creating stateful login component
 ** state: 
@@ -22,17 +25,42 @@ import Input from "../Input"
 **      used to check and uncheck hide password box
 */
 
-class LoginForm extends Component {
-    constructor() {
-        super();
+export default withAuth(class LoginForm extends Component {
+    constructor(props) {
+        super(props);
 
         // setting state to empty values for email and 
         // password and hidePassword to false
         this.state = {
-            email: "",
+            email: "", 
             password: "",
-            hidePassword: true
+            hidePassword: true, 
+            sessionToken: null
         }
+
+        this.oktaAuth = new OktaAuth({ url: "http://localhost:3000" });
+
+    }
+
+    // WRITE COMMENTS BEFORE SUBMIT FOR PR
+    handleSubmit = event => {
+        event.preventDefault();
+        console.log("we got in here");
+        console.log(this.state.email);
+        console.log(this.state.password);
+
+        this.oktaAuth.signIn({
+          username: this.state.username,
+          password: this.state.password
+        })
+        .then(res => {
+            console.log(res);
+            
+            return this.setState({
+                sessionToken: res.sessionToken
+            })
+        })
+        .catch(err => console.log('Found an error', err));
     }
 
     // used to handle change in value on input field
@@ -62,68 +90,39 @@ class LoginForm extends Component {
     }
 
     render() {
+        if (this.state.sessionToken) {
+            this.props.auth.redirect({sessionToken: this.state.sessionToken});
+            return null;
+        }
+
         return (
-            // <form className="auth-form float-right">
-            //     <h3 className="auth-header" align="center">Sign in</h3>
-            //     <Input
-            //         name={"email"}
-            //         value={this.state.value}
-            //         onChange={this.handleInputChange}
-            //         type="text"
-            //         cleanname="Email"
-            //     />
-            //     <Input
-            //         name={"password"}
-            //         value={this.state.value}
-            //         onChange={this.handleInputChange}
-            //         // changing input type to hide password based on hidePassword
-            //         type={this.state.hidePassword ? "password" : "text"}
-            //         cleanname="Password"
-            //     />
-            //     <input
-            //         className="auth-checkbox"
-            //         type="checkbox"
-            //         onChange={this.togglePasswordVisbility}
-            //         checked={!this.state.hidePassword}
-            //     >
-            //     </input>
-            //     <label className="auth-checkbox-label">Show password</label>
-            //     <button className="auth-submit-button">Sign in</button>
-            // </form>
-            
-                <form>
-                    <Input
-                        name={"email"}
-                        value={this.state.value}
-                        onChange={this.handleInputChange}
-                        type="text"
-                        cleanname="Email"
-                        id="login-email"
-                        for="login-email"
-                    />
-                    <Input
-                        name={"password"}
-                        value={this.state.value}
-                        onChange={this.handleInputChange}
-                        // changing input type to hide password based on hidePassword
-                        type={this.state.hidePassword ? "password" : "text"}
-                        cleanname="Password"
-                        id="login-password"
-                        for="login-password"
-                    />
-                    <Input
-                        name={"auth-checkbox"}
-                        cleanname={"Show Password"}
-                        type="checkbox"
-                        onChange={this.togglePasswordVisbility}
-                        checked={!this.state.hidePassword}
-                    />
-                    <button type="submit" className="btn btn-primary mb-2">Sign in</button>
+            <form onSubmit={this.handleSubmit} className="auth-form float-right">
+                <h3 className="auth-header" align="center">Sign in</h3>
+                <Input 
+                    name={"email"}
+                    value={this.state.value}
+                    onChange={this.handleInputChange}
+                    type="text"
+                    cleanname="Email"
+                />
+                <Input 
+                    name={"password"}
+                    value={this.state.value}
+                    onChange={this.handleInputChange}
+                    // changing input type to hide password based on hidePassword
+                    type={this.state.hidePassword ? "password" : "text"}
+                    cleanname="Password"
+                />
+                <input 
+                    className="auth-checkbox"
+                    type="checkbox" 
+                    onChange={this.togglePasswordVisbility}
+                    checked={!this.state.hidePassword}
+                >
+                </input>
+                <label className="auth-checkbox-label">Show password</label>
+                <button className="auth-submit-button">Sign in</button>
             </form>
-            
-            
         )
     }
-}
-
-export default LoginForm;
+});

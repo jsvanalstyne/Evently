@@ -1,0 +1,9 @@
+@font-face {
+    font-family: evently;
+    src: url(./SFSportsNight.ttf)
+  }
+
+.landing-title {
+    font-family: evently;
+    font-size: 2em;
+}
