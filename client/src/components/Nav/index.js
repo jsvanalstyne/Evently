@@ -16,6 +16,10 @@ function Nav(props) {
                     link={"/features"}
                     text={"Features"}
                    />
+                   <NavLink 
+                    link={"/funtivity"}
+                    text={"Fun Page"}
+                   />
                 </ul>
                 <span class="navbar-text">
                     <SignUpBtn
