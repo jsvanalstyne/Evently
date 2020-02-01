@@ -1,7 +1,8 @@
 var express = require("express");
+var mongoose = require("mongoose");
 
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3001;
 
 // Connect to the Mongo DB
 const dbconn = process.env.MONGO_URL || "mongodb://localhost/Evently"
