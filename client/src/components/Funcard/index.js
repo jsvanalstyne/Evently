@@ -1,4 +1,5 @@
 import React from "react";
+import RegisterModal from "../RegisterModal"
 import "./style.css"
 
 function FunCard(props) {
@@ -18,7 +19,11 @@ return (
     <h6 className="card-subtitle mb-2 text-muted">{props.location}</h6>
     <p className="card-text">{props.description}</p>
     <h4><strong>{props.price}</strong></h4>
-    <button className="btn btn-primary" >Register</button>
+    <RegisterModal 
+      title={"Register for " + props.event}
+      body={"Placeholder for the sign up form and Square payment module"}
+      closeBtnText={"Register"}
+    />
   </div>
   {/* <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     Link with href
