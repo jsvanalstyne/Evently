@@ -5,7 +5,6 @@ var Schema = mongoose.Schema;
 var FacilitiesSchema = new Schema({
     name: {
         type: String, 
-        unique: true, 
         required: [true, "Must enter a name for facility"]
     }, 
     description: {
@@ -29,4 +28,4 @@ var FacilitiesSchema = new Schema({
 });
 
 var Facilities = mongoose.model("Facilities", FacilitiesSchema)
-export default Facilities;
+module.exports = Facilities;

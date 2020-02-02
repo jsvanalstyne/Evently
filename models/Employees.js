@@ -30,7 +30,8 @@ var EmployeesSchema = new Schema({
     }, 
     birthDate: {
         type: Date, 
-        required: [true, "Must eneter birth date"]
+        required: [true, "Must eneter birth date"], 
+        default: Date.now
     }, 
     status: {
         type: String, 
@@ -56,4 +57,4 @@ var EmployeesSchema = new Schema({
 
 var Employees = mongoose.model("Employees", EmployeesSchema);
 
-export default Employees;
+module.exports = Employees;

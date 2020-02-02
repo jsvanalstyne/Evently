@@ -42,4 +42,4 @@ var OrganizationsSchema = new Schema({
 
 var Organizations = mongoose.model("Organizations", OrganizationsSchema);
 
-export default Organizations;
+module.exports = Organizations;

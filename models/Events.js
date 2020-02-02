@@ -20,7 +20,7 @@ var EventsSchema = new Schema({
     }, 
     organizationId: {
         type: Schema.Types.ObjectId, 
-        ref: Organizations, 
+        ref: "Organizations", 
     }, 
     dateStart: {
         type: Date, 
@@ -28,13 +28,7 @@ var EventsSchema = new Schema({
     }, 
     dateEnd: {
         type: Date,
-        required: [true, "Must enter an ending date for your event"], 
-        validate: {
-            validator: (v) => {
-                return v > this.dateStart
-            }
-        }, 
-        message: "End date of program must be later than the start date"
+        required: [true, "Must enter an ending date for your event"]
     }, 
     adminIds: [{
         type: Schema.Types.ObjectId,
@@ -69,4 +63,4 @@ var EventsSchema = new Schema({
 
 var Events = mongoose.model("Events", EventsSchema);
 
-export default Events;
+module.exports = Events;

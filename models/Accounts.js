@@ -41,4 +41,4 @@ var AccountsSchema = new Schema({
 
 var Accounts = mongoose.model("Accounts", AccountsSchema);
 
-export default Accounts;
+module.exports = Accounts;

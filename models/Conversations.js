@@ -12,4 +12,4 @@ var ConversationsSchema = new Schema({
 
 var Conversations = mongoose.model("Conversations", ConversationsSchema);
 
-export default Conversations;
+module.exports = Conversations;

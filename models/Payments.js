@@ -47,4 +47,5 @@ var PaymentsSchema = new Schema({
 
 });
 
-var Payments = mongoose.model("Payments", PaymentsSchema)
+var Payments = mongoose.model("Payments", PaymentsSchema);
+module.exports = Payments;

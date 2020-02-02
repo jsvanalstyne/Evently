@@ -34,4 +34,4 @@ var BillsSchema = new Schema({
 
 var Bills = mongoose.model("Bills", BillsSchema);
 
-export default Bills;
+module.exports = Bills;

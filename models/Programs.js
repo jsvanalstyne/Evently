@@ -6,7 +6,6 @@ var ProgramsSchema = new Schema({
     name: {
         type: String, 
         required: [true, "Must enter a name for this program"], 
-        unique: true
     }, 
     description: {
         type: String, 
@@ -20,7 +19,7 @@ var ProgramsSchema = new Schema({
     }, 
     organizationId: {
         type: Schema.Types.ObjectId, 
-        ref: Organizations, 
+        ref: "Organizations", 
         required: [true, "Must enter an organization Id"]
     }, 
     dateStart: {
@@ -29,13 +28,7 @@ var ProgramsSchema = new Schema({
     }, 
     dateEnd: {
         type: Date,
-        required: [true, "Must enter an ending date for your program"], 
-        validate: {
-            validator: (v) => {
-                return v > this.dateStart
-            }
-        }, 
-        message: "End date of program must be later than the start date"
+        required: [true, "Must enter an ending date for your program"]
     }, 
     adminIds: [{
         type: Schema.Types.ObjectId,
@@ -45,4 +38,4 @@ var ProgramsSchema = new Schema({
 
 var Programs = mongoose.model("Programs", ProgramsSchema);
 
-export default Programs;
+module.exports = Programs;

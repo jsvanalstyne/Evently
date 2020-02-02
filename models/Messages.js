@@ -35,4 +35,4 @@ var MessagesSchema = new Schema({
 
 var Messages = mongoose.model("Messages", MessagesSchema);
 
-export default Messages;
+module.exports = Messages;
