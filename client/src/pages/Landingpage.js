@@ -20,7 +20,6 @@ class Landingpage extends Component {
               mainText={"Welcome!"}
               smallText={"This is some text that briefly describes what evently is about."}
             />
-            <LoginForm />
         </Wrapper>
         
     );
