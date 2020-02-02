@@ -1,6 +1,7 @@
 import React from "react";
 import Dashboard from "./pages/Dashboard";
-import Landingpage from "./pages/Landingpage"
+import Landingpage from "./pages/Landingpage";
+import Features from "./pages/Features"
 import Funtivity from "./pages/Funtivity"
 import Calendar from "./pages/Calendar";
 import SignUpForm from "./components/SignUpForm"
@@ -17,13 +18,13 @@ function App() {
       <Route exact path="/dashboard">
         <Dashboard/>
       </Route>
+      <Route exact path="/features">
+        <Features />
+      </Route>
       <Route exact path="/funtivity">
         <Funtivity/>
       </Route>
-      <Route exact path="/signup">
-        <SignUpForm />
-      </Route>
-
+  
       </div>
     </Router>
   );
