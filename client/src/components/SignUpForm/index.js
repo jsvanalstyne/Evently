@@ -3,7 +3,7 @@ import React, {Component} from "react";
 // importing styles from index.css
 import "./index.css";
 // importing Input component to be reused in our form
-import Input from "./Input";
+import Input from "../Input";
 
 /* creating stateful login component
 ** state: 

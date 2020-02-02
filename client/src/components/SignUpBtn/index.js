@@ -3,7 +3,7 @@ import "./style.css";
 
 function SignUpBtn(props) {
     return (
-        <button type="button" class="btn btn-outline-success bg-light mr-1" href={props.link}>{props.text}</button>
+        <a role="button" class="btn btn-primary mr-1" href={props.link}>{props.text}</a>
     )
 }
 
