@@ -63,7 +63,35 @@ module.exports = {
         .catch(err => {
             return err;
         });
-    }
+    }, 
+    // Takes in a user Id and account Id, finds the desired 
+    // account and removes the user from the list of users 
+    // associated with that account.
+    removeUser: (accountId, userId) => {
+        Accounts.findOneAndUpdate(
+            {_id: ObjectId(accountId)}, 
+            {$pull: {
+                userIds: userId
+            }}
+        )
+        .then(result => {
+            return result;
+        })
+        .catch(err => {
+            return err;
+        });
+    },
     // ------------------ DELETE ------------------
+    // Takes an account Id and then removes that account
+    // from the database.
+    delete: accountId => {
+        Accounts.findOneAndRemove({_id: ObjectId(accountId)})
+        .then(result => {
+            return result;
+        })
+        .catch(err => {
+            return err;
+        })
+    }
 
 };
