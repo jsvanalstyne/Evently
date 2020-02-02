@@ -4,8 +4,9 @@ import Footer from "../components/Footer";
 import FunCard from "../components/Funcard";
 import Border from "../components/Border";
 import BorderWrapper from "react-border-wrapper";
-import Headers from "../components/Headers"
-import MyCalendars from "../components/Calendar"
+import Headers from "../components/Headers";
+import MyCalendars from "../components/Calendar";
+import Nav from "../components/Nav";
 
 const programs = [{
     event: "Dolphin Swim Practice",
@@ -101,29 +102,65 @@ const events = [{
 ];
 
 
+var programCards;
+
 class Funtivity extends Component {
+    programCardArray = () => {
+        var programCards = programs.map(upcomingprograms => {
+            return <FunCard event={upcomingprograms.event} description={upcomingprograms.description} date={upcomingprograms.date} location={upcomingprograms.location} price={upcomingprograms.price}></FunCard>
+        })
+
+
+        return programCards;
+    }
 
     render() {
         return (
             <div>
+                <Nav></Nav>>
             <div className="container">
 
-                <Border>
-                    <Headers heading="Programs" />
-                    <Row>
-
-                        {/* <Border> */}
+                    <Border>
+                        <Headers heading="Programs" />
+                        <Row>
+                           
+                            {this.programCardArray().length > 3 ? (
+                                <div>
+                                { programCards.splice(0, 2)}
+                                <p>
+                                <a className="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    See more Programs
+                                </a>
+                                <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    See less Programs
+                                </button>
+                                </p>
+                                <div className="collapse" id="collapseExample">
+                                <div className="card card-body">
+                                    {programCards.splice(3, 5)}
+                                </div>
+                            </div>
+                            </div>
+                        ):(
+                            {programCards}
+                                
+                        )}
+                       
+                            {/* <Border> */}
                         {/* <Col size="6"> */}
-                        {programs.map(upcomingprograms => (
-                            <FunCard event={upcomingprograms.event} description={upcomingprograms.description} date={upcomingprograms.date} location={upcomingprograms.location} price={upcomingprograms.price}></FunCard>))}
+                        {/* {programs.map(upcomingprograms => (
+                            <FunCard event={upcomingprograms.event} description={upcomingprograms.description} date={upcomingprograms.date} location={upcomingprograms.location} price={upcomingprograms.price}></FunCard>))} */}
                         {/* </Col> */}
                         {/* </Border> */}
-                    </Row>
-                </Border>
+                            
+              
+
+                        </Row>
+                    </Border>
                 {/* <div className="border align-middle"> */}
 
                 <Border>
-                {/* <BorderWrapper> */}
+                    {/* <BorderWrapper> */}
                     <Headers heading="Events" />
                     <Row>
 
@@ -134,18 +171,18 @@ class Funtivity extends Component {
                     </Row>
                 </Border>
                 <Border>
-                <Headers heading=" Fun Calendar" />
-                <Row>
-                <Col size="12">
-              {/* <h1>Calendar here</h1> */}
-              <MyCalendars/>
-            </Col>
-                </Row>
+                    <Headers heading=" Fun Calendar" />
+                    <Row>
+                        <Col size="12">
+                            {/* <h1>Calendar here</h1> */}
+                            <MyCalendars />
+                        </Col>
+                    </Row>
                 </Border>
-             
-                </div>
-                <Footer></Footer>
+
             </div>
+            <Footer></Footer>
+            </div >
         );
     }
 

@@ -4,6 +4,8 @@ import { Col, Row} from "../components/Grid";
 import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
+import Nav from "../components/Nav";
+import NavLink from "../components/NavLink"
 import MyCalendars from "../components/Calendar";
 const upcoming = [{
   event: "Dolphin Swim Practice",
@@ -29,6 +31,8 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <Nav>
+                    </Nav>
       <div className="container">
         <h1 className="text-center dashboard"> Dashboard</h1>
         <Row>
