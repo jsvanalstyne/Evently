@@ -1,6 +1,7 @@
 import React from "react";
 import Dashboard from "./pages/Dashboard";
-import Landingpage from "./pages/Landingpage"
+import Landingpage from "./pages/Landingpage";
+import Features from "./pages/Features"
 import Funtivity from "./pages/Funtivity"
 import Calendar from "./pages/Calendar";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -15,7 +16,10 @@ function App() {
       </Route>
       <Route exact path="/dashboard">
         <Dashboard/>
-        </Route>
+      </Route>
+      <Route exact path="/features">
+        <Features />
+      </Route>
         <Route exact path="/funtivity"><Funtivity/></Route>
        
 
