@@ -1,0 +1,25 @@
+.auth-input-container {
+    margin: 0 0 20px 10px;
+}
+
+.inline-auth-input-container {
+    margin: 0 20px 20px 10px;
+    display: inline-block;
+    width: 40%;
+}
+
+.auth-label {
+    display: block;
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.auth-text-input {
+    display: block;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 90%;
+}
