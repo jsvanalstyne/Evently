@@ -14,6 +14,7 @@
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-big-calendar": "^0.23.0",
+    "react-bootstrap": "^1.0.0-beta.16",
     "react-border-wrapper": "^1.0.3",
     "react-dom": "^16.12.0",
     "react-event-calendar": "^0.3.0",

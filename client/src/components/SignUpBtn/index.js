@@ -3,7 +3,7 @@ import "./style.css";
 
 function SignUpBtn(props) {
     return (
-        <a role="button" class="btn btn-primary mr-1" href={props.link}>{props.text}</a>
+        <button role="button" class="btn btn-primary mr-1" data-toggle={props.modal} data-target={props.modalid}>{props.text}</button>
     )
 }
 
