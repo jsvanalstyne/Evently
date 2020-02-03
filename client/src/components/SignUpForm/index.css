@@ -1,0 +1,47 @@
+.auth-form {
+    color: rgba(12, 73, 153, 0.849);
+    width: 30%;
+    height: 480px;
+    padding: 30px 20px;
+    background-color: #dddbf1;
+    border-radius: 7.5px;
+    margin: 30px 0 0 30px ;
+    border: none;
+    overflow: scroll;
+}
+
+.auth-header {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 10px 0 20px 10px;
+}
+
+h4 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0px 0px 5px 10px;
+}
+
+.auth-section-divider {
+    margin: 0 0 20px 10px;
+    width: 90%;
+}
+
+.auth-checkbox {
+    margin: 0 0 40px 10px;
+}
+
+.auth-checkbox-label {
+    margin-left: 5px;
+}
+
+.auth-submit-button {
+    display: block;
+    border: none;
+    border-radius: 5px;
+    width: 90%;
+    height: 35px;
+    font-size: 18px;
+    color: rgba(12, 73, 153, 0.849);
+    margin: 50px 0 0 10px;
+}

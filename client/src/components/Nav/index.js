@@ -1,6 +1,7 @@
 import React from "react";
 import NavLink from "../NavLink";
-import SignUpBtn from "../SignUpBtn"
+import SignUpBtn from "../SignUpBtn";
+import SignupModal from "../SignupModal"
 import "./style.css";
 
 function Nav(props) {
@@ -16,11 +17,16 @@ function Nav(props) {
                     link={"/features"}
                     text={"Features"}
                    />
+                   <NavLink 
+                    link={"/funtivity"}
+                    text={"Fun Page"}
+                   />
                 </ul>
                 <span class="navbar-text">
-                    <SignUpBtn
-                        link={"/signup"}
-                        text={"Sign up"}
+                    <SignupModal 
+                        title={"Sign Up"}
+                        body="The sign up form component will go here"
+                        closeBtnText="Sign up"
                     />
                 </span>
             </div>
