@@ -31,7 +31,7 @@ module.exports = {
         organizationId = ObjectId(organizationId);
 
         Programs.find({
-            "organizationId": organizationId, 
+            "organizationId": organizationId
         })
         .sort({"startDate": 1})
         .then(cb)
