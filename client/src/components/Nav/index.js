@@ -26,7 +26,7 @@ function Nav(props) {
                 <span className="navbar-text">
                     <SignupModal 
                         title={"Sign Up"}
-                        body={SignUpForm}
+                        body={<SignUpForm />}
                         closeBtnText="Sign up"
                     />
                 </span>

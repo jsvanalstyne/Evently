@@ -22,7 +22,7 @@ import Input from "../Input";
 **      used to check and uncheck hide password box
 */
 
-class LoginForm extends Component {
+class SignUpForm extends Component {
     constructor() {
         super();
 
@@ -72,8 +72,7 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <form className="auth-form">
-                <h3>Sign Up</h3>
+            <form className>
                 <h4>Profile</h4>
                 <hr className="auth-section-divider"/>
                 <div className="inline-input-container">
@@ -154,4 +153,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default SignUpForm;
