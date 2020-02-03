@@ -3,7 +3,7 @@ import React, {Component} from "react";
 // importing styles from index.css
 import "./index.css";
 // importing Input component to be reused in our form
-import Input from "./Input";
+import Input from "../Input";
 
 /* creating stateful login component
 ** state: 
@@ -73,7 +73,7 @@ class LoginForm extends Component {
     render() {
         return (
             <form className="auth-form">
-                <h3 className="auth-header">Sign Up</h3>
+                <h3>Sign Up</h3>
                 <h4>Profile</h4>
                 <hr className="auth-section-divider"/>
                 <div className="inline-input-container">
@@ -109,14 +109,13 @@ class LoginForm extends Component {
                     type={this.state.hidePassword ? "password" : "text"}
                     cleanname="Password"
                 />
-                <input 
-                    className="auth-checkbox"
-                    type="checkbox" 
+                <Input
+                    name={"auth-checkbox"}
+                    cleanname={"Show Password"}
+                    type="checkbox"
                     onChange={this.togglePasswordVisbility}
                     checked={!this.state.hidePassword}
-                >
-                </input>
-                <label className="auth-checkbox-label">Show password</label>
+                />
                 <h4>Address</h4>
                 <hr className="auth-section-divider"/>
                 <Input
@@ -149,7 +148,7 @@ class LoginForm extends Component {
                     cleanname="State Code"
                     inline="true"
                 />
-                <button className="auth-submit-button">Sign up</button>
+                <button type="submit" className="btn btn-primary mb-2">Sign in</button>
             </form>
         )
     }
