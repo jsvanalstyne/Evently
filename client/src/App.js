@@ -4,6 +4,7 @@ import Landingpage from "./pages/Landingpage";
 import Features from "./pages/Features"
 import Funtivity from "./pages/Funtivity"
 import Calendar from "./pages/Calendar";
+import SignUpForm from "./components/SignUpForm"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -20,9 +21,10 @@ function App() {
       <Route exact path="/features">
         <Features />
       </Route>
-        <Route exact path="/funtivity"><Funtivity/></Route>
-       
-
+      <Route exact path="/funtivity">
+        <Funtivity/>
+      </Route>
+  
       </div>
     </Router>
   );

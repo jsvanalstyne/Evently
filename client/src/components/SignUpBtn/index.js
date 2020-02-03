@@ -3,7 +3,7 @@ import "./style.css";
 
 function SignUpBtn(props) {
     return (
-        <button type="button" class="btn btn-outline-success bg-light mr-1" href={props.link}>{props.text}</button>
+        <button role="button" class="btn btn-primary mr-1" data-toggle={props.modal} data-target={props.modalid}>{props.text}</button>
     )
 }
 
