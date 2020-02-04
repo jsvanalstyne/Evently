@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var UsersSchema = new Schema({
     authId: {
         type: String, 
-        required: [true, "Must enter Okta Id"]
+        required: [true, "Must enter Okta Id"], 
+        unique: true
     }
 });
 
