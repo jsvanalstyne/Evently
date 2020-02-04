@@ -8,52 +8,52 @@ import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
 import { isValidObjectId } from "mongoose";
 
-const programs = [{
-    event: "Dolphin Swim Practice",
-    description: "Ages 7-10",
-    date: "February 1, 2020 at 6pm",
-    location: "Carrboro, NC",
-    price: "$75"
-},
-{
-    event: "Boys Youth basketball",
-    description: "Ages 12-15",
-    date: "2/1/20-5/1/20",
-    location: "Chapel Hill YMCA",
-    price: "$100"
-},
+// const programs = [{
+//     event: "Dolphin Swim Practice",
+//     description: "Ages 7-10",
+//     date: "February 1, 2020 at 6pm",
+//     location: "Carrboro, NC",
+//     price: "$75"
+// },
+// {
+//     event: "Boys Youth basketball",
+//     description: "Ages 12-15",
+//     date: "2/1/20-5/1/20",
+//     location: "Chapel Hill YMCA",
+//     price: "$100"
+// },
 
-{
-    event: "Boys Youth basketball",
-    description: "Ages 12-15",
-    date: "2/1/20-5/1/20",
-    location: "Chapel Hill YMCA",
-    price: "$100"
+// {
+//     event: "Boys Youth basketball",
+//     description: "Ages 12-15",
+//     date: "2/1/20-5/1/20",
+//     location: "Chapel Hill YMCA",
+//     price: "$100"
 
-},
-{
-    event: "Dolphin Swim Practice",
-    description: "",
-    date: "February 1, 2020 at 6pm",
-    location: "Carrboro, NC",
-    price: "$75"
-},
-{
-    event: "Dolphin Swim Practice",
-    description: "",
-    date: "February 1, 2020 at 6pm",
-    location: "Carrboro, NC",
-    price: "$75"
-},
-{
-    event: "Dolphin Swim Practice",
-    description: "",
-    date: "February 1, 2020 at 6pm",
-    location: "Carrboro, NC",
-    price: "$75"
-}
+// },
+// {
+//     event: "Dolphin Swim Practice",
+//     description: "",
+//     date: "February 1, 2020 at 6pm",
+//     location: "Carrboro, NC",
+//     price: "$75"
+// },
+// {
+//     event: "Dolphin Swim Practice",
+//     description: "",
+//     date: "February 1, 2020 at 6pm",
+//     location: "Carrboro, NC",
+//     price: "$75"
+// },
+// {
+//     event: "Dolphin Swim Practice",
+//     description: "",
+//     date: "February 1, 2020 at 6pm",
+//     location: "Carrboro, NC",
+//     price: "$75"
+// }
 
-];
+// ];
 const events = [{
     event: "Dolphin Swim Practice",
     description: "Ages 7-10",
@@ -115,8 +115,10 @@ class Funtivity extends Component {
     }
     getPrograms = () =>{
         API.getAllPrograms(this.state.organizationid)
-        .then(res =>
-            console.log(res))
+        .then(res =>{
+            console.log(res)
+            this.setState({programs: res.data})
+            })
     }
 
     render() {
@@ -130,9 +132,10 @@ class Funtivity extends Component {
 
                         {/* <Border> */}
                         {/* <Col size="6"> */}
-                        {programs.map(upcomingprograms => (
-                            <FunCard event={upcomingprograms.event} description={upcomingprograms.description} date={upcomingprograms.date} location={upcomingprograms.location} price={upcomingprograms.price}></FunCard>))}
+                        {this.state.programs.map(upcomingprograms => (
+                            <FunCard event={upcomingprograms.name} description={upcomingprograms.description} date={upcomingprograms.dateStart} price={upcomingprograms.price}></FunCard>))}
                         {/* </Col> */}
+                        {/* location={upcomingprograms.location} */}
                         {/* </Border> */}
                     </Row>
                 </Border>
