@@ -2,11 +2,24 @@
 // https://developer.okta.com/code/react/okta_react_sign-in_widget/
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import OktaSignInWidget from './OktaSignInWidget';
 import { withAuth } from '@okta/okta-react';
+import LoginForm from "./LoginForm.js"
 
 const style = {
-    "padding-top": "5%"
+    container: {
+        display: "flex",
+        justifyContent: "center", 
+        marginTop: "100px"    
+    }, 
+    form: {
+
+    }
+    
+    // alignItems: "center",
+}
+
+const formStyle = {
+
 }
 
 export default withAuth(class Login extends Component {
@@ -16,6 +29,7 @@ export default withAuth(class Login extends Component {
       authenticated: null
     };
     this.checkAuthentication();
+    console.log(props.baseUrl);
   }
 
   async checkAuthentication() {
@@ -32,7 +46,7 @@ export default withAuth(class Login extends Component {
   onSuccess = (res) => {
     if (res.status === 'SUCCESS') {
       return this.props.auth.redirect({
-        sessionToken: res.session.token
+        sessionToken: res.sessionToken
       });
    } else {
     // The user can be in another authentication state that requires further action.
@@ -41,16 +55,12 @@ export default withAuth(class Login extends Component {
     }
   }
 
-  onError = (err) => {
-    console.log('error logging in', err);
-  }
-
   render() {
     if (this.state.authenticated === null) return null;
     return this.state.authenticated ?
       <Redirect to={{ pathname: '/' }}/> :
-      <div style={style}>
-          <OktaSignInWidget
+      <div style={style.container}>
+          <LoginForm
             baseUrl={this.props.baseUrl}
             onSuccess={this.onSuccess}
             onError={this.onError}/>

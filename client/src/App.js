@@ -21,6 +21,7 @@ function App() {
         redirect_uri={window.location.origin + "/implicit/callback"}
         onAuthRequired={onAuthRequired}
         response_type="id_token"
+        // pkce={true}
       >
         <Route exact path="/" component={Landingpage}/>
         <SecureRoute exact path="/dashboard" component={Dashboard}/>

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@okta/okta-auth-js": "^2.13.0",
     "@okta/okta-react": "^1.4.0",
     "@okta/okta-signin-widget": "^3.7.0",
     "@testing-library/jest-dom": "^4.2.4",

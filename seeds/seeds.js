@@ -19,18 +19,18 @@ const models = ['Users', 'Accounts', 'Conversations', 'Messages', 'Organizations
 // Connect to MongoDB via Mongoose
 seeder.connect('mongodb://localhost/Balls', function() {
  
-  // Load Mongoose models
-  seeder.loadModels([
-    "../models/Accounts.js",
-    "../models/Conversations.js",
-    "../models/Employees.js",
-    "../models/Events.js",
-    "../models/Facilities.js",
-    "../models/Messages.js",
-    "../models/Organizations.js",
-    "../models/Programs.js", 
-    "../models/Users"
-  ]);
+    // Load Mongoose models
+    seeder.loadModels([
+        "../models/Accounts.js",
+        "../models/Conversations.js",
+        "../models/Employees.js",
+        "../models/Events.js",
+        "../models/Facilities.js",
+        "../models/Messages.js",
+        "../models/Organizations.js",
+        "../models/Programs.js", 
+        "../models/Users"
+    ]);
 
     seeder.clearModels(models, function() {
         seeder.populateModels(modelsData, function() {

@@ -6,13 +6,13 @@ import "./style.css";
 
 function Nav(props) {
     return (
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">{props.children}
-            <a class="navbar-brand landing-title" href="/">Evently</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">{props.children}
+            <a className="navbar-brand landing-title" href="/">Evently</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
+            <div className="collapse navbar-collapse" id="navbarText">
+                <ul className="navbar-nav mr-auto">
                    <NavLink 
                     link={"/features"}
                     text={"Features"}
@@ -22,7 +22,7 @@ function Nav(props) {
                     text={"Fun Page"}
                    />
                 </ul>
-                <span class="navbar-text">
+                <span className="navbar-text">
                     <SignupModal 
                         title={"Sign Up"}
                         body="The sign up form component will go here"

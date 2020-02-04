@@ -6,7 +6,8 @@ var ConversationsSchema = new Schema({
     userIds: [{
         type: Schema.Types.ObjectId, 
         ref: "Users", 
-        required: [true, "Must enter valid user Id"]
+        required: [true, "Must enter valid user Id"], 
+        unique: true
     }]
 });
 
