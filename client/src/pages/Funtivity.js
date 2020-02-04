@@ -3,9 +3,10 @@ import { Row, Col } from "../components/Grid";
 import Footer from "../components/Footer";
 import FunCard from "../components/Funcard";
 import Border from "../components/Border";
-import BorderWrapper from "react-border-wrapper";
-import Headers from "../components/Headers"
-import MyCalendars from "../components/Calendar"
+import Headers from "../components/Headers";
+import MyCalendars from "../components/Calendar";
+import API from "../utils/API";
+import { isValidObjectId } from "mongoose";
 
 const programs = [{
     event: "Dolphin Swim Practice",
@@ -101,7 +102,22 @@ const events = [{
 ];
 
 
+
 class Funtivity extends Component {
+
+    state= {
+        organizationid: "5e35c71607cf87e4497c41a9",
+        programs: []
+    }
+
+    componentDidMount(){
+        this.getPrograms();
+    }
+    getPrograms = () =>{
+        API.getAllPrograms(this.state.organizationid)
+        .then(res =>
+            console.log(res))
+    }
 
     render() {
         return (
