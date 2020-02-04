@@ -1,6 +1,6 @@
 import React from "react";
-import LoginForm from "../auth/LoginForm.js";
 import Container from "../Container"
+import Login from "../auth/Login.js"l
 import "./style.css";
 
 function HomeJumbo(props) {
@@ -13,7 +13,7 @@ function HomeJumbo(props) {
                         <p className="lead">{props.smallText}</p>
                     </div>
                     <div className="col-6">
-                    <LoginForm />
+                    
                     </div>
                 </div>
             </Container>

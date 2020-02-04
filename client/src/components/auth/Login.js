@@ -29,7 +29,6 @@ export default withAuth(class Login extends Component {
       authenticated: null
     };
     this.checkAuthentication();
-    console.log(props.baseUrl);
   }
 
   async checkAuthentication() {
