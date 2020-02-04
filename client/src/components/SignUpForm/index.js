@@ -34,9 +34,7 @@ class SignUpForm extends Component {
             hidePassword: true, 
             firstName: "", 
             lastName: "", 
-            dayOfBirth: "", 
-            monthOfBirth: "", 
-            yearOfBirth: "", 
+            dateOfBirth: "", 
             street: "", 
             zipcode: "",
             city: "", 
@@ -72,7 +70,7 @@ class SignUpForm extends Component {
 
     render() {
         return (
-            <form className>
+            <form>
                 <h4>Profile</h4>
                 <hr className="auth-section-divider"/>
                 <div className="inline-input-container">
@@ -93,6 +91,13 @@ class SignUpForm extends Component {
                         inline="true"
                     />
                 </div>
+                <Input
+                    name="dateOfBirth"
+                    value={this.state.dateOfBirth}
+                    onChange={this.handleInputChange}
+                    type="date"
+                    cleanname="Date of Birth"
+                />
                 <Input 
                     name="email"
                     value={this.state.email}
@@ -131,23 +136,24 @@ class SignUpForm extends Component {
                     type="text"
                     cleanname="City"
                 />
-                <Input
-                    name="zipcode"
-                    value={this.state.zipcode} 
-                    onChange={this.handleInputChange}
-                    type="number"
-                    cleanname="Zipcode"
-                    inline="true"
-                />
-                <Input
-                    name="stateCode"
-                    value={this.state.stateCode} 
-                    onChange={this.handleInputChange}
-                    type="text"
-                    cleanname="State Code"
-                    inline="true"
-                />
-                <button type="submit" className="btn btn-primary mb-2">Sign in</button>
+                <div className="inline-input-container">
+                    <Input
+                        name="zipcode"
+                        value={this.state.zipcode} 
+                        onChange={this.handleInputChange}
+                        type="number"
+                        cleanname="Zipcode"
+                        inline="true"
+                    />
+                    <Input
+                        name="stateCode"
+                        value={this.state.stateCode} 
+                        onChange={this.handleInputChange}
+                        type="text"
+                        cleanname="State Code"
+                        inline="true"
+                    />
+                </div>
             </form>
         )
     }
