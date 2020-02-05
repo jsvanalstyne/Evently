@@ -32,6 +32,9 @@ module.exports = {
         .sort({"startDate": 1})
         .then(cb)
     },
+    // getEventsForUser: (groupId, cb) => {
+    //     groupId = 
+    // }
     // ------------------ POST ------------------
     // Add new event to database. Event object contains: 
     //  1. name: name of event being created

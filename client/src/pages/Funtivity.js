@@ -7,6 +7,8 @@ import Headers from "../components/Headers";
 import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
 import { isValidObjectId } from "mongoose";
+import Nav from "../components/Nav"
+import { Collapse, Button } from "react-bootstrap";
 
 // const programs = [{
 //     event: "Dolphin Swim Practice",
@@ -105,85 +107,132 @@ import { isValidObjectId } from "mongoose";
 
 class Funtivity extends Component {
 
-    state= {
+    state = {
         organizationid: "5e35c71607cf87e4497c41a9",
         programs: [],
-        events: []
+        events: [],
+        programopen: false,
+        eventopen: false
     }
 
-    componentDidMount(){
+    handleCollapse(name) {
+        this.setState({ [name]: !this.state[name] })
+    }
+    componentDidMount() {
         this.getPrograms();
         this.getEvents()
     }
-    getPrograms = () =>{
+    getPrograms = () => {
         API.getAllPrograms(this.state.organizationid)
-        .then(res =>{
-            console.log(res)
-            this.setState({programs: res.data})
+            .then(res => {
+                console.log(res)
+                this.setState({ programs: res.data })
             })
     }
-    getEvents = () =>{
+    getEvents = () => {
         API.getAllEvents(this.state.organizationid)
-        .then(res =>{
-            console.log(res)
-            this.setState({events: res.data})
-        })
+            .then(res => {
+                console.log(res)
+                this.setState({ events: res.data })
+            })
     }
 
     render() {
         return (
             <div>
-            <div className="container">
+                <Nav></Nav>
+                <div className="container">
 
-                <Border>
-                    <Headers heading="Programs" />
-                    <Row>
-
-                        {/* <Border> */}
-                        {/* <Col size="6"> */}
-                        {this.state.programs.map(upcomingprograms => (
-                            <FunCard 
-                                key={upcomingprograms._id}
-                                event={upcomingprograms.name}
-                                description={upcomingprograms.description}
-                                date={upcomingprograms.dateStart}
-                                // {/* location={upcomingprograms.location} */}
-                                price={upcomingprograms.price}>
-                            </FunCard>))}
-                        {/* </Col> */}
-                        {/* </Border> */}
-                    </Row>
-                </Border>
-                {/* <div className="border align-middle"> */}
-
-                <Border>
-                {/* <BorderWrapper> */}
-                    <Headers heading="Events" />
-                    <Row>
-
-                        {this.state.events.map(upcomingevents => (
-                            <FunCard 
-                                key={upcomingevents._id}
-                                event={upcomingevents.name}
-                                description={upcomingevents.description} 
-                                date={upcomingevents.startDate} 
-                                // location={upcomingevents.location} 
-                                price={upcomingevents.cost}
-                            ></FunCard>))}
+                    <Border>
+                        <Headers heading="Programs" />
+                        <Row>
 
 
-                    </Row>
-                </Border>
-                <Border>
-                <Headers heading=" Fun Calendar" />
-                <Row>
-                <Col size="12">
-              {/* <h1>Calendar here</h1> */}
-              <MyCalendars/>
-            </Col>
-                </Row>
-                </Border>
-             
+                            {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
+                                <FunCard
+                                    key={upcomingprograms._id}
+                                    event={upcomingprograms.name}
+                                    description={upcomingprograms.description}
+                                    date={upcomingprograms.dateStart}
+                                    // {/* location={upcomingprograms.location} */}
+                                    price={upcomingprograms.price}>
+                                </FunCard>))
+                                :
+                               <Row>
+                                    {[...this.state.programs].splice(0, 3).map(upcomingprograms => (
+                                        <FunCard
+                                            key={upcomingprograms._id}
+                                            event={upcomingprograms.name}
+                                            description={upcomingprograms.description}
+                                            date={upcomingprograms.dateStart}
+                                            // {/* location={upcomingprograms.location} */}
+                                            price={upcomingprograms.price}>
+                                        </FunCard>))
+                                        }
+
+                                    
+                                    <Collapse in={this.state.programopen}>
+                                        <div id="program-collapse">
+                                            {[...this.state.programs].splice(3).map(upcomingprograms => (
+                                                <FunCard
+                                                    key={upcomingprograms._id}
+                                                    event={upcomingprograms.name}
+                                                    description={upcomingprograms.description}
+                                                    date={upcomingprograms.dateStart}
+                                                    // {/* location={upcomingprograms.location} */}
+                                                    price={upcomingprograms.price}>
+                                                </FunCard>))}
+                                        </div>
+                                    </Collapse>
+                                    <Button
+                                        onClick={()=>this.handleCollapse("programopen")}
+                                        aria-expanded={this.state.programopen}
+                                        aria-controls="program-collapse"
+
+                                    >
+                                        {this.state.programopen ? "See Less" : "See More"}
+                                    </Button>
+                                </Row>}
+
+                        </Row>
+                    </Border>
+                    {/* <div className="border align-middle"> */}
+
+                    <Border>
+                        {/* <BorderWrapper> */}
+                        <Headers heading="Events" />
+                        <Row>
+
+                            {this.state.events.map(upcomingevents => (
+                                <FunCard
+                                    key={upcomingevents._id}
+                                    event={upcomingevents.name}
+                                    description={upcomingevents.description}
+                                    date={upcomingevents.startDate}
+                                    // location={upcomingevents.location} 
+                                    price={upcomingevents.cost}
+                                ></FunCard>))}
+
+
+                        </Row>
+                    </Border>
+                    <Border>
+                        <Headers heading=" Fun Calendar" />
+                        <Row>
+                            <Col size="12">
+                                {/* Need to get the programs from the get request and display them on the calendar and also display the events. */}
+                                {/* <h1>Calendar here</h1> */}
+                                {/* {this.state.programs.map(events => (events.push(events)))} */}
+                                <MyCalendars
+                                    events={this.state.events}
+                                // title={events.name}
+                                // startAccessor={events.dateStart}
+                                // endAccessor={events.dateEnd}
+                                />
+                            </Col>
+                        </Row>
+                    </Border>
+
                 </div>
                 <Footer></Footer>
             </div>
