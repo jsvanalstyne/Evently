@@ -15,7 +15,7 @@ module.exports = {
     }, 
     // Takes in a user Id and returns the accounts that 
     // contains that Id, populated with the other users
-    // associated with that account
+    // associated with that account     
     findByUserId: (userId, cb) => {
         userId = ObjectId(userId);
 

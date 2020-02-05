@@ -8,7 +8,8 @@ let model = {
             organizationId: "5e35c71607cf87e4497c41a9", 
             dateStart: Date.now(), 
             dateEnd: (Date.now() + 30), 
-            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"]
+            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"],
+            price: 75
         }, 
         {
             _id: "5e35c71607cf87e4497c41b3",
@@ -17,7 +18,8 @@ let model = {
             organizationId: "5e35c71607cf87e4497c41a9", 
             dateStart: Date.now(), 
             dateEnd: (Date.now() + 30),  
-            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"]
+            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"],
+            price: 75
         },
         {
             _id: "5e35c71607cf87e4497c41b4",
@@ -26,7 +28,8 @@ let model = {
             organizationId: "5e35c71607cf87e4497c41a9", 
             dateStart: Date.now(), 
             dateEnd: (Date.now() + 30),  
-            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"]
+            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"],
+            price: 75
         },
         {
             _id: "5e35c71607cf87e4497c41b5",
@@ -35,7 +38,8 @@ let model = {
             organizationId: "5e35c71607cf87e4497c41a9", 
             dateStart: Date.now(), 
             dateEnd: (Date.now() + 30),  
-            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"]
+            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"],
+            price: 75
         },
         {
             _id: "5e35c71607cf87e4497c41b6",
@@ -44,7 +48,8 @@ let model = {
             organizationId: "5e35c71607cf87e4497c41a9", 
             dateStart: Date.now(), 
             dateEnd: (Date.now() + 30),  
-            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"]
+            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"],
+            price: 75
         },
         {
             _id: "5e35c71607cf87e4497c41b7",
@@ -53,7 +58,8 @@ let model = {
             organizationId: "5e35c71607cf87e4497c41a9", 
             dateStart: Date.now(), 
             dateEnd: (Date.now() + 30),  
-            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"]
+            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"],
+            price: 75
         }, 
         {
             _id: "5e35c71607cf87e4497c41b8",
@@ -62,7 +68,8 @@ let model = {
             organizationId: "5e35c71607cf87e4497c41a9", 
             dateStart: Date.now(), 
             dateEnd: (Date.now() + 30),  
-            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"]
+            adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"],
+            price: 75
         }
     ]
 }
