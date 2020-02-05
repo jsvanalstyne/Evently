@@ -22,7 +22,7 @@ import Input from "../Input";
 **      used to check and uncheck hide password box
 */
 
-class LoginForm extends Component {
+class SignUpForm extends Component {
     constructor() {
         super();
 
@@ -34,9 +34,7 @@ class LoginForm extends Component {
             hidePassword: true, 
             firstName: "", 
             lastName: "", 
-            dayOfBirth: "", 
-            monthOfBirth: "", 
-            yearOfBirth: "", 
+            dateOfBirth: "", 
             street: "", 
             zipcode: "",
             city: "", 
@@ -72,8 +70,7 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <form className="auth-form">
-                <h3 className="auth-header">Sign Up</h3>
+            <form>
                 <h4>Profile</h4>
                 <hr className="auth-section-divider"/>
                 <div className="inline-input-container">
@@ -94,6 +91,13 @@ class LoginForm extends Component {
                         inline="true"
                     />
                 </div>
+                <Input
+                    name="dateOfBirth"
+                    value={this.state.dateOfBirth}
+                    onChange={this.handleInputChange}
+                    type="date"
+                    cleanname="Date of Birth"
+                />
                 <Input 
                     name="email"
                     value={this.state.email}
@@ -109,14 +113,13 @@ class LoginForm extends Component {
                     type={this.state.hidePassword ? "password" : "text"}
                     cleanname="Password"
                 />
-                <input 
-                    className="auth-checkbox"
-                    type="checkbox" 
+                <Input
+                    name={"auth-checkbox"}
+                    cleanname={"Show Password"}
+                    type="checkbox"
                     onChange={this.togglePasswordVisbility}
                     checked={!this.state.hidePassword}
-                >
-                </input>
-                <label className="auth-checkbox-label">Show password</label>
+                />
                 <h4>Address</h4>
                 <hr className="auth-section-divider"/>
                 <Input
@@ -133,26 +136,28 @@ class LoginForm extends Component {
                     type="text"
                     cleanname="City"
                 />
-                <Input
-                    name="zipcode"
-                    value={this.state.zipcode} 
-                    onChange={this.handleInputChange}
-                    type="number"
-                    cleanname="Zipcode"
-                    inline="true"
-                />
-                <Input
-                    name="stateCode"
-                    value={this.state.stateCode} 
-                    onChange={this.handleInputChange}
-                    type="text"
-                    cleanname="State Code"
-                    inline="true"
-                />
-                <button className="auth-submit-button">Sign up</button>
+                <div className="inline-input-container">
+                    <Input
+                        name="zipcode"
+                        value={this.state.zipcode} 
+                        onChange={this.handleInputChange}
+                        type="number"
+                        cleanname="Zipcode"
+                        inline="true"
+                    />
+                    <Input
+                        name="stateCode"
+                        value={this.state.stateCode} 
+                        onChange={this.handleInputChange}
+                        type="text"
+                        cleanname="State Code"
+                        inline="true"
+                    />
+                </div>
             </form>
         )
     }
 }
 
-export default LoginForm;
+export default SignUpForm;
+

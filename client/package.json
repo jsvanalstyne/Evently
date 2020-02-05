@@ -1,9 +1,7 @@
 {
   "name": "client",
-  "proxy": "http://localhost:3030/",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3030",
   "dependencies": {
     "@okta/okta-auth-js": "^2.13.0",
     "@okta/okta-react": "^1.4.0",

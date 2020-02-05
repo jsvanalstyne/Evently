@@ -2,6 +2,7 @@ import React from "react";
 import NavLink from "../NavLink";
 import SignUpBtn from "../SignUpBtn";
 import SignupModal from "../SignupModal"
+import SignUpForm from '../SignUpForm';
 import "./style.css";
 
 function Nav(props) {
@@ -25,7 +26,7 @@ function Nav(props) {
                 <span className="navbar-text">
                     <SignupModal 
                         title={"Sign Up"}
-                        body="The sign up form component will go here"
+                        body={<SignUpForm />}
                         closeBtnText="Sign up"
                     />
                 </span>
