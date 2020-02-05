@@ -142,7 +142,7 @@ class Funtivity extends Component {
                         {/* <Border> */}
                         {/* <Col size="6"> */}
                         {this.state.programs.map(upcomingprograms => (
-                            <FunCard event={upcomingprograms.name} description={upcomingprograms.description} date={upcomingprograms.dateStart} price={upcomingprograms.price}></FunCard>))}
+                            <FunCard key={upcomingprograms._id} event={upcomingprograms.name} description={upcomingprograms.description} date={upcomingprograms.dateStart} price={upcomingprograms.price}></FunCard>))}
                         {/* </Col> */}
                         {/* location={upcomingprograms.location} */}
                         {/* </Border> */}
