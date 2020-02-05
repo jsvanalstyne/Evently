@@ -54,52 +54,52 @@ import { isValidObjectId } from "mongoose";
 // }
 
 // ];
-const events = [{
-    event: "Dolphin Swim Practice",
-    description: "Ages 7-10",
-    date: "February 1, 2020 at 6pm",
-    location: "Carrboro, NC",
-    price: "$75"
-},
-{
-    event: "Boys Youth basketball",
-    description: "Ages 12-15",
-    date: "2/1/20-5/1/20",
-    location: "Chapel Hill YMCA",
-    price: "$100"
-},
+// const events = [{
+//     event: "Dolphin Swim Practice",
+//     description: "Ages 7-10",
+//     date: "February 1, 2020 at 6pm",
+//     location: "Carrboro, NC",
+//     price: "$75"
+// },
+// {
+//     event: "Boys Youth basketball",
+//     description: "Ages 12-15",
+//     date: "2/1/20-5/1/20",
+//     location: "Chapel Hill YMCA",
+//     price: "$100"
+// },
 
-{
-    event: "Boys Youth basketball",
-    description: "Ages 12-15",
-    date: "2/1/20-5/1/20",
-    location: "Chapel Hill YMCA",
-    price: "$100"
+// {
+//     event: "Boys Youth basketball",
+//     description: "Ages 12-15",
+//     date: "2/1/20-5/1/20",
+//     location: "Chapel Hill YMCA",
+//     price: "$100"
 
-},
-{
-    event: "Dolphin Swim Practice",
-    description: "",
-    date: "February 1, 2020 at 6pm",
-    location: "Carrboro, NC",
-    price: "$75"
-},
-{
-    event: "Dolphin Swim Practice",
-    description: "",
-    date: "February 1, 2020 at 6pm",
-    location: "Carrboro, NC",
-    price: "$75"
-},
-{
-    event: "Dolphin Swim Practice",
-    description: "",
-    date: "February 1, 2020 at 6pm",
-    location: "Carrboro, NC",
-    price: "$75"
-}
+// },
+// {
+//     event: "Dolphin Swim Practice",
+//     description: "",
+//     date: "February 1, 2020 at 6pm",
+//     location: "Carrboro, NC",
+//     price: "$75"
+// },
+// {
+//     event: "Dolphin Swim Practice",
+//     description: "",
+//     date: "February 1, 2020 at 6pm",
+//     location: "Carrboro, NC",
+//     price: "$75"
+// },
+// {
+//     event: "Dolphin Swim Practice",
+//     description: "",
+//     date: "February 1, 2020 at 6pm",
+//     location: "Carrboro, NC",
+//     price: "$75"
+// }
 
-];
+// ];
 
 
 
@@ -146,8 +146,8 @@ class Funtivity extends Component {
                     <Headers heading="Events" />
                     <Row>
 
-                        {events.map(upcomingevents => (
-                            <FunCard event={upcomingevents.event} description={upcomingevents.description} date={upcomingevents.date} location={upcomingevents.location} price={upcomingevents.price}></FunCard>))}
+                        {/* {events.map(upcomingevents => (
+                            <FunCard event={upcomingevents.event} description={upcomingevents.description} date={upcomingevents.date} location={upcomingevents.location} price={upcomingevents.price}></FunCard>))} */}
 
 
                     </Row>
