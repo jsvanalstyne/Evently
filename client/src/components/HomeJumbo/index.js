@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "../Container"
-import Login from "../auth/Login.js"l
+import Login from "../auth/Login.js";
 import "./style.css";
 
 function HomeJumbo(props) {
