@@ -107,11 +107,13 @@ class Funtivity extends Component {
 
     state= {
         organizationid: "5e35c71607cf87e4497c41a9",
-        programs: []
+        programs: [],
+        events: []
     }
 
     componentDidMount(){
         this.getPrograms();
+        this.getEvents()
     }
     getPrograms = () =>{
         API.getAllPrograms(this.state.organizationid)
@@ -119,6 +121,13 @@ class Funtivity extends Component {
             console.log(res)
             this.setState({programs: res.data})
             })
+    }
+    getEvents = () =>{
+        API.getAllEvents(this.state.organizationid)
+        .then(res =>{
+            console.log(res)
+            this.setState({events: res.data})
+        })
     }
 
     render() {
@@ -146,8 +155,14 @@ class Funtivity extends Component {
                     <Headers heading="Events" />
                     <Row>
 
-                        {/* {events.map(upcomingevents => (
-                            <FunCard event={upcomingevents.event} description={upcomingevents.description} date={upcomingevents.date} location={upcomingevents.location} price={upcomingevents.price}></FunCard>))} */}
+                        {this.state.events.map(upcomingevents => (
+                            <FunCard 
+                            event={upcomingevents.name}
+                            description={upcomingevents.description} 
+                            date={upcomingevents.startDate} 
+                            // location={upcomingevents.location} 
+                            price={upcomingevents.cost}
+                            ></FunCard>))}
 
 
                     </Row>
