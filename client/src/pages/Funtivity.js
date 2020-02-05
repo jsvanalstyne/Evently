@@ -146,8 +146,8 @@ class Funtivity extends Component {
                     <Headers heading="Events" />
                     <Row>
 
-                        {events.map(upcomingevents => (
-                            <FunCard event={upcomingevents.event} description={upcomingevents.description} date={upcomingevents.date} location={upcomingevents.location} price={upcomingevents.price}></FunCard>))}
+                        {/* {events.map(upcomingevents => (
+                            <FunCard event={upcomingevents.event} description={upcomingevents.description} date={upcomingevents.date} location={upcomingevents.location} price={upcomingevents.price}></FunCard>))} */}
 
 
                     </Row>
