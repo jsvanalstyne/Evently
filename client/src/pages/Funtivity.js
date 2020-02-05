@@ -142,9 +142,15 @@ class Funtivity extends Component {
                         {/* <Border> */}
                         {/* <Col size="6"> */}
                         {this.state.programs.map(upcomingprograms => (
-                            <FunCard key={upcomingprograms._id} event={upcomingprograms.name} description={upcomingprograms.description} date={upcomingprograms.dateStart} price={upcomingprograms.price}></FunCard>))}
+                            <FunCard 
+                                key={upcomingprograms._id}
+                                event={upcomingprograms.name}
+                                description={upcomingprograms.description}
+                                date={upcomingprograms.dateStart}
+                                {/* location={upcomingprograms.location} */} 
+                                price={upcomingprograms.price}>
+                            </FunCard>))}
                         {/* </Col> */}
-                        {/* location={upcomingprograms.location} */}
                         {/* </Border> */}
                     </Row>
                 </Border>
@@ -157,11 +163,12 @@ class Funtivity extends Component {
 
                         {this.state.events.map(upcomingevents => (
                             <FunCard 
-                            event={upcomingevents.name}
-                            description={upcomingevents.description} 
-                            date={upcomingevents.startDate} 
-                            // location={upcomingevents.location} 
-                            price={upcomingevents.cost}
+                                key={upcomingevents._id}
+                                event={upcomingevents.name}
+                                description={upcomingevents.description} 
+                                date={upcomingevents.startDate} 
+                                // location={upcomingevents.location} 
+                                price={upcomingevents.cost}
                             ></FunCard>))}
 
 
