@@ -5,6 +5,7 @@ import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
 import MyCalendars from "../components/Calendar";
+import Nav from "../components/Nav";
 const upcoming = [{
   event: "Dolphin Swim Practice",
   date: "February 1, 2020 at 6pm"
@@ -17,10 +18,22 @@ const upcoming = [{
 {
   event: "Block Party",
   date: "April 17, 2020 at 3pm"
-}
+},
+{
+  event: "Block Party",
+  date: "April 17, 2020 at 3pm"
+},
+{
+  event: "Block Party",
+  date: "April 17, 2020 at 3pm"
+},
+{
+  event: "Block Party",
+  date: "April 17, 2020 at 3pm"
+},
 
 ];
-const promo = [{ event: "Race for the Cure" }, { event: "Community Yard Sale" }, { event: "Father Daughter Dance" }, { event: "CPR training" }
+const promo = [{ event: "Race for the Cure" }, { event: "Community Yard Sale" }, { event: "Father Daughter Dance" }, { event: "CPR training" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, { event: "Race for the Cure" }, 
 ];
 
 
@@ -35,6 +48,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <Nav/>
       <div className="container">
         <h1 className="text-center dashboard"> Dashboard</h1>
         <Row>
