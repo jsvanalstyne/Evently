@@ -25,6 +25,12 @@ const promo = [{ event: "Race for the Cure" }, { event: "Community Yard Sale" },
 
 
 class Dashboard extends Component {
+  state = {
+    programs: [],
+    events: [],
+    programopen: false,
+    eventopen: false
+  }
 
   render() {
     return (
@@ -53,7 +59,7 @@ class Dashboard extends Component {
           <Row>
             <Col size="12">
               {/* <h1>Calendar here</h1> */}
-              <MyCalendars/>
+              <MyCalendars events={this.state.events}/>
             </Col>
           </Row>
           </div>
