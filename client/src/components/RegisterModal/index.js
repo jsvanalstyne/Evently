@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
+import SquareApp from "../SquareApp"
 import "./style.css";
 
 function SignupModal(props) {
@@ -19,7 +20,10 @@ function SignupModal(props) {
           <Modal.Header closeButton>
             <Modal.Title>{props.title}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{props.body}</Modal.Body>
+          <Modal.Body>
+            {props.body}
+            <SquareApp/>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close

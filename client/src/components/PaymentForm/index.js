@@ -186,7 +186,7 @@ export default class PaymentForm extends Component {
 
   render(){
     return (
-      <div className="container">
+      <div className="pay-container">
         <div id="form-container">
           <div id="sq-walletbox">
             <button style={{display: (this.state.applePay) ? 'inherit': 'none'}}
