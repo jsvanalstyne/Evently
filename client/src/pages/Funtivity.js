@@ -142,12 +142,9 @@ class Funtivity extends Component {
             <div>
                 <Nav></Nav>
                 <div className="container">
-
                     <Border>
                         <Headers heading="Programs" />
-                       
-                            <div>
-                        
+                        <div>
                             {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
 
                                 <FunCard
@@ -157,9 +154,10 @@ class Funtivity extends Component {
                                     date={upcomingprograms.dateStart}
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingprograms.price}>
-                                </FunCard>))
+                                </FunCard>
+                                ))
                                 :
-                               <Row>
+                                <Row>
                                     {[...this.state.programs].splice(0, 3).map(upcomingprograms => (
                                         <FunCard
                                             key={upcomingprograms._id}
@@ -168,39 +166,35 @@ class Funtivity extends Component {
                                             date={upcomingprograms.dateStart}
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingprograms.price}>
-                                        </FunCard>))
-                                        }
-                                
-                                   
+                                        </FunCard>
+                                        ))
+                                    }
                                     <Collapse in={this.state.programopen}>
                                         <div id="program-collapse">
                                             <Row>
-                                            {[...this.state.programs].splice(3).map(upcomingprograms => (
-                                                <FunCard
-                                                    key={upcomingprograms._id}
-                                                    event={upcomingprograms.name}
-                                                    description={upcomingprograms.description}
-                                                    date={upcomingprograms.dateStart}
-                                                    // {/* location={upcomingprograms.location} */}
-                                                    price={upcomingprograms.price}>
-                                                </FunCard>))}
-                                                </Row>
+                                                {[...this.state.programs].splice(3).map(upcomingprograms => (
+                                                    <FunCard
+                                                        key={upcomingprograms._id}
+                                                        event={upcomingprograms.name}
+                                                        description={upcomingprograms.description}
+                                                        date={upcomingprograms.dateStart}
+                                                        // {/* location={upcomingprograms.location} */}
+                                                        price={upcomingprograms.price}>
+                                                    </FunCard>))}
+                                            </Row>
                                         </div>
                                     </Collapse>
-                                    
-                                    <Button className="collapsedButton"
-                                        onClick={()=>this.handleCollapse("programopen")}
+
+                                    <Button 
+                                        className="collapsedButton"
+                                        onClick={() => this.handleCollapse("programopen")}
                                         aria-expanded={this.state.programopen}
                                         aria-controls="program-collapse"
-
-                                    >
+                                        >
                                         {this.state.programopen ? "See Less" : "See More"}
                                     </Button>
-                                    
-                                    
                                 </Row>
-                                }
-
+                            }
                         </div>
                     </Border>
                     {/* <div className="border align-middle"> */}
@@ -219,8 +213,6 @@ class Funtivity extends Component {
                                     // location={upcomingevents.location} 
                                     price={upcomingevents.cost}
                                 ></FunCard>))}
-
-
                         </Row>
                     </Border>
                     <Border>
