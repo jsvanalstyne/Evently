@@ -3,7 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Landingpage from "./pages/Landingpage";
 import Features from "./pages/Features"
 import Funtivity from "./pages/Funtivity"
-import Calendar from "./pages/Calendar";
+// import Calendar from "./pages/Calendar";
 import SignUpForm from "./components/SignUpForm"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
