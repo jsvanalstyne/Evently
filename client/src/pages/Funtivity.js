@@ -145,10 +145,11 @@ class Funtivity extends Component {
 
                     <Border>
                         <Headers heading="Programs" />
-                        <Row>
-
-
+                       
+                            <div>
+                        
                             {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
+
                                 <FunCard
                                     key={upcomingprograms._id}
                                     event={upcomingprograms.name}
@@ -169,10 +170,11 @@ class Funtivity extends Component {
                                             price={upcomingprograms.price}>
                                         </FunCard>))
                                         }
-
-                                    
+                                
+                                   
                                     <Collapse in={this.state.programopen}>
                                         <div id="program-collapse">
+                                            <Row>
                                             {[...this.state.programs].splice(3).map(upcomingprograms => (
                                                 <FunCard
                                                     key={upcomingprograms._id}
@@ -182,9 +184,11 @@ class Funtivity extends Component {
                                                     // {/* location={upcomingprograms.location} */}
                                                     price={upcomingprograms.price}>
                                                 </FunCard>))}
+                                                </Row>
                                         </div>
                                     </Collapse>
-                                    <Button
+                                    
+                                    <Button className="collapsedButton"
                                         onClick={()=>this.handleCollapse("programopen")}
                                         aria-expanded={this.state.programopen}
                                         aria-controls="program-collapse"
@@ -192,9 +196,12 @@ class Funtivity extends Component {
                                     >
                                         {this.state.programopen ? "See Less" : "See More"}
                                     </Button>
-                                </Row>}
+                                    
+                                    
+                                </Row>
+                                }
 
-                        </Row>
+                        </div>
                     </Border>
                     {/* <div className="border align-middle"> */}
 
