@@ -7,9 +7,9 @@ const programController = require("../../controllers/API/Programs");
 
 router.get("/:organizationid", (req, res) =>{
     let id = req.params.organizationid
-    console.log("id: "+id)
+    // console.log("id: "+id)
     programController.getProgramsByOrganization(id, function(results){
-        console.log("line 11" +results);
+        // console.log("line 11" +results);
         return res.json(results);
     })
 })

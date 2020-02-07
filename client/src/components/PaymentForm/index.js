@@ -48,7 +48,7 @@ export default class PaymentForm extends Component {
 
   componentDidMount(){
     const config = {
-      applicationId: "sq0idp-rARHLPiahkGtp6mMz2OeCA",
+      applicationId: "sandbox-sq0idb-___GqOJOEgvbEUelV8xgWA",
       locationId: "GMT96A77XABR1",
       inputClass: "sq-input",
       autoBuild: false,
@@ -139,9 +139,39 @@ export default class PaymentForm extends Component {
 
             return;
           }
+          // alert(`The generated nonce is:\n${nonce}`);
           this.setState({
             nonce: nonce
           })
+          console.log("got this far")
+          fetch('api/payments/process', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              nonce: this.state.nonce
+            })
+          })
+          .catch(err => {
+            alert('Network error: ' + err);
+          })
+          .then(response => {
+            if (!response.ok) {
+              return response.text().then(errorInfo => Promise.reject(errorInfo));
+            }
+            return response.text();
+          })
+          .then(data => {
+            console.log(JSON.stringify(data));
+            alert('Payment complete successfully!\nCheck browser developer console for more details');
+          })
+          .catch(err => {
+            console.error(err);
+            alert('Payment failed to complete!\nCheck browser developer console for more details');
+          });
+
         },
         unsupportedBrowserDetected: () => {
         },

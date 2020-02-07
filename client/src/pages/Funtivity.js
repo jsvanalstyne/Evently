@@ -125,14 +125,14 @@ class Funtivity extends Component {
     getPrograms = () => {
         API.getAllPrograms(this.state.organizationid)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 this.setState({ programs: res.data })
             })
     }
     getEvents = () => {
         API.getAllEvents(this.state.organizationid)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 this.setState({ events: res.data })
             })
     }
