@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+// payment widget styles
 const styles = {
   name: {
     verticalAlign: 'top',
@@ -30,7 +30,7 @@ const styles = {
 }
 
 export default class PaymentForm extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       cardBrand: "",
@@ -42,11 +42,11 @@ export default class PaymentForm extends Component {
     this.requestCardNonce = this.requestCardNonce.bind(this);
   }
 
-  requestCardNonce(){
+  requestCardNonce() {
     this.paymentForm.requestCardNonce();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const config = {
       applicationId: "sandbox-sq0idb-___GqOJOEgvbEUelV8xgWA",
       locationId: "GMT96A77XABR1",
@@ -65,6 +65,7 @@ export default class PaymentForm extends Component {
           _mozOsxFontSmoothing: "grayscale"
         }
       ],
+      // other payment options
       applePay: {
         elementId: 'sq-apple-pay'
       },
@@ -74,6 +75,7 @@ export default class PaymentForm extends Component {
       googlePay: {
         elementId: 'sq-google-pay'
       },
+      // placeholders for card widget
       cardNumber: {
         elementId: "sq-card-number",
         placeholder: "• • • •  • • • •  • • • •  • • • •"
@@ -91,24 +93,26 @@ export default class PaymentForm extends Component {
         placeholder: "Zip"
       },
       callbacks: {
+        // if other payament methods are supported, change the state of the correct method to allow for render
         methodsSupported: (methods) => {
-          if(methods.googlePay){
+          if (methods.googlePay) {
             this.setState({
               googlePay: methods.googlePay
             })
           }
-          if(methods.applePay){
+          if (methods.applePay) {
             this.setState({
               applePay: methods.applePay
             })
           }
-          if(methods.masterpass){
+          if (methods.masterpass) {
             this.setState({
               masterpass: methods.masterpass
             })
           }
           return;
         },
+        // using the square payment API to create a payment object from the amount and users card data
         createPaymentRequest: () => {
           return {
             requestShippingAddress: false,
@@ -129,21 +133,24 @@ export default class PaymentForm extends Component {
             ]
           };
         },
+        // if a nonce (payment key) is recieved, do this stuff
         cardNonceResponseReceived: (errors, nonce, cardData) => {
+          // if errors, log them
           if (errors) {
             // Log errors from nonce generation to the Javascript console
             console.log("Encountered errors:");
-            errors.forEach(function(error) {
+            errors.forEach(function (error) {
               console.log("  " + error.message);
             });
 
             return;
           }
           // alert(`The generated nonce is:\n${nonce}`);
+          // change the state of nonce to the generated nonce
           this.setState({
             nonce: nonce
           })
-          console.log("got this far")
+          // fetch the payament route to process the payment
           fetch('api/payments/process', {
             method: 'POST',
             headers: {
@@ -154,27 +161,30 @@ export default class PaymentForm extends Component {
               nonce: this.state.nonce
             })
           })
-          .catch(err => {
-            alert('Network error: ' + err);
-          })
-          .then(response => {
-            if (!response.ok) {
-              return response.text().then(errorInfo => Promise.reject(errorInfo));
-            }
-            return response.text();
-          })
-          .then(data => {
-            console.log(JSON.stringify(data));
-            alert('Payment complete successfully!\nCheck browser developer console for more details');
-          })
-          .catch(err => {
-            console.error(err);
-            alert('Payment failed to complete!\nCheck browser developer console for more details');
-          });
+            // network arror catching
+            .catch(err => {
+              alert('Network error: ' + err);
+            })
+            .then(response => {
+              if (!response.ok) {
+                return response.text().then(errorInfo => Promise.reject(errorInfo));
+              }
+              return response.text();
+            })
+            // alerts for payment success and failure
+            .then(data => {
+              console.log(JSON.stringify(data));
+              alert('Payment complete successfully!\nCheck browser developer console for more details');
+            })
+            .catch(err => {
+              console.error(err);
+              alert('Payment failed to complete!\nPlease try again or use another card.');
+            });
 
         },
         unsupportedBrowserDetected: () => {
         },
+        // validation for the card input fields
         inputEventReceived: (inputEvent) => {
           switch (inputEvent.eventType) {
             case "focusClassAdded":
@@ -189,7 +199,7 @@ export default class PaymentForm extends Component {
               document.getElementById("error").style.display = "none";
               break;
             case "cardBrandChanged":
-              if(inputEvent.cardBrand !== "unknown"){
+              if (inputEvent.cardBrand !== "unknown") {
                 this.setState({
                   cardBrand: inputEvent.cardBrand
                 })
@@ -205,7 +215,8 @@ export default class PaymentForm extends Component {
               break;
           }
         },
-        paymentFormLoaded: function() {
+        // when the form data loads, display the form
+        paymentFormLoaded: function () {
           document.getElementById('name').style.display = "inline-flex";
         }
       }
@@ -214,20 +225,21 @@ export default class PaymentForm extends Component {
     this.paymentForm.build();
   }
 
-  render(){
+  render() {
+    // the payment form itself
     return (
       <div className="pay-container">
         <div id="form-container">
           <div id="sq-walletbox">
-            <button style={{display: (this.state.applePay) ? 'inherit': 'none'}}
-                    className="wallet-button"
-                    id="sq-apple-pay"></button>
-            <button style={{display: (this.state.masterpass) ? 'block': 'none'}}
-                    className="wallet-button"
-                    id="sq-masterpass"></button>
-            <button style={{display: (this.state.googlePay) ? 'inherit': 'none'}}
-                    className="wallet-button"
-                    id="sq-google-pay"></button>
+            <button style={{ display: (this.state.applePay) ? 'inherit' : 'none' }}
+              className="wallet-button"
+              id="sq-apple-pay"></button>
+            <button style={{ display: (this.state.masterpass) ? 'block' : 'none' }}
+              className="wallet-button"
+              id="sq-masterpass"></button>
+            <button style={{ display: (this.state.googlePay) ? 'inherit' : 'none' }}
+              className="wallet-button"
+              id="sq-google-pay"></button>
             <hr />
           </div>
 
@@ -253,7 +265,7 @@ export default class PaymentForm extends Component {
             <div id="sq-postal-code"></div>
           </div>
           <button className="button-credit-card"
-                  onClick={this.requestCardNonce}>Pay</button>
+            onClick={this.requestCardNonce}>Pay</button>
         </div>
         <p style={styles.center} id="error"></p>
       </div>

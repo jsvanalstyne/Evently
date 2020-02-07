@@ -21,7 +21,12 @@ function SignupModal(props) {
             <Modal.Title>{props.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <p>
             {props.body}
+            </p>
+            <p>
+            {props.statement}
+            </p>
             <SquareApp/>
           </Modal.Body>
           <Modal.Footer>

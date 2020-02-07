@@ -76,6 +76,8 @@
   
   #form-container {
     width: 100%;
+    border-style: solid;
+    border-radius: 15px;
   }
   
   /* Customize the Apple Pay on the Web button */
