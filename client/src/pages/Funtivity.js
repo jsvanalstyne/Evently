@@ -208,9 +208,7 @@ class Funtivity extends Component {
                             }
                         </div>
                     </Border>
-                    {/* <div className="border align-middle"> */}
                     <Border>
-                        {/* <BorderWrapper> */}
                         <Headers heading="Events" />
                         <div>
                             {this.state.events.length <= 3 ? this.state.events.map(upcomingevents => (
@@ -271,15 +269,8 @@ class Funtivity extends Component {
                         <Headers heading=" Fun Calendar" />
                         <Row>
                             <Col size="12">
-                                {/* Need to get the programs from the get request and display them on the calendar and also display the events. */}
-                                {/* <h1>Calendar here</h1> */}
-                                {/* {this.state.programs.map(events => (events.push(events)))} */}
                                 <MyCalendars
                                     events={this.state.calendar}/>
-                                {/* // title={events.name}
-                                // startAccessor={events.dateStart}
-                                // endAccessor={events.dateEnd} */}
-                                
                             </Col>
                         </Row>
                     </Border>
