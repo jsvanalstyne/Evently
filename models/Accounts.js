@@ -10,7 +10,6 @@ var AccountsSchema = new Schema({
     }], 
     street: {
         type: String, 
-        unique: true, 
         required: [true, "Must enter an organization name"]
     }, 
     zipcode: {

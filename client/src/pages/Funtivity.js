@@ -107,11 +107,13 @@ class Funtivity extends Component {
 
     state= {
         organizationid: "5e35c71607cf87e4497c41a9",
-        programs: []
+        programs: [],
+        events: []
     }
 
     componentDidMount(){
         this.getPrograms();
+        this.getEvents()
     }
     getPrograms = () =>{
         API.getAllPrograms(this.state.organizationid)
@@ -119,6 +121,13 @@ class Funtivity extends Component {
             console.log(res)
             this.setState({programs: res.data})
             })
+    }
+    getEvents = () =>{
+        API.getAllEvents(this.state.organizationid)
+        .then(res =>{
+            console.log(res)
+            this.setState({events: res.data})
+        })
     }
 
     render() {
@@ -133,9 +142,15 @@ class Funtivity extends Component {
                         {/* <Border> */}
                         {/* <Col size="6"> */}
                         {this.state.programs.map(upcomingprograms => (
-                            <FunCard event={upcomingprograms.name} description={upcomingprograms.description} date={upcomingprograms.dateStart} price={upcomingprograms.price}></FunCard>))}
+                            <FunCard 
+                                key={upcomingprograms._id}
+                                event={upcomingprograms.name}
+                                description={upcomingprograms.description}
+                                date={upcomingprograms.dateStart}
+                                // {/* location={upcomingprograms.location} */}
+                                price={upcomingprograms.price}>
+                            </FunCard>))}
                         {/* </Col> */}
-                        {/* location={upcomingprograms.location} */}
                         {/* </Border> */}
                     </Row>
                 </Border>
@@ -146,8 +161,15 @@ class Funtivity extends Component {
                     <Headers heading="Events" />
                     <Row>
 
-                        {/* {events.map(upcomingevents => (
-                            <FunCard event={upcomingevents.event} description={upcomingevents.description} date={upcomingevents.date} location={upcomingevents.location} price={upcomingevents.price}></FunCard>))} */}
+                        {this.state.events.map(upcomingevents => (
+                            <FunCard 
+                                key={upcomingevents._id}
+                                event={upcomingevents.name}
+                                description={upcomingevents.description} 
+                                date={upcomingevents.startDate} 
+                                // location={upcomingevents.location} 
+                                price={upcomingevents.cost}
+                            ></FunCard>))}
 
 
                     </Row>

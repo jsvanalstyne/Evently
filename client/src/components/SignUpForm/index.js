@@ -4,6 +4,13 @@ import React, {Component} from "react";
 import "./index.css";
 // importing Input component to be reused in our form
 import Input from "../Input";
+// importing axios to send info to 
+import axios from 'axios'
+// importing withAuth and OktaAuth
+import OktaAuth from '@okta/okta-auth-js';
+import { withAuth } from '@okta/okta-react';
+import Button from 'react-bootstrap/Button';
+
 
 /* creating stateful login component
 ** state: 
@@ -22,7 +29,7 @@ import Input from "../Input";
 **      used to check and uncheck hide password box
 */
 
-class SignUpForm extends Component {
+export default withAuth(class SignUpForm extends Component {
     constructor() {
         super();
 
@@ -38,9 +45,23 @@ class SignUpForm extends Component {
             street: "", 
             zipcode: "",
             city: "", 
-            stateCode: ""
+            stateCode: "",
+            sessionToken: null
         }
+
+        this.oktaAuth = new OktaAuth({ url: "https://dev-844753.okta.com" });
     }
+
+    checkAuthentication = async() => {
+        const sessionToken = await this.props.auth.getIdToken();
+        if (sessionToken) {
+          this.setState({ sessionToken });
+        }
+      }
+  
+      componentDidUpdate = () => {
+        this.checkAuthentication();
+      }
 
     // used to handle change in value on input field
     // takes implied event from user typing action
@@ -68,9 +89,51 @@ class SignUpForm extends Component {
         })
     }
 
+    handleSubmit = event => {
+        event.preventDefault();
+        
+        let user = {
+            "profile": {
+                "firstName": this.state.firstName, 
+                "lastName": this.state.lastName, 
+                "email": this.state.email,
+                "login": this.state.email
+            }, 
+            "credentials": {
+                "password": {
+                    value: this.state.password
+                }
+            }
+        }
+
+        let account = {
+            "dateOfBirth": this.state.dateOfBirth, 
+            "street": this.state.street, 
+            "zipcode": this.state.zipcode, 
+            "city": this.state.city, 
+            "stateCode": this.state.stateCode
+        }
+
+        axios({
+            method: 'post',
+            url: "/api/users",
+            data: {
+                "user": user, 
+                "account": account
+            }
+        })
+        .then(response => {
+            console.log(response);
+            this.props.handleClose();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
     render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <h4>Profile</h4>
                 <hr className="auth-section-divider"/>
                 <div className="inline-input-container">
@@ -154,10 +217,8 @@ class SignUpForm extends Component {
                         inline="true"
                     />
                 </div>
+                <button>Submit</button>
             </form>
         )
     }
-}
-
-export default SignUpForm;
-
+});
