@@ -112,7 +112,8 @@ class Funtivity extends Component {
         programs: [],
         events: [],
         programopen: false,
-        eventopen: false
+        eventopen: false,
+        calendar: []
     }
 
     handleCollapse(name) {
@@ -120,8 +121,11 @@ class Funtivity extends Component {
     }
     componentDidMount() {
         this.getPrograms();
-        this.getEvents()
+        this.getEvents();
+        this.getCalendar();
+
     }
+
     getPrograms = () => {
         API.getAllPrograms(this.state.organizationid)
             .then(res => {
@@ -134,6 +138,13 @@ class Funtivity extends Component {
             .then(res => {
                 console.log(res)
                 this.setState({ events: res.data })
+            });
+        
+    }
+    getCalendar = () => {
+        API.getCalendarEventPrograms(this.state.organizationid)
+            .then(res => {
+                this.setState({ calendar: res.data})
             })
     }
 
@@ -264,11 +275,11 @@ class Funtivity extends Component {
                                 {/* <h1>Calendar here</h1> */}
                                 {/* {this.state.programs.map(events => (events.push(events)))} */}
                                 <MyCalendars
-                                    events={this.state.events}
-                                // title={events.name}
+                                    events={this.state.calendar}/>
+                                {/* // title={events.name}
                                 // startAccessor={events.dateStart}
-                                // endAccessor={events.dateEnd}
-                                />
+                                // endAccessor={events.dateEnd} */}
+                                
                             </Col>
                         </Row>
                     </Border>

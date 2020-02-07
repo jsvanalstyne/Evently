@@ -1,15 +1,24 @@
 const Events = require("../../models/Events.js");
 const Programs = require("../../models/Programs.js");
-
+const Groups = require("../../models/Groups");
 const ObjectId = require("mongoose").Types.ObjectId;
+console.log(Events);
+ 
+const getGroupIdFromEvent = (eventId, cb) => {
+    eventId = ObjectId(eventId)
+
+    Events.findById(eventId)
+    .then(cb)
+};
 
 module.exports = {
     // ------------------ GET ------------------
     // Find a specific event by id
     getEventById: (eventId, cb) => {
         eventId = ObjectId(eventId);
-
-        Events.findById(eventId)
+        console.log(eventId);
+        console.log("line13");
+        Events.find({"_id": ObjectId(eventId)})
         .then(cb)
     },
     // Find all events associated with a given organization
@@ -24,17 +33,15 @@ module.exports = {
     // a given program and sort by 
     getNonProgramEventsByOrganization: (organizationId, cb) => {
         organizationId = ObjectId(organizationId);
-
+        console.log("line 27" + organizationId);
         Events.find({
             "organizationId": organizationId, 
-            "programId": null
+        
         })
         .sort({"startDate": 1})
         .then(cb)
     },
-    // getEventsForUser: (groupId, cb) => {
-    //     groupId = 
-    // }
+    
     // ------------------ POST ------------------
     // Add new event to database. Event object contains: 
     //  1. name: name of event being created
@@ -66,6 +73,22 @@ module.exports = {
         Event.findByIdAndUpdate(eventId, filters)
         .then(cb)
     }, 
+    
+    // add a user to a group associated within an event
+    addUserToEvent: (eventId, userId, cb) => {
+        let eventIdAsObject = ObjectId(eventId);
+        // console.log("we got in this bitch")
+        // console.log(eventIdAsObject);
+        Events.findById(eventIdAsObject)
+        .then(function(result) {
+            console.log(result);
+            // console.log("we got in the callback from the helper");
+            id = result.groupIds;
+            // console.log(id)
+            Groups.findByIdAndUpdate(id, {$push:{"userIds": userId}})
+            .then(cb)
+        })
+    },
     // ------------------ DELETE ------------------
     // find event by id and remove it from database
     delete: (eventId, cb) => {
