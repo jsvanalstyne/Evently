@@ -5,7 +5,9 @@ const oktaClient = require('./oktaClient');
 
 
 router.post("/", (req, res) => {
+    // user object containing information for Okta account
     let user = req.body.user;
+    // account object to send to 
     let account = req.body.account;
 
     oktaClient.createUser(user)

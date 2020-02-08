@@ -9,7 +9,7 @@ const style = {
     container: {
         display: "flex",
         justifyContent: "center", 
-        marginTop: "100px"    
+        // marginTop: "100px"    
     }, 
     form: {
 
@@ -58,7 +58,9 @@ export default withAuth(class Login extends Component {
     if (this.state.authenticated === null) return null;
     return this.state.authenticated ?
       <Redirect to={{ pathname: '/' }}/> :
-      <div style={style.container}>
+      <div>
+          <h3>Login</h3>
+
           <LoginForm
             baseUrl={this.props.baseUrl}
             onSuccess={this.onSuccess}

@@ -13,7 +13,7 @@ function HomeJumbo(props) {
                         <p className="lead">{props.smallText}</p>
                     </div>
                     <div className="col-6">
-                    
+                        <Login baseUrl="https://dev-844753.okta.com"/>
                     </div>
                 </div>
             </Container>
