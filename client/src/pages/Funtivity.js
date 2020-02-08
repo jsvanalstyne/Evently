@@ -129,14 +129,14 @@ class Funtivity extends Component {
     getPrograms = () => {
         API.getAllPrograms(this.state.organizationid)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 this.setState({ programs: res.data })
             })
     }
     getEvents = () => {
         API.getAllEvents(this.state.organizationid)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 this.setState({ events: res.data })
             });
         
@@ -161,6 +161,7 @@ class Funtivity extends Component {
                                 <FunCard
                                     key={upcomingprograms._id}
                                     event={upcomingprograms.name}
+                                    eventId= {upcomingprograms._id}
                                     description={upcomingprograms.description}
                                     date={upcomingprograms.dateStart}
                                     // {/* location={upcomingprograms.location} */}
@@ -173,6 +174,7 @@ class Funtivity extends Component {
                                         <FunCard
                                             key={upcomingprograms._id}
                                             event={upcomingprograms.name}
+                                            eventId= {upcomingprograms._id}
                                             description={upcomingprograms.description}
                                             date={upcomingprograms.dateStart}
                                             // {/* location={upcomingprograms.location} */}
@@ -187,6 +189,7 @@ class Funtivity extends Component {
                                                     <FunCard
                                                         key={upcomingprograms._id}
                                                         event={upcomingprograms.name}
+                                                        eventId= {upcomingprograms._id}
                                                         description={upcomingprograms.description}
                                                         date={upcomingprograms.dateStart}
                                                         // {/* location={upcomingprograms.location} */}
@@ -215,6 +218,7 @@ class Funtivity extends Component {
 
                                 <FunCard
                                     key={upcomingevents._id}
+                                    eventId= {upcomingevents._id}
                                     event={upcomingevents.name}
                                     description={upcomingevents.description}
                                     date={upcomingevents.dateStart}
@@ -227,6 +231,7 @@ class Funtivity extends Component {
                                     {[...this.state.events].splice(0, 3).map(upcomingevents => (
                                         <FunCard
                                             key={upcomingevents._id}
+                                            eventId= {upcomingevents._id}
                                             event={upcomingevents.name}
                                             description={upcomingevents.description}
                                             date={upcomingevents.dateStart}
@@ -241,6 +246,7 @@ class Funtivity extends Component {
                                                 {[...this.state.events].splice(3).map(upcomingevents => (
                                                     <FunCard
                                                         key={upcomingevents._id}
+                                                        eventId= {upcomingevents._id}
                                                         event={upcomingevents.name}
                                                         description={upcomingevents.description}
                                                         date={upcomingevents.dateStart}

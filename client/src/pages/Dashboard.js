@@ -4,6 +4,7 @@ import { Col, Row } from "../components/Grid";
 import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
+import Nav from "../components/Nav";
 import MyCalendars from "../components/Calendar";
 const upcomingprogram = [{
   name: "Dolphin Swim Practice",
@@ -69,6 +70,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <Nav/>
         <div className="container">
           <h1 className="text-center dashboard"> Dashboard</h1>
           <Row>
@@ -97,10 +99,9 @@ class Dashboard extends Component {
           <Row>
             <Col size="12">
               {/* <h1>Calendar here</h1> */}
-              <MyCalendars
-                events={this.state.upcomingevent}
-                // programs={this.state.upcomingprogram}
-              />
+              {/* <MyCalendars
+              event={}
+              /> */}
             </Col>
           </Row>
         </div>

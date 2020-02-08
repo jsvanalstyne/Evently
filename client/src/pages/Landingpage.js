@@ -5,7 +5,7 @@ import HomeJumbo from "../components/HomeJumbo"
 // import { Link } from "react-router-dom";
 // import { Col, Row, Container } from "../components/Grid";
 // import Card from "../components/Card";
-// import Footer from "../components/Footer"
+import Footer from "../components/Footer"
 
 
 
@@ -16,9 +16,10 @@ class Landingpage extends Component {
         <Wrapper>
           <Nav />
             <HomeJumbo 
-              mainText={"Welcome!"}
-              smallText={"This is some text that briefly describes what evently is about."}
+              mainText="Welcome!"
+              smallText="This is some text that briefly describes what evently is about."
             />
+            <Footer></Footer>
         </Wrapper>
         
     );
