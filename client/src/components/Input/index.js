@@ -2,15 +2,16 @@ import React from "react";
 import "./index.css";
 
 function Input(props) {
-    console.log(props);
     return (
         <div className="form-group">
-            <label for={props.for}>{props.cleanname}</label>
+            <label htmlFor={props.for}>{props.cleanname}</label>
             <input
                 className="form-control"
                 id={props.id}
                 type={props.type}
-                {...props}
+                name={props.name}
+                onChange={props.onChange}
+                cleanname={props.cleanname}
                 placeholder={props.cleanname}
             ></input>
         </div>
