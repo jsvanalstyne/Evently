@@ -1,12 +1,11 @@
 const router = require("express").Router();
 const programRoutes = require("./program");
 const eventRoutes = require("./events");
-const usersRoutes = require("./users.js");
-const payments = require("./payments.js");
+const squarePay = require("./payment")
  
 
 router.use("/programs", programRoutes);
-router.use("/events", eventRoutes);
-router.use("/users", usersRoutes);
+router.use("/events", eventRoutes)
+router.use("/payments", squarePay)
 
 module.exports= router;

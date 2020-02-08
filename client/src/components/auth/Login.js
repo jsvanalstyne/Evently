@@ -60,7 +60,6 @@ export default withAuth(class Login extends Component {
       <Redirect to={{ pathname: '/' }}/> :
       <div>
           <h3>Login</h3>
-
           <LoginForm
             baseUrl={this.props.baseUrl}
             onSuccess={this.onSuccess}
