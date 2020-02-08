@@ -53,7 +53,9 @@ class Dashboard extends Component {
           <Row>
             <Col size="12">
               {/* <h1>Calendar here</h1> */}
-              <MyCalendars/>
+              {/* <MyCalendars
+              event={}
+              /> */}
             </Col>
           </Row>
           </div>
