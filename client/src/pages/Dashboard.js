@@ -76,10 +76,10 @@ class Dashboard extends Component {
 
               <Card title="Your upcoming events and programs:" >
                 
-                {upcomingevent.map(upcomingEvents => (
+                {this.state.upcomingevent.map(upcomingEvents => (
                   <List event={upcomingEvents.name} date={upcomingEvents.dateStart}></List>
                 ))}
-                {upcomingprogram.map(upcomingPrograms => (
+                {this.state.upcomingprogram.map(upcomingPrograms => (
                   <List event={upcomingPrograms.name} date={upcomingPrograms.dateStart}></List>
                 ))}
               </Card>
