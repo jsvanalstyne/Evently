@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Landingpage from "./pages/Landingpage";
 import Features from "./pages/Features"
 import Funtivity from "./pages/Funtivity"
+import Payment from "./pages/Payment"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react'
 import Login from "./components/auth/Login";
@@ -28,6 +29,7 @@ function App() {
         <SecureRoute exact path="/funtivity" component={Funtivity}/>
         <Route path="/implicit/callback" component={ImplicitCallback}/>
         <Route path="/login" render={() => <Login baseUrl="https://dev-844753.okta.com"/>}/>
+        <SecureRoute path="/pay" component={Payment}/>
       </Security>
     </Router>
   );

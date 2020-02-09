@@ -24,7 +24,7 @@ seeder.connect('mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/hero
         // "../models/Accounts.js",
         // "../models/Conversations.js",
         // "../models/Employees.js",
-        // "../models/Events.js",
+        "../models/Events.js",
         // "../models/Facilities.js",
         // "../models/Messages.js",
         // "../models/Organizations.js",
