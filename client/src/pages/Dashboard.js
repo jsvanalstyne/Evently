@@ -33,7 +33,6 @@ class Dashboard extends Component {
         <h1 className="text-center dashboard"> Dashboard</h1>
         <Row>
           <Col size="6">
-
             <Card title="Your upcoming events:" >
               {upcoming.map(upcomingEvents => (
                 <List event={upcomingEvents.event} date={upcomingEvents.date}></List>
