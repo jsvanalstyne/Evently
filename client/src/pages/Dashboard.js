@@ -5,6 +5,7 @@ import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
 import MyCalendars from "../components/Calendar";
+import API from "../utils/API";
 // const upcomingprogram = [{
 //   name: "Dolphin Swim Practice",
 //   description:"Girls Ages 12-14",
@@ -65,6 +66,16 @@ class Dashboard extends Component {
     eventopen: false,
     promo:[]
   }
+  componentDidMount(){
+    this.getUserInformation();
+  }
+getUserInformation = () =>{
+  API.getUserInformationFromDb()
+    .then(res => {
+      console.log ( "dashboard line 75 " + JSON.stringify(res))
+    })
+
+}
 
   render() {
     return (

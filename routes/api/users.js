@@ -2,6 +2,15 @@ const router = require("express").Router();
 const userController = require("../../controllers/API/Users.js");
 const accountController = require("../../controllers/API/Accounts.js");
 const oktaClient = require('./oktaClient');
+const theMiddlewareFunction = require("../auth/authorization");
+console.log("inside of users file")
+
+
+router.get("/information", theMiddlewareFunction, (req, res) => {
+    console.log("inside get route for users")
+        // doing stuff with user information (this assumes that auth was successful)
+        console.log("line 11 in route" + req.user)
+}),
 
 
 router.post("/", (req, res) => {

@@ -4,12 +4,14 @@ const OktaJwtVerifier = require('@okta/jwt-verifier');
 let oktaJwtVerifier = new OktaJwtVerifier({
     issuer: 'https://dev-844753.okta.com/oauth2/default', 
 });
+console.log("inside of authorization.js")
 // creating a function to verify if a jwt is from a valid user
 // to be called as middleware to perform basic authorization
 // for users. 
 const verifyBlanketUser = (req, res, next) => {
     // grabbing jwt sent in body of request
     const accessToken = req.body.jwt;
+    console.log("auth line 13" +accessToken);
     // getting clientId from env file
     // const audience = process.env.clientId
     // calling verify access token method. Takes in a token and the 
@@ -27,7 +29,7 @@ const verifyBlanketUser = (req, res, next) => {
             "id": sub
         }
 
-        console.log(user);
+        console.log(req.user);
 
         next();
     })
