@@ -6,13 +6,19 @@ const Converstions = require("../../controllers/API/Conversations.js");
 const Users = require("../../controllers/API/Users.js");
 // importing middleware for authorization
 const blanketAuthorization = require("../auth/authorization.js");
-console.log(blanketAuthorization);
+
 
 // route to get all conversations associated with one user
-router.get("/all", async (req, res) => {
-    let authIdAsString = req.user.id;
+router.get("/all", blanketAuthorization, async (req, res) => {
+    let cache = req.app.get("cache");
+    
+    let userId = await Users.findByAuthId(req.user.id);
+    userId = userIds[0]._id;
 
-    let userId = req.cache.get(authIdString) || await Users.findByAuthId(authIdAsString)
+    Converstions.getConversationsByUser(userId, result => {
+        
+    })
+    
 });
 
 module.exports = router;
