@@ -3,14 +3,34 @@ const userController = require("../../controllers/API/Users.js");
 const accountController = require("../../controllers/API/Accounts.js");
 const oktaClient = require('./oktaClient');
 const verifyBlanketUser = require("../auth/authorization");
-console.log("inside of users file")
+const Users = require("../../controllers/API/Users");
+const Events = require("../../controllers/API/Events");
 
 
 router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
         // doing stuff with user information (this assumes that auth was successful)
-        console.log( req.user)
-}),
+        // console.log( req.user)
+        // let authId = req.user.id
+        let authId = "5";
+        Users.findByAuthId(authId, function(results){
+            console.log("line 17 "+results);
+            // res.json(results)
+            let userId = results[0]._id
+            console.log(userId);
+            Events.getGroupIdForUser(userId, function(data){
+                console.log(data)
+                let groupID = data[0]._id
+                console.log(groupID);
+                Events.getEventsForGroups(groupID, function(res){
+                    console.log(res);
+                    console.log(res[0].name)
+                })
+
+            })
+
+        })
+})
 
 
 router.post("/", (req, res) => {
