@@ -25,6 +25,9 @@ router.get("/information", verifyBlanketUser, (req, res) => {
                 Events.getEventsForGroups(groupID, function(res){
                     console.log(res);
                     console.log(res[0].name)
+                    console.log(res[0].dateStart);
+                    console.log(res[0].dateEnd);
+
                 })
 
             })
