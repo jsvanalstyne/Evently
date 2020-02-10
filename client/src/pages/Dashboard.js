@@ -6,6 +6,7 @@ import Footer from "../components/Footer"
 import List from "../components/List";
 import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
+import Nav from "../components/Nav"
 // const upcomingprogram = [{
 //   name: "Dolphin Swim Practice",
 //   description:"Girls Ages 12-14",
@@ -72,7 +73,7 @@ class Dashboard extends Component {
 getUserInformation = () =>{
   API.getUserInformationFromDb()
     .then(res => {
-      console.log ( "dashboard line 75 " + JSON.stringify(res))
+      console.log ( JSON.stringify(res))
     })
 
 }
@@ -80,6 +81,7 @@ getUserInformation = () =>{
   render() {
     return (
       <div>
+        <Nav/>
         <div className="container">
           <h1 className="text-center dashboard"> Dashboard</h1>
           <Row>
