@@ -3,6 +3,7 @@ const express = require("express");
 require('dotenv').config();
 
 const mongoose = require("mongoose");
+const redis = require("redis");
 const routes = require("./routes/index");
 const app = express();
 const PORT = process.env.PORT || 3030;
@@ -78,6 +79,21 @@ mongoose.connect(MONGODB_URI);
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+});
+
+const client = redis.createClient({
+  host: "127.0.0.1", 
+  port: 6379
+});
+
+client.on("connect", () => {
+  console.log("redis connected");
+  app.set("cache", client);
+  // app.use("cache", client);
+});
+
+client.on("error", err => {
+  console.log(err);
 });
 
 

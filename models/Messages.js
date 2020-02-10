@@ -8,6 +8,9 @@ var MessagesSchema = new Schema({
         ref: "Users", 
         required: [true, "Must enter valid sender Id"]
     }, 
+    senderName: {
+        type: String
+    },
     conversationId: {
         type: Schema.Types.ObjectId, 
         ref: "Conversations", 
