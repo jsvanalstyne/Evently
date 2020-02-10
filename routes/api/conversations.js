@@ -9,12 +9,10 @@ const blanketAuthorization = require("../auth/authorization.js");
 console.log(blanketAuthorization);
 
 // route to get all conversations associated with one user
-router.get("/all", (req, res) => {
-    let userId
-    console.log('we got in here');
+router.get("/all", async (req, res) => {
+    let authIdAsString = req.user.id;
 
-    console.log("current user:");
-    console.log(req.user);
+    let userId = req.cache.get(authIdString) || await Users.findByAuthId(authIdAsString)
 });
 
 module.exports = router;

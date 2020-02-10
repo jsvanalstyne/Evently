@@ -11,6 +11,7 @@ module.exports = {
     // Find user by okta id
     findByAuthId: (authId, cb) => {
         Users.find({"authId": authId})
+        .select("_id")
         .then(cb)
     },
     // ------------------ POST ------------------
