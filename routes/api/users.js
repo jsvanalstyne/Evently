@@ -7,6 +7,7 @@ const Users = require("../../controllers/API/Users");
 const Events = require("../../controllers/API/Events");
 let userEventsArray=[];
 var userEventObject;
+let practice = ["cat", "dog", "bird"]
 
 
 router.get("/information", verifyBlanketUser, (req, res) => {
@@ -22,14 +23,15 @@ router.get("/information", verifyBlanketUser, (req, res) => {
             let userId = results[0]._id
             console.log(userId);
             Events.getGroupIdForUser(userId, function(data){
-                console.log(data)
-                let groupID = data
-                for(var i=0; i<groupID.length; i++){
-                    let groupIDs = groupID[i]._id
-                    console.log("line 27 "+groupIDs);
-                    Events.getEventsForGroups(groupIDs, function(events){
+                console.log("line 25 " +data)
+                let groupIDArray= data[0]._id
+                console.log(groupIDArray+ "line 27")
+                // for(var i=0; i<groupID.length; i++){
+                //     let groupIDs = groupID[i]._id
+                //     console.log("line 27 "+groupIDs);
+                    Events.getEventsForGroups(groupIDArray, function(events){
                         userEventsArray=[];
-                        console.log(events);
+                        console.log("line 32 "+events);
                         for(var k=0; k<events.length; k++){
                              userEventObject= {
                                 name: events[k].name,
@@ -45,17 +47,17 @@ router.get("/information", verifyBlanketUser, (req, res) => {
                          userEventsArray.push(userEventObject)
                          console.log(userEventsArray);
                         }
-                        
+                        return res.json(userEventsArray);
                         
                     })
 
-                }
+                // }
               
                 
             })
             
         })
-        return res.json("userEventsArray");
+        
         
 })
 

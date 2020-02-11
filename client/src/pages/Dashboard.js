@@ -73,7 +73,7 @@ class Dashboard extends Component {
 getUserInformation = () =>{
   API.getUserInformationFromDb()
     .then(dataRes => {
-      console.log (dataRes.data);
+      console.log (dataRes);
     })
 
 }

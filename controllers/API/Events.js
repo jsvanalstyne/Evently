@@ -35,12 +35,12 @@ module.exports = {
     },
     getGroupIdForUser: (userId, cb) => {
         userIds = ObjectId(userId)
-        Groups.find({"userIds": userIds})
+        Groups.find({"userIds":{$in: userIds}})
         .then(cb)
     },
     getEventsForGroups: (groupId, cb) => {
-        groupIds = ObjectId(groupId)
-        Events.find({"groupIds": groupIds})
+        // groupIds = ObjectId(groupId)
+        Events.find({"groupIds":{$in : groupId}})
         .then(cb);
     },
     // ------------------ POST ------------------

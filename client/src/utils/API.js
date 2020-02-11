@@ -15,8 +15,10 @@ getUserInformationFromDb: function(){
     console.log(token)
 
     return axios.get({
-        "url": "/api/users/information",
-        "headers":{
+        url: "/api/users/information",
+        headers:{
+            "Content-Type": "application/json",
+            "Accept": "application/json",
             "Authorization": "Bearer "+ token
            
         }
