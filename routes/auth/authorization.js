@@ -2,12 +2,16 @@
 const OktaJwtVerifier = require('@okta/jwt-verifier');
 // initializing an object from it
 let oktaJwtVerifier = new OktaJwtVerifier({
-    issuer: 'https://dev-844753.okta.com/oauth2/default',
+    issuer: 'https://dev-844753.okta.com/oauth2/default'
 });
+// importing user controller
+let Users = require("../../controllers/API/Users.js");
 // creating a function to verify if a jwt is from a valid user
 // to be called as middleware to perform basic authorization
 // for users.
 module.exports = (req, res, next) => {
+    //grabbing cache from app
+    let cache = req.app.get("cache");
     // grabbing jwt sent in body of request
     const bearer = req.headers["authorization"];
     if(bearer) {
@@ -28,8 +32,15 @@ module.exports = (req, res, next) => {
                     "name": name,
                     "id": sub
                 }
-                
-                next();
+                // checking if the user authId exists in our cache
+                if(!cache.get(`user${sub}`)) {
+                    // if not, getting userId from db and setting it in cache
+                    Users.findByAuthId(req.user.id, result => {
+                        cache.set(`user${sub}`, result._id);
+                    });
+                } else {
+                    next();
+                }
             })
             // if unsuccessful, catch the error and add a failed message to the
             // to the request to be handled later in the workflow
@@ -41,5 +52,11 @@ module.exports = (req, res, next) => {
             
                 next();
             })
+    } else {
+        req.error = {
+            "message": "no token provided from user"
+        }
+
+        next();
     }
 }
