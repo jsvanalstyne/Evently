@@ -211,7 +211,7 @@ class Funtivity extends Component {
                                     description={upcomingevents.description}
                                     date={upcomingevents.startDate}
                                     // location={upcomingevents.location} 
-                                    price={upcomingevents.cost}
+                                    price={upcomingevents.price}
                                 ></FunCard>))}
                         </Row>
                     </Border>
