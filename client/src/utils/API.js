@@ -17,7 +17,7 @@ getUserInformationFromDb: function(){
     return axios.get({
         "url": "/api/users/information",
         "headers":{
-            "Authorization": "Bearer"+ token
+            "Authorization": "Bearer "+ token
            
         }
     })
