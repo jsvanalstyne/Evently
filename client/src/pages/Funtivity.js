@@ -155,7 +155,7 @@ class Funtivity extends Component {
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingprograms.price}>
                                 </FunCard>
-                                ))
+                            ))
                                 :
                                 <Row>
                                     {[...this.state.programs].splice(0, 3).map(upcomingprograms => (
@@ -167,7 +167,7 @@ class Funtivity extends Component {
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingprograms.price}>
                                         </FunCard>
-                                        ))
+                                    ))
                                     }
                                     <Collapse in={this.state.programopen}>
                                         <div id="program-collapse">
@@ -185,12 +185,12 @@ class Funtivity extends Component {
                                         </div>
                                     </Collapse>
 
-                                    <Button 
+                                    <Button
                                         className="collapsedButton"
                                         onClick={() => this.handleCollapse("programopen")}
                                         aria-expanded={this.state.programopen}
                                         aria-controls="program-collapse"
-                                        >
+                                    >
                                         {this.state.programopen ? "See Less" : "See More"}
                                     </Button>
                                 </Row>
@@ -198,23 +198,64 @@ class Funtivity extends Component {
                         </div>
                     </Border>
                     {/* <div className="border align-middle"> */}
-
                     <Border>
                         {/* <BorderWrapper> */}
                         <Headers heading="Events" />
-                        <Row>
+                        <div>
+                            {this.state.events.length <= 3 ? this.state.events.map(upcomingevents => (
 
-                            {this.state.events.map(upcomingevents => (
                                 <FunCard
                                     key={upcomingevents._id}
                                     event={upcomingevents.name}
                                     description={upcomingevents.description}
-                                    date={upcomingevents.startDate}
-                                    // location={upcomingevents.location} 
-                                    price={upcomingevents.price}
-                                ></FunCard>))}
-                        </Row>
+                                    date={upcomingevents.dateStart}
+                                    // {/* location={upcomingprograms.location} */}
+                                    price={upcomingevents.price}>
+                                </FunCard>
+                            ))
+                                :
+                                <Row>
+                                    {[...this.state.events].splice(0, 3).map(upcomingevents => (
+                                        <FunCard
+                                            key={upcomingevents._id}
+                                            event={upcomingevents.name}
+                                            description={upcomingevents.description}
+                                            date={upcomingevents.dateStart}
+                                            // {/* location={upcomingprograms.location} */}
+                                            price={upcomingevents.price}>
+                                        </FunCard>
+                                    ))
+                                    }
+                                    <Collapse in={this.state.eventopen}>
+                                        <div id="program-collapse">
+                                            <Row>
+                                                {[...this.state.events].splice(3).map(upcomingevents => (
+                                                    <FunCard
+                                                        key={upcomingevents._id}
+                                                        event={upcomingevents.name}
+                                                        description={upcomingevents.description}
+                                                        date={upcomingevents.dateStart}
+                                                        // {/* location={upcomingprograms.location} */}
+                                                        price={upcomingevents.price}>
+                                                    </FunCard>))}
+                                            </Row>
+                                        </div>
+                                    </Collapse>
+
+                                    <Button
+                                        className="collapsedButton"
+                                        onClick={() => this.handleCollapse("eventopen")}
+                                        aria-expanded={this.state.eventopen}
+                                        aria-controls="program-collapse"
+                                    >
+                                        {this.state.eventopen ? "See Less" : "See More"}
+                                    </Button>
+                                </Row>
+                            }
+                        </div>
                     </Border>
+
+                    
                     <Border>
                         <Headers heading=" Fun Calendar" />
                         <Row>

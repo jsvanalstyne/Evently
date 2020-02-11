@@ -11,7 +11,7 @@
     "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build && node seeds/seeds.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,8 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
+    "@okta/jwt-verifier": "^1.0.0",
+    "@okta/okta-sdk-nodejs": "^3.1.0",
     "axios": "^0.18.0",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
