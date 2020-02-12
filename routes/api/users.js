@@ -5,60 +5,60 @@ const oktaClient = require('./oktaClient');
 const verifyBlanketUser = require("../auth/authorization");
 const Users = require("../../controllers/API/Users");
 const Events = require("../../controllers/API/Events");
-let userEventsArray=[];
+let userEventsArray = [];
 var userEventObject;
-let practice = ["cat", "dog", "bird"]
 
 
 router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
-        // doing stuff with user information (this assumes that auth was successful)
-        // console.log( req.user)
-        // let authId = req.user.id
-        let authId = "5";
-        Users.findByAuthId(authId, function(results){
-            console.log("line 17 "+results);
-            // res.json(results)
+    // doing stuff with user information (this assumes that auth was successful)
+    // console.log( req.user)
+    // let authId = req.user.id
+    let authId = "5";
+    Users.findByAuthId(authId, function (results) {
+        console.log("line 17 " + results);
+        // res.json(results)
 
-            let userId = results[0]._id
-            console.log(userId);
-            Events.getGroupIdForUser(userId, function(data){
-                console.log("line 25 " +data)
-                let groupIDArray= data[0]._id
-                console.log(groupIDArray+ "line 27")
-                // for(var i=0; i<groupID.length; i++){
-                //     let groupIDs = groupID[i]._id
-                //     console.log("line 27 "+groupIDs);
-                    Events.getEventsForGroups(groupIDArray, function(events){
-                        userEventsArray=[];
-                        console.log("line 32 "+events);
-                        for(var k=0; k<events.length; k++){
-                             userEventObject= {
-                                name: events[k].name,
-                                dateStart: events[k].dateStart,
-                                dateEnd: events[k].dateEnd
-                            }
-                            console.log(userEventObject)
-                        console.log(events[k].name)
-                        console.log(events[k].dateStart);
-                        console.log(events[k].dateEnd);
-                         console.log(events[k]);
-                         
-                         userEventsArray.push(userEventObject)
-                         console.log(userEventsArray);
-                        }
-                        return res.json(userEventsArray);
-                        
-                    })
+        let userId = results[0]._id
+        console.log(userId);
+        Events.getGroupIdForUser(userId, function (data) {
+            console.log("line 25 " + data)
+            let groupIDArray = data[0]._id
+            console.log(groupIDArray + "line 27")
+            // for(var i=0; i<groupID.length; i++){
+            //     let groupIDs = groupID[i]._id
+            //     console.log("line 27 "+groupIDs);
+            Events.getEventsForGroups(groupIDArray, function (events) {
+                userEventsArray = [];
+                console.log("line 32 " + events);
+                for (var k = 0; k < events.length; k++) {
+                    userEventObject = {
+                        name: events[k].name,
+                        dateStart: events[k].dateStart,
+                        dateEnd: events[k].dateEnd
+                    }
+                    console.log(userEventObject)
+                    console.log(events[k].name)
+                    console.log(events[k].dateStart);
+                    console.log(events[k].dateEnd);
+                    console.log(events[k]);
 
-                // }
-              
-                
+                    userEventsArray.push(userEventObject)
+                    console.log(userEventsArray);
+                }
+                let practice = ["cat", "dog", "bird"]
+
+                return res.json(userEventsArray);
             })
-            
+
+            // }
+
+
         })
-        
-        
+
+    })
+
+
 })
 
 
@@ -88,8 +88,8 @@ router.post("/", (req, res) => {
                 accountController.create(account, result => {
                     // returning user and account information back to client
                     return res.json({
-                        "message": "User and account created", 
-                        "user": createdUser, 
+                        "message": "User and account created",
+                        "user": createdUser,
                         "account": account
                     }).status(200)
                 })
@@ -98,11 +98,11 @@ router.post("/", (req, res) => {
         .catch(err => {
             // returning failed message and error 
             return res.json({
-                "message": "Could not create user", 
+                "message": "Could not create user",
                 "error": err
             }).status(400);
-    });
-    
+        });
+
 });
 
 module.exports = router;

@@ -73,7 +73,7 @@ class Dashboard extends Component {
 getUserInformation = () =>{
   API.getUserInformationFromDb()
     .then(dataRes => {
-      console.log (dataRes);
+      console.log (dataRes.data);
     })
 
 }
@@ -95,6 +95,7 @@ getUserInformation = () =>{
                 {this.state.upcomingprogram.map(upcomingPrograms => (
                   <List event={upcomingPrograms.name} date={upcomingPrograms.dateStart}></List>
                 ))}
+                
               </Card>
 
             </Col>
