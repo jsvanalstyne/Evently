@@ -18,19 +18,20 @@ const models = ['Users', 'Accounts', 'Conversations', 'Messages', 'Organizations
                 'Facilities', 'Employees', 'Programs', 'Events']
 
 // Connect to MongoDB via Mongoose
-seeder.connect('mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd', function() {
+
+seeder.connect(process.env.MONGODB_URI ||'mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd', function() {
  
     // Load Mongoose models
     seeder.loadModels([
-        // "../models/Accounts.js",
-        // "../models/Conversations.js",
-        // "../models/Employees.js",
+        path.join(__dirname, "../models/Accounts.js"),
+        path.join(__dirname,"../models/Conversations.js"),
+        path.join(__dirname, "../models/Employees.js"),
         path.join(__dirname, "../models/Events.js"),
-        // "../models/Facilities.js",
-        // "../models/Messages.js",
-        // "../models/Organizations.js",
+        path.join(__dirname,"../models/Facilities.js"),
+        path.join(__dirname,"../models/Messages.js"),
+        path.join(__dirname,"../models/Organizations.js"),
         path.join(__dirname, "../models/Programs.js"), 
-        // "../models/Users"
+        path.join(__dirname,"../models/Users.js")
     ]);
 
     seeder.clearModels(models, function() {
