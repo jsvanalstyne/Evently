@@ -7,6 +7,21 @@ var UsersSchema = new Schema({
         type: String, 
         required: [true, "Must enter Okta Id"], 
         unique: true
+    }, 
+
+    firstName: {
+        type: String, 
+        required: [true, "Must enter a first name"]
+    }, 
+
+    lastName: {
+        type: String, 
+        required: [true, "Must enter a last name"]
+    }, 
+
+    email: {
+        type: String,
+        required: [true, "Must enter a valid email"]
     }
 });
 
