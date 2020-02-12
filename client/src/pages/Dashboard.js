@@ -7,6 +7,7 @@ import List from "../components/List";
 import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
 import Nav from "../components/Nav"
+import Headers from "../components/Headers"
 // const upcomingprogram = [{
 //   name: "Dolphin Swim Practice",
 //   description:"Girls Ages 12-14",
@@ -74,6 +75,8 @@ getUserInformation = () =>{
   API.getUserInformationFromDb()
     .then(dataRes => {
       console.log (dataRes.data);
+      this.setState({upcomingprogram: dataRes.data})
+      // console.log(upcomingprogram)
     })
 
 }
@@ -90,10 +93,13 @@ getUserInformation = () =>{
               <Card title="Your upcoming events and programs:" >
                 
                 {this.state.upcomingevent.map(upcomingEvents => (
-                  <List event={upcomingEvents.name} date={upcomingEvents.dateStart}></List>
+                  <List event={upcomingEvents.name} date={upcomingEvents.dateStart}
+                  ></List>
                 ))}
                 {this.state.upcomingprogram.map(upcomingPrograms => (
-                  <List event={upcomingPrograms.name} date={upcomingPrograms.dateStart}></List>
+                  <List event={upcomingPrograms.name} 
+                  // date={upcomingPrograms.dateStart}
+                  ></List>
                 ))}
                 
               </Card>
@@ -110,11 +116,11 @@ getUserInformation = () =>{
 
           <Row>
             <Col size="12">
-              {/* <h1>Calendar here</h1> */}
-              {/* <MyCalendars
-                events={this.state.upcomingevent}
+            <Headers heading="Your Programs and Events Calendar" />
+              <MyCalendars
+                events={this.state.upcomingprogram}
                 // programs={this.state.upcomingprogram}
-              /> */}
+              />
             </Col>
           </Row>
         </div>
