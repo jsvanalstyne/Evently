@@ -8,6 +8,7 @@ var EventsSeeds = require("../seeds/EventsSeeds");
 var EmployeesSeeds = require("../seeds/EmployeesSeeds");
 var ConversationsSeeds = require("../seeds/ConversationsSeeds");
 var AccountsSeeds = require("../seeds/AccountsSeeds");
+var path = require("path")
 
 const modelsData = [UsersSeeds, AccountsSeeds, ConversationsSeeds, MessagesSeeds, 
                     OrganizationsSeeds, FacilitiesSeeds, EmployeesSeeds, 
@@ -24,11 +25,11 @@ seeder.connect('mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/hero
         // "../models/Accounts.js",
         // "../models/Conversations.js",
         // "../models/Employees.js",
-        "../models/Events.js",
+        path.join(__dirname, "../models/Events.js"),
         // "../models/Facilities.js",
         // "../models/Messages.js",
         // "../models/Organizations.js",
-        "../models/Programs.js", 
+        path.join(__dirname, "../models/Programs.js"), 
         // "../models/Users"
     ]);
 
