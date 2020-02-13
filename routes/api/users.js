@@ -5,6 +5,7 @@ const oktaClient = require('./oktaClient');
 const verifyBlanketUser = require("../auth/authorization");
 const Users = require("../../controllers/API/Users");
 const Events = require("../../controllers/API/Events");
+// const Accounts = require("../../controllers/API/Accounts");
 
 
 
@@ -12,8 +13,8 @@ router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
     // doing stuff with user information (this assumes that auth was successful)
     // console.log( req.user)
-    let authId = req.user.id
-    // let authId = "5";
+    // let authId = req.user.id
+    let authId = "7";
     Users.findByAuthId(authId, function (results) {
         console.log("line 17 " + results);
         // res.json(results)
@@ -21,13 +22,9 @@ router.get("/information", verifyBlanketUser, (req, res) => {
         let userId = results[0]._id
         console.log(userId);
         Events.getGroupIdForUser(userId, function (data) {
-            console.log("line 25 " + data)
+        
             let groupIDArray = data.map(group => group._id)
-            
-            console.log(groupIDArray + "line 27")
-            // for(var i=0; i<groupID.length; i++){
-            //     let groupIDs = groupID[i]._id
-            //     console.log("line 27 "+groupIDs);
+
             Events.getEventsForGroups(groupIDArray, function (events) {
                 let userEventsArray = events.map(event => {
                    return { name: event.name,
@@ -35,13 +32,9 @@ router.get("/information", verifyBlanketUser, (req, res) => {
                     dateEnd: event.dateEnd
                    }
                 })
-                
-                let practice = ["cat", "dog", "bird"]
 
                 return res.json(userEventsArray);
             })
-
-            // }
 
 
         })
@@ -50,6 +43,29 @@ router.get("/information", verifyBlanketUser, (req, res) => {
 
 
 })
+router.get("/account", verifyBlanketUser, (req, res) => {
+    // let authId = req.user.id
+    let authId="7";
+    Users.findByAuthId(authId, function (results) {
+        let userId = results[0]._id
+        console.log("Line 59 " + userId)
+        
+
+        accountController.findByUserId(userId, function(data){
+            console.log(data)
+            let userRegistrationInfoArray = data.map(information =>{
+                return { street: information.street,
+                    zipcode: information.zipcode,
+                    stateCode: information.stateCode,
+                    city: information.city
+                   }
+            })
+            return res.json(userRegistrationInfoArray);
+        })
+    });
+
+
+});
 
 
 router.post("/", (req, res) => {

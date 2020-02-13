@@ -23,5 +23,17 @@ export default {
                 "Authorization": "Bearer " + token
             }
         })
+    },
+    getUserAccountInfoFromDb: function(){
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+        return axios({
+            method: "GET",
+            url: "/api/users/account",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
     }
 }

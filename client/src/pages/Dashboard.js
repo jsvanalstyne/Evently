@@ -8,54 +8,7 @@ import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
 import Nav from "../components/Nav"
 import Headers from "../components/Headers"
-// const upcomingprogram = [{
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-02-04T22:54:57.475Z",
-//   dateEnd: "2020-04-04T22:54:57.475Z",
-//   price: "75"
-// },
-// {
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-04-04T22:54:57.475Z",
-//   dateEnd: "2020-05-04T22:54:57.475Z",
-//   price: "75"
-// },
 
-// {
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-05-05T22:54:57.475Z",
-//   dateEnd: "2020-06-04T22:54:57.475Z",
-//   price: "75"
-// }
-
-// ];
-// const upcomingevent = [{
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-06-03T22:54:57.475Z",
-//   dateEnd: "2020-06-04T22:54:57.475Z",
-//   price: "75"
-// },
-// {
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-03-04T22:54:57.475Z",
-//   dateEnd: "2020-03-04T22:54:57.475Z",
-//   price: "75"
-// },
-
-// {
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-04-04T22:54:57.475Z",
-//   dateEnd: "2020-04-04T22:54:57.475Z",
-//   price: "75"
-// }
-
-// ];
 const promo = [{ event: "Race for the Cure",  date: "April 17, 2020 at 3pm" }, { event: "Community Yard Sale",  date: "April 17, 2020 at 3pm"  }, { event: "Father Daughter Dance",  date: "April 17, 2020 at 3pm"  }, { event: "CPR training",  date: "April 17, 2020 at 3pm"  }
 ];
 
@@ -76,7 +29,7 @@ getUserInformation = () =>{
     .then(dataRes => {
       console.log (dataRes.data);
       this.setState({upcomingprogram: dataRes.data})
-      // console.log(upcomingprogram)
+      
     })
 
 }
