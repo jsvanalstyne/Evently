@@ -33,9 +33,9 @@ module.exports = {
         .sort({"startDate": 1})
         .then(cb)
     },
-    getGroupIdForUser: (userId, cb) => {
-        userIds = ObjectId(userId)
-        Groups.find({"userIds":{$in: userIds}})
+    getGroupIdForUser: (id, cb) => {
+        // userId= ObjectId(id)
+        Groups.find({"userIds":{$in: id}})
         .then(cb)
     },
     getEventsForGroups: (groupId, cb) => {

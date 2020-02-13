@@ -5,8 +5,7 @@ const oktaClient = require('./oktaClient');
 const verifyBlanketUser = require("../auth/authorization");
 const Users = require("../../controllers/API/Users");
 const Events = require("../../controllers/API/Events");
-let userEventsArray = [];
-var userEventObject;
+
 
 
 router.get("/information", verifyBlanketUser, (req, res) => {
@@ -23,29 +22,20 @@ router.get("/information", verifyBlanketUser, (req, res) => {
         console.log(userId);
         Events.getGroupIdForUser(userId, function (data) {
             console.log("line 25 " + data)
-            let groupIDArray = data[0]._id
+            let groupIDArray = data.map(group => group._id)
+            
             console.log(groupIDArray + "line 27")
             // for(var i=0; i<groupID.length; i++){
             //     let groupIDs = groupID[i]._id
             //     console.log("line 27 "+groupIDs);
             Events.getEventsForGroups(groupIDArray, function (events) {
-                userEventsArray = [];
-                console.log("line 32 " + events);
-                for (var k = 0; k < events.length; k++) {
-                    userEventObject = {
-                        name: events[k].name,
-                        dateStart: events[k].dateStart,
-                        dateEnd: events[k].dateEnd
-                    }
-                    console.log(userEventObject)
-                    console.log(events[k].name)
-                    console.log(events[k].dateStart);
-                    console.log(events[k].dateEnd);
-                    console.log(events[k]);
-
-                    userEventsArray.push(userEventObject)
-                    console.log(userEventsArray);
-                }
+                let userEventsArray = events.map(event => {
+                   return { name: event.name,
+                    dateStart: event.dateStart,
+                    dateEnd: event.dateEnd
+                   }
+                })
+                
                 let practice = ["cat", "dog", "bird"]
 
                 return res.json(userEventsArray);
