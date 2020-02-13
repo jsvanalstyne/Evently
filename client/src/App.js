@@ -30,6 +30,8 @@ function App() {
         <Route path="/implicit/callback" component={ImplicitCallback}/>
         <Route path="/login" render={() => <Login baseUrl="https://dev-844753.okta.com"/>}/>
         <SecureRoute path="/pay" component={Payment}/>
+        {/* adding this below secure route for the account page. uncomment when account page is active */}
+        {/* <SecureRoute exact path="/account" component={Account}/> */}
       </Security>
     </Router>
   );

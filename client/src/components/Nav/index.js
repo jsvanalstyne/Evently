@@ -11,24 +11,21 @@ import { withAuth } from '@okta/okta-react';
 export default withAuth(class Nav extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             authenticated: null
         };
-        
         this.checkAuthentication();
-
     }
 
     async checkAuthentication() {
-      const authenticated = await this.props.auth.isAuthenticated();
-      if (authenticated !== this.state.authenticated) {
-        this.setState({ authenticated });
-      }
+        const authenticated = await this.props.auth.isAuthenticated();
+        if (authenticated !== this.state.authenticated) {
+            this.setState({ authenticated });
+        }
     }
-  
+
     componentDidUpdate() {
-      this.checkAuthentication();
+        this.checkAuthentication();
     }
 
     render() {
@@ -40,31 +37,43 @@ export default withAuth(class Nav extends Component {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarText">
-                    <ul className="navbar-nav mr-auto">
-                       <NavLink 
-                        link={"/features"}
-                        text={"Features"}
-                       />
-                       <NavLink 
-                        link={"/funtivity"}
-                        text={"Fun Page"}
-                       />
-                    </ul>
+                    {this.state.authenticated ?
+                        <ul className="navbar-nav mr-auto">
+                            <NavLink
+                                link={"/funtivity"}
+                                text={"Events and Programs"}
+                            />
+                            <NavLink
+                                link={"/dashboard"}
+                                text={"Dashboard"}
+                            />
+                            <NavLink
+                                link={"/account"}
+                                text={"My Account"}
+                            />
+                        </ul> :
+                        <ul>
+                            <NavLink
+                                link={"/features"}
+                                text={"Features"}
+                            />
+                        </ul>
+                    }
+
                     <span className="navbar-text">
-                        {this.state.authenticated ? 
+                        {this.state.authenticated ?
                             <Logout /> :
-                            <SignupModal 
+                            <SignupModal
                                 title={"Sign Up"}
                                 closeBtnText="Sign up"
                             />
-                            
                         }
                     </span>
                 </div>
             </nav>
         )
     }
-    
+
 });
 
 
