@@ -12,8 +12,8 @@ router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
     // doing stuff with user information (this assumes that auth was successful)
     // console.log( req.user)
-    // let authId = req.user.id
-    let authId = "5";
+    let authId = req.user.id
+    // let authId = "5";
     Users.findByAuthId(authId, function (results) {
         console.log("line 17 " + results);
         // res.json(results)
