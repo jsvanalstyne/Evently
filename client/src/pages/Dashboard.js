@@ -5,6 +5,9 @@ import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
 import MyCalendars from "../components/Calendar";
+import API from "../utils/API";
+import Nav from "../components/Nav"
+import Headers from "../components/Headers"
 // const upcomingprogram = [{
 //   name: "Dolphin Swim Practice",
 //   description:"Girls Ages 12-14",
@@ -65,10 +68,23 @@ class Dashboard extends Component {
     eventopen: false,
     promo:[]
   }
+  componentDidMount(){
+    this.getUserInformation();
+  }
+getUserInformation = () =>{
+  API.getUserInformationFromDb()
+    .then(dataRes => {
+      console.log (dataRes.data);
+      this.setState({upcomingprogram: dataRes.data})
+      // console.log(upcomingprogram)
+    })
+
+}
 
   render() {
     return (
       <div>
+        <Nav/>
         <div className="container">
           <h1 className="text-center dashboard"> Dashboard</h1>
           <Row>
@@ -77,11 +93,15 @@ class Dashboard extends Component {
               <Card title="Your upcoming events and programs:" >
                 
                 {this.state.upcomingevent.map(upcomingEvents => (
-                  <List event={upcomingEvents.name} date={upcomingEvents.dateStart}></List>
+                  <List event={upcomingEvents.name} date={upcomingEvents.dateStart}
+                  ></List>
                 ))}
                 {this.state.upcomingprogram.map(upcomingPrograms => (
-                  <List event={upcomingPrograms.name} date={upcomingPrograms.dateStart}></List>
+                  <List event={upcomingPrograms.name} 
+                  // date={upcomingPrograms.dateStart}
+                  ></List>
                 ))}
+                
               </Card>
 
             </Col>
@@ -96,11 +116,11 @@ class Dashboard extends Component {
 
           <Row>
             <Col size="12">
-              {/* <h1>Calendar here</h1> */}
-              {/* <MyCalendars
-                events={this.state.upcomingevent}
+            <Headers heading="Your Programs and Events Calendar" />
+              <MyCalendars
+                events={this.state.upcomingprogram}
                 // programs={this.state.upcomingprogram}
-              /> */}
+              />
             </Col>
           </Row>
         </div>
