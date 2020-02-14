@@ -6,57 +6,12 @@ import Footer from "../components/Footer"
 import List from "../components/List";
 import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
-import Nav from "../components/Nav"
-import Headers from "../components/Headers"
-// const upcomingprogram = [{
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-02-04T22:54:57.475Z",
-//   dateEnd: "2020-04-04T22:54:57.475Z",
-//   price: "75"
-// },
-// {
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-04-04T22:54:57.475Z",
-//   dateEnd: "2020-05-04T22:54:57.475Z",
-//   price: "75"
-// },
+import Nav from "../components/Nav";
+import Headers from "../components/Headers";
+import Dropdowns from "../components/Dropdown";
+import Moment from 'react-moment';
 
-// {
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-05-05T22:54:57.475Z",
-//   dateEnd: "2020-06-04T22:54:57.475Z",
-//   price: "75"
-// }
-
-// ];
-// const upcomingevent = [{
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-06-03T22:54:57.475Z",
-//   dateEnd: "2020-06-04T22:54:57.475Z",
-//   price: "75"
-// },
-// {
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-03-04T22:54:57.475Z",
-//   dateEnd: "2020-03-04T22:54:57.475Z",
-//   price: "75"
-// },
-
-// {
-//   name: "Dolphin Swim Practice",
-//   description:"Girls Ages 12-14",
-//   dateStart: "2020-04-04T22:54:57.475Z",
-//   dateEnd: "2020-04-04T22:54:57.475Z",
-//   price: "75"
-// }
-
-// ];
-const promo = [{ event: "Race for the Cure",  date: "April 17, 2020 at 3pm" }, { event: "Community Yard Sale",  date: "April 17, 2020 at 3pm"  }, { event: "Father Daughter Dance",  date: "April 17, 2020 at 3pm"  }, { event: "CPR training",  date: "April 17, 2020 at 3pm"  }
+const promo = [{ event: "Race for the Cure", date: "April 17, 2020 at 3pm" }, { event: "Community Yard Sale", date: "April 17, 2020 at 3pm" }, { event: "Father Daughter Dance", date: "April 17, 2020 at 3pm" }, { event: "CPR training", date: "April 17, 2020 at 3pm" }
 ];
 
 
@@ -66,42 +21,47 @@ class Dashboard extends Component {
     upcomingevent: [],
     programopen: false,
     eventopen: false,
-    promo:[]
+    promo: []
   }
-  componentDidMount(){
+  componentDidMount() {
     this.getUserInformation();
   }
-getUserInformation = () =>{
-  API.getUserInformationFromDb()
-    .then(dataRes => {
-      console.log (dataRes.data);
-      this.setState({upcomingprogram: dataRes.data})
-      // console.log(upcomingprogram)
-    })
+  getUserInformation = () => {
+    API.getUserInformationFromDb()
+      .then(dataRes => {
+        console.log(dataRes.data);
+        this.setState({ upcomingprogram: dataRes.data })
 
-}
+      })
+
+  }
 
   render() {
     return (
       <div>
-        <Nav/>
+        <Nav />
         <div className="container">
           <h1 className="text-center dashboard"> Dashboard</h1>
           <Row>
             <Col size="6">
 
               <Card title="Your upcoming events and programs:" >
-                
+
                 {this.state.upcomingevent.map(upcomingEvents => (
                   <List event={upcomingEvents.name} date={upcomingEvents.dateStart}
                   ></List>
                 ))}
                 {this.state.upcomingprogram.map(upcomingPrograms => (
-                  <List event={upcomingPrograms.name} 
-                  // date={upcomingPrograms.dateStart}
-                  ></List>
+                 
+                  <Dropdowns
+                   name={upcomingPrograms.name}
+                   description={upcomingPrograms.description}
+                   dateStart={upcomingPrograms.dateStart}
+                   />
+                    
+                  
                 ))}
-                
+
               </Card>
 
             </Col>
@@ -116,10 +76,10 @@ getUserInformation = () =>{
 
           <Row>
             <Col size="12">
-            <Headers heading="Your Programs and Events Calendar" />
+              <Headers heading="Your Programs and Events Calendar" />
               <MyCalendars
                 events={this.state.upcomingprogram}
-                // programs={this.state.upcomingprogram}
+              // programs={this.state.upcomingprogram}
               />
             </Col>
           </Row>

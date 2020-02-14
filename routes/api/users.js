@@ -12,8 +12,8 @@ router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
     // doing stuff with user information (this assumes that auth was successful)
     // console.log( req.user)
-    let authId = req.user.id
-    // let authId = "5";
+    // let authId = req.user.id
+    let authId = "5";
     Users.findByAuthId(authId, function (results) {
         console.log("line 17 " + results);
         // res.json(results)
@@ -25,18 +25,15 @@ router.get("/information", verifyBlanketUser, (req, res) => {
             let groupIDArray = data.map(group => group._id)
             
             console.log(groupIDArray + "line 27")
-            // for(var i=0; i<groupID.length; i++){
-            //     let groupIDs = groupID[i]._id
-            //     console.log("line 27 "+groupIDs);
+            
             Events.getEventsForGroups(groupIDArray, function (events) {
                 let userEventsArray = events.map(event => {
                    return { name: event.name,
                     dateStart: event.dateStart,
-                    dateEnd: event.dateEnd
+                    dateEnd: event.dateEnd,
+                    description: event.description
                    }
-                })
-                
-                let practice = ["cat", "dog", "bird"]
+                });
 
                 return res.json(userEventsArray);
             })
