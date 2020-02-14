@@ -9,7 +9,7 @@ let Users = require("../../controllers/API/Users.js");
 // creating a function to verify if a jwt is from a valid user
 // to be called as middleware to perform basic authorization
 // for users.
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
     //grabbing cache from app
     let cache = req.app.get("cache");
     // grabbing jwt sent in body of request
@@ -27,20 +27,34 @@ module.exports = (req, res, next) => {
             // route in the application
             .then(token => {
                 const { email, name, sub } = token.claims;
-                req.user = {
-                    "email": email,
-                    "name": name,
-                    "id": sub
-                }
                 // checking if the user authId exists in our cache
-                if(!cache.get(`user${sub}`)) {
-                    // if not, getting userId from db and setting it in cache
-                    Users.findByAuthId(req.user.id, result => {
-                        cache.set(`user${sub}`, result._id);
-                    });
-                } else {
-                    next();
-                }
+                cache.get(`user${sub}`, (err, id) => {
+                    if(err) {
+                        console.log(err);
+                    }
+
+                    if(!id) {
+                        Users.findByAuthId(req.user.id, result => {
+                            cache.set(`user${sub}`, result._id);
+
+                            req.user = {
+                                "email": email,
+                                "name": name,
+                                "id": result._id
+                            }
+
+                            next();
+                        });
+                    } else {
+                        req.user = {
+                            "email": email,
+                            "name": name,
+                            "id": id
+                        }
+
+                        next();
+                    }
+                })
             })
             // if unsuccessful, catch the error and add a failed message to the
             // to the request to be handled later in the workflow
