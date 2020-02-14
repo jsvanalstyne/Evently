@@ -151,11 +151,14 @@ export default class PaymentForm extends Component {
             nonce: nonce
           })
           // fetch the payament route to process the payment
+          const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
           fetch('api/payments/process', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json', 
+              "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
               nonce: this.state.nonce,

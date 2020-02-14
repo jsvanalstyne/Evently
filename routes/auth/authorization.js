@@ -15,7 +15,8 @@ module.exports = async (req, res, next) => {
     let cache = req.app.get("cache");
     // grabbing jwt sent in body of request
     const bearer = req.headers["authorization"];
-    if(bearer) {
+
+    if (bearer) {
         const accessToken = bearer.split(" ")[1];
         // getting clientId from env file
         // const audience = process.env.clientId
@@ -33,16 +34,14 @@ module.exports = async (req, res, next) => {
                     "name": name,
                     "id": sub
                 }
-                console.log("auth js file user: " + req.user)
                 // checking if the user authId exists in our cache
-                if(!cache.get(`user${sub}`)) {
-                    // if not, getting userId from db and setting it in cache
-                    Users.findByAuthId(req.user.id, result => {
-                        cache.set(`user${sub}`, result._id);
-                    });
-                } else {
-                    next();
-                }
+                Users.findByAuthId(req.user.id, result => {
+                    // logs correct id
+                    console.log(result._id);
+                    // undefined
+                    console.log(`user${sub}`);
+                    cache.set(`user${sub}`, result._id);
+                });
             })
             // if unsuccessful, catch the error and add a failed message to the
             // to the request to be handled later in the workflow
