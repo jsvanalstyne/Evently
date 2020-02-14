@@ -8,6 +8,7 @@ var EventsSeeds = require("../seeds/EventsSeeds");
 var EmployeesSeeds = require("../seeds/EmployeesSeeds");
 var ConversationsSeeds = require("../seeds/ConversationsSeeds");
 var AccountsSeeds = require("../seeds/AccountsSeeds");
+var path = require("path")
 
 const modelsData = [UsersSeeds, AccountsSeeds, ConversationsSeeds, MessagesSeeds, 
                     OrganizationsSeeds, FacilitiesSeeds, EmployeesSeeds, 
