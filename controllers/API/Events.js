@@ -1,5 +1,6 @@
 const Events = require("../../models/Events.js");
 const Programs = require("../../models/Programs.js");
+const Groups = require("../../models/Groups");
 
 const ObjectId = require("mongoose").Types.ObjectId;
 
@@ -32,9 +33,16 @@ module.exports = {
         .sort({"startDate": 1})
         .then(cb)
     },
-    // getEventsForUser: (groupId, cb) => {
-    //     groupId = 
-    // }
+    getGroupIdForUser: (id, cb) => {
+        // userId= ObjectId(id)
+        Groups.find({"userIds":{$in: id}})
+        .then(cb)
+    },
+    getEventsForGroups: (groupId, cb) => {
+        // groupIds = ObjectId(groupId)
+        Events.find({"groupIds":{$in : groupId}})
+        .then(cb);
+    },
     // ------------------ POST ------------------
     // Add new event to database. Event object contains: 
     //  1. name: name of event being created

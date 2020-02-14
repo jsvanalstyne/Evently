@@ -10,6 +10,7 @@ let Users = require("../../controllers/API/Users.js");
 // to be called as middleware to perform basic authorization
 // for users.
 module.exports = async (req, res, next) => {
+    console.log("YAAAAAAAAAAS")
     //grabbing cache from app
     let cache = req.app.get("cache");
     // grabbing jwt sent in body of request
@@ -27,34 +28,37 @@ module.exports = async (req, res, next) => {
             // route in the application
             .then(token => {
                 const { email, name, sub } = token.claims;
+                req.user = {
+                    "email": email,
+                    "name": name,
+                }
+                console.log("auth js file user: " + req.user)
                 // checking if the user authId exists in our cache
                 cache.get(`user${sub}`, (err, id) => {
                     if(err) {
-                        console.log(err);
-                    }
-
-                    if(!id) {
-                        Users.findByAuthId(req.user.id, result => {
-                            cache.set(`user${sub}`, result._id);
-
-                            req.user = {
-                                "email": email,
-                                "name": name,
-                                "id": result._id
-                            }
-
-                            next();
-                        });
-                    } else {
-                        req.user = {
-                            "email": email,
-                            "name": name,
-                            "id": id
+                        req.error = {
+                            "message": "authorization error", 
+                            "error": req.error
                         }
 
                         next();
                     }
-                })
+
+                    if(!id) {
+                        // if not, getting userId from db and setting it in cache
+                        Users.findByAuthId(sub).then(results => {
+                            let subKey = "user" + sub;
+                            cache.set(subKey, results[0]._id.toString());
+                            req.user.id = results[0]._id;
+
+                            next();
+                        });
+                    } else {
+                        req.user.id = id;
+
+                        next();
+                    }
+                });
             })
             // if unsuccessful, catch the error and add a failed message to the
             // to the request to be handled later in the workflow
@@ -63,14 +67,12 @@ module.exports = async (req, res, next) => {
                     "message": "authorization unsuccessful",
                     "error": error
                 }
-            
                 next();
             })
     } else {
         req.error = {
             "message": "no token provided from user"
         }
-
         next();
     }
 }

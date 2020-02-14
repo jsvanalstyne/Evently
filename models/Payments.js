@@ -11,7 +11,7 @@ var PaymentsSchema = new Schema({
     eventId: {
         type: Schema.Types.ObjectId, 
         ref: "Events"
-    }
+    },
     payerId: {
         type: Schema.Types.ObjectId, 
         ref: "Users", 

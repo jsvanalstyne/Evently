@@ -158,7 +158,8 @@ export default class PaymentForm extends Component {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              nonce: this.state.nonce
+              nonce: this.state.nonce,
+              amount: (this.props.price * 100)
             })
           })
             // network arror catching
