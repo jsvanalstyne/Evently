@@ -40,6 +40,7 @@ module.exports = async (req, res, next) => {
                     console.log(result._id);
                     // undefined
                     console.log(`user${sub}`);
+                    
                     cache.set(`user${sub}`, result._id);
                 });
             })
