@@ -2,7 +2,7 @@ import axios from "axios";
 export default {
     getAllPrograms: function (id) {
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
-        console.log(token);
+
         return axios({
             method: "GET",
             url: "/api/programs/" + id,
@@ -15,7 +15,7 @@ export default {
     },
     getAllEvents: function (id) {
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
-        console.log(token);
+
         return axios({
             method: "GET",
             url: "/api/events/" + id,

@@ -6,7 +6,7 @@ const auth = require("../auth/authorization.js")
 //     .get(programController.getProgramsByOrganization,)
 //     .post(programController.create)
 
-router.get("/:organizationid", auth, (req, res) => {
+router.get("/:organizationid", auth, (req, res) =>{
     let id = req.params.organizationid
     // console.log("id: "+id)
     programController.getProgramsByOrganization(id, function(results){

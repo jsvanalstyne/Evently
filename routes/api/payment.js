@@ -18,47 +18,47 @@ oauth2.accessToken = accessToken;
 defaultClient.basePath = 'https://connect.squareupsandbox.com';
 
 router.post('/process', auth, async (req, res) => {
-    let cache = req.app.get("cache")
-    // cache.get(user${req.user.id}) gives us the users id within our db
-    
-    cache.get(`user${req.user.id}` , (err, data) => {
-      if(err) {
-        console.log(err)
-      }
-      console.log("user ID: " + data)
-    })
-    // console.log("the first thing")
-    // return res.json({"message": "we in here"})
-    console.log("IN POST ROUTE")
-    const request_params = req.body;
-    console.log(request_params)
-  
-    // length of idempotency_key should be less than 45
-    const idempotency_key = crypto.randomBytes(22).toString('hex');
-  
-    // Charge the customer's card
-    const payments_api = new squareConnect.PaymentsApi();
-    const request_body = {
-      source_id: request_params.nonce,
-      amount_money: {
-        amount: request_params.amount, // $1.00 charge
-        currency: 'USD'
-      },
-      idempotency_key: idempotency_key
-    };
-  
-    try {
-      const response = await payments_api.createPayment(request_body);
-      res.status(200).json({
-        'title': 'Payment Successful',
-        'result': response
-      });
-    } catch(error) {
-      res.status(500).json({
-        'title': 'Payment Failure',
-        'result': error.response.text
-      });
+  let cache = req.app.get("cache")
+  // cache.get(user${req.user.id}) gives us the users id within our db
+  console.log("we got in here")
+  cache.get(`user${req.user.id}`, (err, data) => {
+    if (err) {
+      console.log(err)
     }
-  });
+    console.log("user ID: " + data)
+  })
+  // console.log("the first thing")
+  // return res.json({"message": "we in here"})
+  console.log("IN POST ROUTE")
+  const request_params = req.body;
+  console.log(request_params)
+
+  // length of idempotency_key should be less than 45
+  const idempotency_key = crypto.randomBytes(22).toString('hex');
+
+  // Charge the customer's card
+  const payments_api = new squareConnect.PaymentsApi();
+  const request_body = {
+    source_id: request_params.nonce,
+    amount_money: {
+      amount: request_params.amount, // $1.00 charge
+      currency: 'USD'
+    },
+    idempotency_key: idempotency_key
+  };
+
+  // try {
+  //   const response = await payments_api.createPayment(request_body);
+  //   res.status(200).json({
+  //     'title': 'Payment Successful',
+  //     'result': response
+  //   });
+  // } catch(error) {
+  //   res.status(500).json({
+  //     'title': 'Payment Failure',
+  //     'result': error.response.text
+  //   });
+  // }
+});
 
 module.exports = router;

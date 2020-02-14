@@ -10,12 +10,12 @@ let Users = require("../../controllers/API/Users.js");
 // to be called as middleware to perform basic authorization
 // for users.
 module.exports = async (req, res, next) => {
-    console.log("YAAAAAAAAAAS")
     //grabbing cache from app
     let cache = req.app.get("cache");
     // grabbing jwt sent in body of request
     const bearer = req.headers["authorization"];
-    if(bearer) {
+
+    if (bearer) {
         const accessToken = bearer.split(" ")[1];
         // getting clientId from env file
         // const audience = process.env.clientId
@@ -32,7 +32,6 @@ module.exports = async (req, res, next) => {
                     "email": email,
                     "name": name,
                 }
-                console.log("auth js file user: " + req.user)
                 // checking if the user authId exists in our cache
                 cache.get(`user${sub}`, (err, id) => {
                     if(err) {
@@ -55,7 +54,7 @@ module.exports = async (req, res, next) => {
                         });
                     } else {
                         req.user.id = id;
-
+                        console.log(req.user);
                         next();
                     }
                 });
