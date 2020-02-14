@@ -58,6 +58,9 @@ var EventsSchema = new Schema({
     }], 
     type: {
         type: String   
+    },
+    price: {
+        type: Number
     }
 });
 

@@ -27,7 +27,9 @@ function SignupModal(props) {
             <p>
             {props.statement}
             </p>
-            <SquareApp/>
+            <SquareApp
+              price={props.price}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

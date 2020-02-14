@@ -18,6 +18,7 @@ const models = ['Users', 'Accounts', 'Conversations', 'Messages', 'Organizations
                 'Facilities', 'Employees', 'Programs', 'Events']
 
 // Connect to MongoDB via Mongoose
+// mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd
 seeder.connect('mongodb://localhost/Balls', function() {
  
     // Load Mongoose models

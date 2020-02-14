@@ -24,6 +24,7 @@ return (
       body={"Cost: $" + props.price}
       statement={"Please enter your card information with Square Pay to register."}
       closeBtnText={"Register"}
+      price={props.price}
     />
   </div>
   {/* <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
