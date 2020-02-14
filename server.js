@@ -19,6 +19,23 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+// redis stuffs
+const redis = require("redis");
+const client = redis.createClient({
+  host: "127.0.0.1",
+  port: 6379
+});
+
+client.on("connect", () => {
+  console.log("redis connected");
+  app.set("cache", client);
+  // app.use("cache", client);
+});
+
+client.on("error", err => {
+  console.log(err);
+});
 // Add routes, both API and view
 app.use(routes);
 

@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
-const accessToken = 'EAAAEBBwzDGOZMRiQ9mLCf8K37RfcKDTXENE4OgSSJ2X9EoS16pP3SzOJkb_nqDh';
+const accessToken = process.env.PAY_TOKEN;
+const auth = require("../auth/authorization.js")
 
 // More square stuff
 // Set Square Connect credentials and environment
@@ -16,7 +17,16 @@ oauth2.accessToken = accessToken;
 // production: https://connect.squareup.com
 defaultClient.basePath = 'https://connect.squareupsandbox.com';
 
-router.post('/process', async (req, res) => {
+router.post('/process', auth, async (req, res) => {
+    let cache = req.app.get("cache")
+    // cache.get(user${req.user.id}) gives us the users id within our db
+    
+    cache.get(`user${req.user.id}` , (err, data) => {
+      if(err) {
+        console.log(err)
+      }
+      console.log("user ID: " + data)
+    })
     // console.log("the first thing")
     // return res.json({"message": "we in here"})
     console.log("IN POST ROUTE")
