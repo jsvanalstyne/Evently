@@ -2,7 +2,8 @@ const router = require("express").Router();
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
 const accessToken = process.env.PAY_TOKEN;
-const auth = require("../auth/authorization.js")
+const auth = require("../auth/authorization.js");
+const Bills = require("../../models/Bills")
 
 // More square stuff
 // Set Square Connect credentials and environment
@@ -18,15 +19,13 @@ oauth2.accessToken = accessToken;
 defaultClient.basePath = 'https://connect.squareupsandbox.com';
 
 router.post('/process', auth, async (req, res) => {
-  let cache = req.app.get("cache")
+  // let cache = req.app.get("cache")
   // cache.get(user${req.user.id}) gives us the users id within our db
   console.log("we got in here")
-  cache.get(`user${req.user.id}`, (err, data) => {
-    if (err) {
-      console.log(err)
-    }
-    console.log("user ID: " + data)
-  })
+  
+  // creating a bill for the users payemnt
+  console.log("user ID: " + req.user.id)
+
   // console.log("the first thing")
   // return res.json({"message": "we in here"})
   console.log("IN POST ROUTE")
@@ -47,18 +46,18 @@ router.post('/process', auth, async (req, res) => {
     idempotency_key: idempotency_key
   };
 
-  // try {
-  //   const response = await payments_api.createPayment(request_body);
-  //   res.status(200).json({
-  //     'title': 'Payment Successful',
-  //     'result': response
-  //   });
-  // } catch(error) {
-  //   res.status(500).json({
-  //     'title': 'Payment Failure',
-  //     'result': error.response.text
-  //   });
-  // }
+  try {
+    const response = await payments_api.createPayment(request_body);
+    res.status(200).json({
+      'title': 'Payment Successful',
+      'result': response
+    });
+  } catch(error) {
+    res.status(500).json({
+      'title': 'Payment Failure',
+      'result': error.response.text
+    });
+  }
 });
 
 module.exports = router;
