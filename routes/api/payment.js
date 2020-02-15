@@ -3,7 +3,8 @@ const crypto = require('crypto');
 const squareConnect = require('square-connect');
 const accessToken = process.env.PAY_TOKEN;
 const auth = require("../auth/authorization.js");
-const Bills = require("../../models/Bills")
+const Bills = require("../../models/Bills");
+const billsController = require("../../controllers/API/Bills");
 
 // More square stuff
 // Set Square Connect credentials and environment
@@ -22,15 +23,20 @@ router.post('/process', auth, async (req, res) => {
   // let cache = req.app.get("cache")
   // cache.get(user${req.user.id}) gives us the users id within our db
   console.log("we got in here")
-  
-  // creating a bill for the users payemnt
-  console.log("user ID: " + req.user.id)
 
   // console.log("the first thing")
   // return res.json({"message": "we in here"})
   console.log("IN POST ROUTE")
   const request_params = req.body;
   console.log(request_params)
+
+  // creating a bill for the users payemnt
+  console.log("user ID: " + req.user.id);
+  console.log(request_params.amount/100)
+  // need to pass in userId, billAmount and cb
+  billsController.createBillforPayment(req.user.id, (request_params.amount/100), function(results) {
+    console.log("bill results: " + results)
+  })
 
   // length of idempotency_key should be less than 45
   const idempotency_key = crypto.randomBytes(22).toString('hex');
