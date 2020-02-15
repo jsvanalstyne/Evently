@@ -23,5 +23,21 @@ export default {
                 "Authorization": "Bearer " + token
             }
         })
+    },
+    getOrganizationsPromos: function (id) {
+        console.log("inside of getOrganizationPromoEvents" + id)
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+        console.log(token)
+
+        return axios({
+            method: "GET",
+            url: "/api/promos/"+ id,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
     }
+
 }
