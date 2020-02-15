@@ -5,6 +5,8 @@ const accessToken = process.env.PAY_TOKEN;
 const auth = require("../auth/authorization.js");
 const Bills = require("../../models/Bills");
 const billsController = require("../../controllers/API/Bills");
+const Events = require("../../controllers/API/Events");
+
 
 // More square stuff
 // Set Square Connect credentials and environment
@@ -29,7 +31,8 @@ router.post('/process', auth, async (req, res) => {
   console.log("IN POST ROUTE")
   const request_params = req.body;
   console.log(request_params)
-
+  const eventId = req.body.eventId
+  const userId = req.user.id;
   // creating a bill for the users payemnt
   console.log("user: " + req.user.name);
   console.log(request_params.amount/100)
@@ -44,6 +47,7 @@ router.post('/process', auth, async (req, res) => {
   // Charge the customer's card
   const payments_api = new squareConnect.PaymentsApi();
   const request_body = {
+    eventId: request_params.id,
     source_id: request_params.nonce,
     amount_money: {
       amount: request_params.amount, // $1.00 charge
@@ -54,6 +58,9 @@ router.post('/process', auth, async (req, res) => {
 
   try {
     const response = await payments_api.createPayment(request_body);
+    Events.addUserToEvent(eventId, userId, function(res){
+      console.log(res);
+    })
     res.status(200).json({
       'title': 'Payment Successful',
       'result': response

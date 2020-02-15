@@ -272,7 +272,7 @@ export default class PaymentForm extends Component {
             <div id="sq-postal-code"></div>
           </div>
           <button className="button-credit-card"
-            onClick={this.requestCardNonce} data-id={this.props.eventId}>Pay</button>
+            onClick={this.requestCardNonce} eventId={this.props.eventId}>Pay</button>
         </div>
         <p style={styles.center} id="error"></p>
       </div>
