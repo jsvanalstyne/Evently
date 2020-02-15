@@ -29,6 +29,7 @@ function SignupModal(props) {
             </p>
             <SquareApp
               price={props.price}
+              eventId={props.eventId}
             />
           </Modal.Body>
           <Modal.Footer>

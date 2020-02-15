@@ -29,6 +29,7 @@ class SquareApp extends Component {
         <PaymentForm
           paymentForm={ window.SqPaymentForm }
           price={this.props.price}
+          eventId={this.props.eventId}
         />
     );
   }

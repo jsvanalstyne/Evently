@@ -153,7 +153,8 @@ class Funtivity extends Component {
                                     description={upcomingprograms.description}
                                     date={upcomingprograms.dateStart}
                                     // {/* location={upcomingprograms.location} */}
-                                    price={upcomingprograms.price}>
+                                    price={upcomingprograms.price}
+                                    eventId={upcomingprograms._id}>
                                 </FunCard>
                             ))
                                 :
@@ -165,7 +166,8 @@ class Funtivity extends Component {
                                             description={upcomingprograms.description}
                                             date={upcomingprograms.dateStart}
                                             // {/* location={upcomingprograms.location} */}
-                                            price={upcomingprograms.price}>
+                                            price={upcomingprograms.price}
+                                            eventId={upcomingprograms._id}>
                                         </FunCard>
                                     ))
                                     }
@@ -179,7 +181,8 @@ class Funtivity extends Component {
                                                         description={upcomingprograms.description}
                                                         date={upcomingprograms.dateStart}
                                                         // {/* location={upcomingprograms.location} */}
-                                                        price={upcomingprograms.price}>
+                                                        price={upcomingprograms.price}
+                                                        eventId={upcomingprograms._id}>
                                                     </FunCard>))}
                                             </Row>
                                         </div>
@@ -210,7 +213,8 @@ class Funtivity extends Component {
                                     description={upcomingevents.description}
                                     date={upcomingevents.dateStart}
                                     // {/* location={upcomingprograms.location} */}
-                                    price={upcomingevents.price}>
+                                    price={upcomingevents.price}
+                                    eventId={upcomingevents._id}>
                                 </FunCard>
                             ))
                                 :
@@ -222,7 +226,8 @@ class Funtivity extends Component {
                                             description={upcomingevents.description}
                                             date={upcomingevents.dateStart}
                                             // {/* location={upcomingprograms.location} */}
-                                            price={upcomingevents.price}>
+                                            price={upcomingevents.price}
+                                            eventId={upcomingevents._id}>
                                         </FunCard>
                                     ))
                                     }
@@ -236,7 +241,8 @@ class Funtivity extends Component {
                                                         description={upcomingevents.description}
                                                         date={upcomingevents.dateStart}
                                                         // {/* location={upcomingprograms.location} */}
-                                                        price={upcomingevents.price}>
+                                                        price={upcomingevents.price}
+                                                        eventId={upcomingevents._id}>
                                                     </FunCard>))}
                                             </Row>
                                         </div>

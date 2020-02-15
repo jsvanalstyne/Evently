@@ -6,13 +6,13 @@ module.exports = {
     // ------------------ POST ------------------
     // Create a bill for a users payment
     
-    createBillforPayment: (userId, billAmount,  cb) => {
+    createBillforPayment: (userId, billAmount, eventId, cb) => {
         userId = ObjectId(userId);
-        // eventId = ObjectId(eventId);
+        eventId = ObjectId(eventId);
         Bills.create(
             {"accountId": userId,
             "amountOwed": billAmount,
-            // "eventPaidFor": eventId,
+            "eventPaidFor": eventId,
             "isPaid": false,
             "note": "paid"}
             )
