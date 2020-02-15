@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
-const accessToken = 'EAAAEBBwzDGOZMRiQ9mLCf8K37RfcKDTXENE4OgSSJ2X9EoS16pP3SzOJkb_nqDh';
+const accessToken = process.env.PAY_TOKEN;
+
+
 
 // More square stuff
 // Set Square Connect credentials and environment

@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const eventController = require("../../controllers/API/Events");
-const userController = require("../../controllers/API/Users")
+const userController = require("../../controllers/API/Users");
+const verifyBlanketUser = require("../auth/authorization");
 
 
-router.get("/:organizationid", (req, res) => {
+router.get("/:organizationid", verifyBlanketUser, (req, res) => {
     let id = req.params.organizationid
     // console.log("events id:" + id)
     eventController.getEventsByOrganization(id, function(results) {
@@ -11,7 +12,7 @@ router.get("/:organizationid", (req, res) => {
         return res.json(results)
     } )
 })
-router.delete("/removal/:eventId", (req, res) => {
+router.delete("/removal/:eventId", verifyBlanketUser, (req, res) => {
     let eventid = req.params.eventId
     console.log(eventid);
     eventController.getEventById(eventid, function(result){

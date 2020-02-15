@@ -9,7 +9,7 @@ function AccountInfoCard(props) {
                 Your Account Information:
             </div>
             <div className="card-body">
-                <h5 className="card-title">{props.firstName}  {props.lastName}</h5>
+                <h5 className="card-title">{props.name}</h5>
                 <p className="card-text">{props.street}</p>
                 <p className="card-text">{props.city}, {props.stateCode}</p>
                 <p className="card-text">{props.zipcode}</p>

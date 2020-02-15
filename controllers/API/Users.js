@@ -11,8 +11,8 @@ module.exports = {
     }, 
     // Find user by okta id
     findByAuthId: (authId, cb) => {
-        Users.find({"authId": authId})
-        .then(cb)
+        return Users.find({"authId": authId})
+        // .then(cb)
     },
     // ------------------ POST ------------------
     // Creates a new user document 

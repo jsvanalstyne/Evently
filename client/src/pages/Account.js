@@ -56,8 +56,7 @@ class Account extends Component{
                         {this.state.information.map(data =>(
                         
                           <AccountInfoCard
-                          firstName= {data.firstName}
-                          lastName = {data.lastName}
+                          name= {data.name}
                           street= {data.street}
                           zipcode={data.zipcode}
                           stateCode = {data.stateCode}
