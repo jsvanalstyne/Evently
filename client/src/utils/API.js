@@ -31,7 +31,7 @@ export default {
 
         return axios({
             method: "GET",
-            url: "/api/promos/"+ id,
+            url: "/api/events/promos/"+ id,
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",

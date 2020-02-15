@@ -15,16 +15,16 @@ router.get("/information", verifyBlanketUser, (req, res) => {
     // let authId = req.user.id
     let authId = "5";
     Users.findByAuthId(authId, function (results) {
-        console.log("line 17 " + results);
+        // console.log("line 17 " + results);
         // res.json(results)
 
         let userId = results[0]._id
         console.log(userId);
         Events.getGroupIdForUser(userId, function (data) {
-            console.log("line 25 " + data)
+            // console.log("line 25 " + data)
             let groupIDArray = data.map(group => group._id)
             
-            console.log(groupIDArray + "line 27")
+            // console.log(groupIDArray + "line 27")
             
             Events.getEventsForGroups(groupIDArray, function (events) {
                 let userEventsArray = events.map(event => {

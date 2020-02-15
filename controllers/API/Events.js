@@ -20,6 +20,7 @@ module.exports = {
         .sort({"startDate": 1})
         .then(cb)
     }, 
+    
     // Find all events associated with a given organization
     // and exclude all events that are associated with 
     // a given program and sort by 

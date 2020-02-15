@@ -11,8 +11,8 @@ import Headers from "../components/Headers";
 import Dropdowns from "../components/Dropdown";
 // import Moment from 'react-moment';
 
-const promo = [{ event: "Race for the Cure", date: "April 17, 2020 at 3pm" }, { event: "Community Yard Sale", date: "April 17, 2020 at 3pm" }, { event: "Father Daughter Dance", date: "April 17, 2020 at 3pm" }, { event: "CPR training", date: "April 17, 2020 at 3pm" }
-];
+// const promo = [{ event: "Race for the Cure", date: "April 17, 2020 at 3pm" }, { event: "Community Yard Sale", date: "April 17, 2020 at 3pm" }, { event: "Father Daughter Dance", date: "April 17, 2020 at 3pm" }, { event: "CPR training", date: "April 17, 2020 at 3pm" }
+// ];
 
 
 class Dashboard extends Component {
@@ -25,13 +25,13 @@ class Dashboard extends Component {
     promo: []
   }
   componentDidMount() {
-    this.getUserInformation();
+    // this.getUserInformation();
     this.getOrganizationsPromoEvents(this.state.organizationId);
   }
   getUserInformation = () => {
     API.getUserInformationFromDb()
       .then(dataRes => {
-        console.log(dataRes.data);
+        // console.log(dataRes.data);
         this.setState({ upcomingprogram: dataRes.data })
       })
   }
@@ -40,8 +40,9 @@ class Dashboard extends Component {
     console.log("Line 40 dashboard " +id)
     API.getOrganizationsPromos(id)
       .then(results => {
-         console.log("line 42 " + JSON.stringify(results))
-         this.setState({promo: results.data})
+        //  console.log("line 42 " + JSON.stringify(results))
+        //  console.log("Line 43 " + JSON.stringify(results.data.results[0]))
+         this.setState({promo: results.data.results})
       })
   }
 
@@ -76,7 +77,7 @@ class Dashboard extends Component {
             </Col>
             <Col size="6">
               <Card title="Events you may be interested in:">
-                {promo.map(promoEvents => (
+                {this.state.promo.map(promoEvents => (
                    <Dropdowns
                    name={promoEvents.name}
                    description={promoEvents.description}
