@@ -9,6 +9,7 @@ import API from "../utils/API";
 import Nav from "../components/Nav";
 import Headers from "../components/Headers";
 import Dropdowns from "../components/Dropdown";
+import PromoDropdowns from "../components/PromoDropdown"
 // import Moment from 'react-moment';
 
 // const promo = [{ event: "Race for the Cure", date: "April 17, 2020 at 3pm" }, { event: "Community Yard Sale", date: "April 17, 2020 at 3pm" }, { event: "Father Daughter Dance", date: "April 17, 2020 at 3pm" }, { event: "CPR training", date: "April 17, 2020 at 3pm" }
@@ -78,10 +79,11 @@ class Dashboard extends Component {
             <Col size="6">
               <Card title="Events you may be interested in:">
                 {this.state.promo.map(promoEvents => (
-                   <Dropdowns
+                   <PromoDropdowns
                    name={promoEvents.name}
                    description={promoEvents.description}
                    dateStart={promoEvents.dateStart}
+                   price= {promoEvents.price}
                    />
                 ))}
               </Card>

@@ -25,6 +25,9 @@ function SignupModal(props) {
             {props.body}
             </p>
             <p>
+            Price: ${props.price}
+            </p>
+            <p>
             {props.statement}
             </p>
             <SquareApp
