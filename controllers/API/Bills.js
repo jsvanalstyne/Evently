@@ -13,7 +13,7 @@ module.exports = {
             {"accountId": userId,
             "amountOwed": billAmount,
             "eventPaidFor": eventId,
-            "isPaid": false,
+            "isPaid": true,
             "note": "paid"}
             )
         .then(cb)
