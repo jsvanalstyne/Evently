@@ -11,7 +11,19 @@ const PORT = process.env.PORT || 3030;
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
 const accessToken = 'EAAAEBBwzDGOZMRiQ9mLCf8K37RfcKDTXENE4OgSSJ2X9EoS16pP3SzOJkb_nqDh';
-
+// const redis = require("redis");
+// const client = redis.createClient({
+//   host: "127.0.0.1",
+//   port: 6379
+// });
+// client.on("connect", () => {
+//   console.log("redis connected");
+//   app.set("cache", client);
+//   // app.use("cache", client);
+// });
+// client.on("error", err => {
+//   console.log(err);
+// });
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

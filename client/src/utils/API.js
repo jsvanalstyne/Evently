@@ -35,5 +35,19 @@ export default {
                 "Authorization": "Bearer " + token
             }
         })
+    },
+    cancelEventRegistration: function(id){
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+        console.log(token + "inside cancelEventRegistration")
+        console.log(id);
+        return axios({
+            method: "DELETE",
+            url: "/api/events/removal/" + id,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
     }
 }

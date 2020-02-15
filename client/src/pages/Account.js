@@ -29,13 +29,16 @@ class Account extends Component{
         })
     }
     getUserEvents(){
+        console.log("inside get UserEvents")
         API.getUserInformationFromDb()
         .then(dataRes => {
           console.log ("line 33 "+dataRes.data);
           this.setState({events: dataRes.data})
+          console.log("line 37"+JSON.stringify(this.state.events));
           
         })
-        console.log("ine 37"+this.state.events);
+        console.log("exiting getUseEvevents")
+        
     }
 
 
@@ -46,7 +49,7 @@ class Account extends Component{
         return(
             <div>
                 <Nav></Nav>
-                <div class="container">
+                <div className="container">
                     <Row>
                         <Col size="6">
                         {this.state.information.map(data =>(
@@ -68,6 +71,7 @@ class Account extends Component{
                         
                         <EventList
                         name= {event.name}
+                        eventid = {event._id}
                         />
                           
                       ))}

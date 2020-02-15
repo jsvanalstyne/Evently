@@ -43,6 +43,13 @@ module.exports = {
         Events.find({"groupIds":{$in : groupId}})
         .then(cb);
     },
+    getGroupsForEvents: (eventId, cb)  => {
+        eventId = ObjectId(eventId)
+        console.log("line 48" + eventId)
+
+        Events.find({"_id": eventID})
+        .then(cb);
+    },
     // ------------------ POST ------------------
     // Add new event to database. Event object contains: 
     //  1. name: name of event being created

@@ -26,10 +26,12 @@ router.get("/information", verifyBlanketUser, (req, res) => {
             let groupIDArray = data.map(group => group._id)
 
             Events.getEventsForGroups(groupIDArray, function (events) {
+                console.log(events);
                 let userEventsArray = events.map(event => {
                    return { name: event.name,
                     dateStart: event.dateStart,
-                    dateEnd: event.dateEnd
+                    dateEnd: event.dateEnd,
+                    _id: event._id
                    }
                 })
 
