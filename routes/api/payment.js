@@ -31,7 +31,7 @@ router.post('/process', auth, async (req, res) => {
   console.log(request_params)
 
   // creating a bill for the users payemnt
-  console.log("user ID: " + req.user.id);
+  console.log("user: " + req.user.name);
   console.log(request_params.amount/100)
   // need to pass in userId, billAmount and cb
   billsController.createBillforPayment(req.user.id, (request_params.amount/100), function(results) {
