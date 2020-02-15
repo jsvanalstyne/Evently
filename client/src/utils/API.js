@@ -39,5 +39,34 @@ export default {
                 "Authorization": "Bearer " + token
             }
         })
+    }, 
+    getAllConversations: function() {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET",
+            url: "/api/conversations/all",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    },
+    createConversation: function(conversation) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "POST", 
+            url: "/api/conversations/create", 
+            data: {
+                "conversation": conversation
+            },
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
     }
 }

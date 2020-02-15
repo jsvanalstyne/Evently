@@ -9,6 +9,9 @@ var ConversationsSchema = new Schema({
         required: [true, "Must enter valid user Id"], 
         unique: true
     }], 
+    name: {
+        type: String
+    },
     lastUpdated: {
         type: Date, 
         default: Date.now

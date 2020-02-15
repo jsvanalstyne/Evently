@@ -9,10 +9,10 @@ import Message from "../Message";
 // in current conversation. (Passed in with props.)
 function MessageList(props) {
     return (
-        <div classNam="message-list-container">
+        <div className="message-list-container">
             {props.messages.map(message => {
-                    <Message 
-                        photo={message.photo}
+                    return <Message 
+                        // photo={message.photo}
                         firstName={message.firstName}
                         lastName={message.lastName}
                         text={message.text}

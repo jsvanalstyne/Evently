@@ -8,17 +8,16 @@ module.exports = {
     getUsers: (conversationId, cb) => {
         conversationId = ObjectId(conversationId);
 
-        Conversations.findById(conversationId)
-        .then(cb)
+        return Conversations.findById(conversationId)
     }, 
     // Find all conversations associated with 
     // a single user
     getConversationsByUser: (userId, cb) => {
         userId = ObjectId(userId);
 
-        Conversations.find({"userIds": userId})
+        return Conversations.find({"userIds": userId})
+        .populate("Users")
         .sort({"lastUpdated": 1})
-        .then(cb)
     },
     // Finds a conversation based on user Ids
     // associated with that conversation

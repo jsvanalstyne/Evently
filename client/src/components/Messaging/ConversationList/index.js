@@ -8,13 +8,9 @@ import "./index.css";
 function ConversationList(props) {
     return (
         <div className="conversation-list">
-            <h3 className="conversation-header">Conversations</h3>
+            <h4 className="conversation-header">Conversations</h4>
             {props.conversations.map(conversation => {
-                <p 
-                    className="conversation-title"
-                    conversationId={conversation.id}
-                >{conversation.name}
-                </p>
+                return (<div className="conversation-container"><a key={conversation.conversationId} className="conversation-title" conversationid={conversation.id}>{conversation.name}</a></div>)
             })}
         </div>
     );
