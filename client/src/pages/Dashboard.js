@@ -4,6 +4,7 @@ import { Col, Row } from "../components/Grid";
 import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
+import Nav from "../components/Nav";
 import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
 import Nav from "../components/Nav"
@@ -116,11 +117,18 @@ getUserInformation = () =>{
 
           <Row>
             <Col size="12">
+<<<<<<< HEAD
             <Headers heading="Your Programs and Events Calendar" />
               <MyCalendars
                 events={this.state.upcomingprogram}
                 // programs={this.state.upcomingprogram}
               />
+=======
+              {/* <h1>Calendar here</h1> */}
+              {/* <MyCalendars
+              event={}
+              /> */}
+>>>>>>> 6eba863ac75f18d366272f1ec3d44e8847cccb26
             </Col>
           </Row>
         </div>

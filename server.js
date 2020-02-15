@@ -64,3 +64,8 @@ mongoose.connect(MONGODB_URI);
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
+<<<<<<< HEAD
+=======
+
+// MONGODB_URI=mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd
+>>>>>>> 6eba863ac75f18d366272f1ec3d44e8847cccb26

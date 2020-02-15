@@ -36,6 +36,7 @@ module.exports = {
         .sort({"startDate": 1})
         .then(cb)
     },
+   
     // ------------------ POST ------------------
     // Add new program to database. Event object contains: 
     //  1. name: name of program being created

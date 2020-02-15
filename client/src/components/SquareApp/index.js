@@ -9,6 +9,7 @@ class SquareApp extends Component {
     this.state = {
       loaded: false
     }
+
   }
 // defining the squarepayment javascript library and setting the loaded state to true
   componentWillMount(){
@@ -27,6 +28,7 @@ class SquareApp extends Component {
     return (
       this.state.loaded &&
         <PaymentForm
+        eventId={this.props.eventId}
           paymentForm={ window.SqPaymentForm }
           price={this.props.price}
           eventId={this.props.eventId}
