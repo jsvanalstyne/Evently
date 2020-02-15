@@ -13,6 +13,7 @@ function AccountInfoCard(props) {
                 <p className="card-text">{props.street}</p>
                 <p className="card-text">{props.city}, {props.stateCode}</p>
                 <p className="card-text">{props.zipcode}</p>
+                <p className="card-text">{props.email}</p>
             </div>
         </div>
     )

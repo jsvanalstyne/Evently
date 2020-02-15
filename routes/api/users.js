@@ -13,8 +13,8 @@ router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
     // doing stuff with user information (this assumes that auth was successful)
     // console.log( req.user)
-    let authId = req.user.id;
-    // let authId = "7";
+    // let authId = req.user.id;
+    let authId = "00u24pm87E0bSt6Y54x6";
     Users.findByAuthId(authId, function (results) {
         console.log("line 17 " + results);
         // res.json(results)
@@ -46,22 +46,44 @@ router.get("/information", verifyBlanketUser, (req, res) => {
 
 })
 router.get("/account", verifyBlanketUser, (req, res) => {
-    // let authId = req.user.id
-    let authId="7";
+    let authId = req.user.id
+    let userObject ={};
+    // let authId="7";
+    
     Users.findByAuthId(authId, function (results) {
+        let userRegistrationInfoArray=[];
         let userId = results[0]._id
         console.log("Line 59 " + userId)
+         userObject = {
+            userId:results[0]._id,
+            email:results[0].email,
+            firstName:results[0].firstName,
+            lastName:results[0].lastName
+        }
+       
         
 
-        accountController.findByUserId(userId, function(data){
-            console.log(data)
-            let userRegistrationInfoArray = data.map(information =>{
-                return { street: information.street,
-                    zipcode: information.zipcode,
-                    stateCode: information.stateCode,
-                    city: information.city
-                   }
-            })
+        accountController.findByUserId(userId, function(information){
+            console.log(information)
+            // let userRegistrationArray = data.map(information =>{
+            //     return { street: information.street,
+            //         zipcode: information.zipcode,
+            //         stateCode: information.stateCode,
+            //         city: information.city
+            //        }
+                   
+            // })
+            let userAccountObject = {
+                street: information[0].street,
+                zipcode: information[0].zipcode,
+                stateCode: information[0].stateCode,
+                city: information[0].city
+                           
+            }
+            // console.log( "line 72 "+JSON.stringify(userObject))
+            let userRegistrationInfo =Object.assign(userAccountObject, userObject)
+            userRegistrationInfoArray.push(userRegistrationInfo);
+
             return res.json(userRegistrationInfoArray);
         })
     });

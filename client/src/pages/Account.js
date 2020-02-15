@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "../components/Grid";
 import Footer from "../components/Footer";
-import Calendar from "../components/Calendar";
+
 import Nav from "../components/Nav";
 import API from "../utils/API";
 import AccountInfoCard from "../components/AccountInfoCard"
@@ -26,6 +26,7 @@ class Account extends Component{
         .then(results =>{
             console.log(results)
             this.setState({information: results.data})
+            console.log("line 29 " +JSON.stringify(this.state.information))
         })
     }
     getUserEvents(){
@@ -55,12 +56,13 @@ class Account extends Component{
                         {this.state.information.map(data =>(
                         
                           <AccountInfoCard
-                          firstName= "Jerrica"
-                          lastName = "VanAlstyne"
+                          firstName= {data.firstName}
+                          lastName = {data.lastName}
                           street= {data.street}
                           zipcode={data.zipcode}
                           stateCode = {data.stateCode}
                           city = {data.city}
+                          email= {data.email}
                           />
                             
                         ))}
