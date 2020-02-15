@@ -33,6 +33,7 @@ module.exports = (req, res, next) => {
                     "id": sub
             }
             console.log(req.user);
+            console.log("user sub " + req.user.sub)
             next();
         })
             // if unsuccessful, catch the error and add a failed message to the
