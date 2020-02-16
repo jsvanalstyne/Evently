@@ -17,14 +17,18 @@ return (
   <div className="card-body">
     <h5 className="card-title">{props.event}</h5>
     <h6 className="card-subtitle mb-2 text-muted">{props.location}</h6>
+    {/* <h5>{props.eventId}</h5> */}
     <p className="card-text">{props.description}</p>
     <h4><strong>Price: ${props.price}</strong></h4>
     <RegisterModal 
+      // key={props.key}
+      eventId= {props.eventId}
       title={"Register for " + props.event}
       body={"Cost: $" + props.price}
       statement={"Please enter your card information with Square Pay to register."}
       closeBtnText={"Register"}
       price={props.price}
+      eventId={props.eventId}
     />
   </div>
   {/* <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">

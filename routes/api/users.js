@@ -61,8 +61,12 @@ router.post("/", (req, res) => {
     oktaClient.createUser(user)
         .then(newUser => {
             // user to be added to local db
+            console.log(newUser.id);
             let createdUser = {
-                "authId": newUser.id
+                "authId": newUser.id, 
+                "firstName": user.profile.firstName, 
+                "lastName": user.profile.lastName, 
+                "email": user.profile.email
             }
             // creating user in local db
             userController.create(createdUser, result => {
