@@ -6,18 +6,13 @@ const verifyBlanketUser = require("../auth/authorization");
 const Users = require("../../controllers/API/Users");
 const Events = require("../../controllers/API/Events");
 // const Accounts = require("../../controllers/API/Accounts");
+const Programs = require("../../controllers/API/Programs");
 
 
 
 router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
-    // doing stuff with user information (this assumes that auth was successful)
-    // console.log( req.user)
-    // let authId = req.user.id;
-    // let authId = "00u24pm87E0bSt6Y54x6";
-    // Users.findByAuthId(authId, function (results) {
-    //     console.log("line 17 " + results);
-        // res.json(results)
+    
 
         let userId = req.user.id
         console.log(userId);
@@ -41,7 +36,7 @@ router.get("/information", verifyBlanketUser, (req, res) => {
 
         })
 
-    // })
+    
 
 
 })
@@ -49,33 +44,10 @@ router.get("/account", verifyBlanketUser, (req, res) => {
     let userRegistrationInfoArray=[];
     let userObject = req.user
     console.log( "line 50" + JSON.stringify(userObject));
-    // console.log(userId);
-    // let userObject ={};
-    // let authId="7";
-    
-    // Users.findByAuthId(authId, function (results) {
-    //     
-    //     let userId = results[0]._id
-    //     console.log("Line 59 " + userId)
-        //  userObject = {
-        //     userId:results[0]._id,
-        //     email:results[0].email,
-        //     firstName:results[0].firstName,
-        //     lastName:results[0].lastName
-        // }
-       
         
-
         accountController.findByUserId(userObject.id, function(information){
             console.log(information)
-            // let userRegistrationArray = data.map(information =>{
-            //     return { street: information.street,
-            //         zipcode: information.zipcode,
-            //         stateCode: information.stateCode,
-            //         city: information.city
-            //        }
-                   
-            // })
+          
             let userAccountObject = {
                 street: information[0].street,
                 zipcode: information[0].zipcode,
@@ -83,7 +55,6 @@ router.get("/account", verifyBlanketUser, (req, res) => {
                 city: information[0].city
                            
             }
-            // console.log( "line 72 "+JSON.stringify(userObject))
             let userRegistrationInfo =Object.assign(userAccountObject, userObject)
             console.log(userRegistrationInfo);
             userRegistrationInfoArray.push(userRegistrationInfo);
