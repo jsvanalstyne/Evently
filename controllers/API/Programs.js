@@ -1,5 +1,6 @@
 const Events = require("../../models/Events.js");
 const Programs = require("../../models/Programs.js");
+const Groups = require("../../models/Groups");
 
 const ObjectId = require("mongoose").Types.ObjectId;
 
@@ -35,6 +36,16 @@ module.exports = {
         })
         .sort({"startDate": 1})
         .then(cb)
+    },
+    getGroupIdForUser: (id, cb) => {
+        // userId= ObjectId(id)
+        Groups.find({"userIds":{$in: id}})
+        .then(cb)
+    },
+    getProgramsForGroups: (groupId, cb) => {
+        // groupIds = ObjectId(groupId)
+        Programs.find({"groupIds":{$in : groupId}})
+        .then(cb);
     },
    
     // ------------------ POST ------------------

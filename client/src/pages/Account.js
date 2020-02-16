@@ -20,7 +20,8 @@ class Account extends Component{
 
     componentDidMount(){
         this.userAccountInfo();
-        this.getUserEvents()
+        this.getUserEvents();
+        this.getUserPrograms();
     }
     userAccountInfo(){
         API.getUserAccountInfoFromDb()
@@ -40,6 +41,14 @@ class Account extends Component{
           
         })
         console.log("exiting getUseEvevents")
+        
+    }
+    getUserPrograms(){
+        API.getUserPrograms()
+        .then(data => {
+                console.log(data)
+            this.setState({programs: data.data})
+        })
         
     }
 
@@ -77,8 +86,6 @@ class Account extends Component{
                         />
                           
                       ))}
-                      </AccountEventCard>  
-                          <AccountEventCard>
                         {this.state.programs.map(program =>(
                         
                         <EventList

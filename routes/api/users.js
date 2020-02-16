@@ -40,6 +40,33 @@ router.get("/information", verifyBlanketUser, (req, res) => {
 
 
 })
+router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
+   
+    let userId = req.user.id
+    console.log("line57 in users.js"+userId)
+    Programs.getGroupIdForUser(userId, function (data) {
+        // console.log("line 25 " + data)
+        let groupIDArray = data.map(group => group._id)
+        
+        // console.log(groupIDArray + "line 27")
+        
+        Programs.getProgramsForGroups(groupIDArray, function (program) {
+            console.log("line 63 in users.js "+ JSON.stringify(program))
+            let userProgramArray = program.map(programs => {
+               return { name: programs.name,
+                dateStart: programs.dateStart,
+                dateEnd: programs.dateEnd,
+                description: programs.description,
+                price: programs.price
+               }
+            });
+
+            return res.json(userProgramArray);
+        })
+    
+});
+
+})
 router.get("/account", verifyBlanketUser, (req, res) => {
     let userRegistrationInfoArray=[];
     let userObject = req.user

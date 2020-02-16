@@ -70,5 +70,18 @@ export default {
         console.log("inside calendar");
         return axios.get("/api/events/allevents/" + id);
     
+    },
+    getUserPrograms: function(){
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET",
+            url: "/api/users/registeredprograms",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
     }
 }
