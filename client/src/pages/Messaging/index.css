@@ -6,8 +6,10 @@
     color: white;
 }
 
-h4 {
-    margin: 10px 0 10px 10px;
+.conversation-header-and-modal-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .conversation-container {

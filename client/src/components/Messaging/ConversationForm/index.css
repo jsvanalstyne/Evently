@@ -1,0 +1,17 @@
+.modal-button {
+    border-radius: 50%;
+    /* width: 20px;
+    height: 20px; */
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.add-sign {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}

@@ -16,19 +16,24 @@ function MessageForm(props) {
         let newMessage = {
             senderId: ObjectId(props.user.id), 
             senderName: props.user.name,
-            conversationId: ObjectId(props.conversationId), 
+            conversationId: ObjectId(props.currConversation._id), 
             text: message
         }
-
-        console.log(props.conversationId);
-
+        
         API.createMessage(newMessage)
         .then(response => {
-            console.log(response);
             if(response.status === 200) {
                 // add logic to tell when the last message sent has been
                 // delivered or not
-                props.setMessages(newMessage);
+                props.setCurrConversation(prevCurrConversation => {
+                    let newMessages = prevCurrConversation.messages.concat(response.data.newMessage);
+
+                    return {
+                        name: prevCurrConversation.name, 
+                        _id: prevCurrConversation.id, 
+                        messages: newMessages
+                    }
+                })
             } else {
                 console.log("not suppposed to be inhere");
                 // set a warning message

@@ -17,7 +17,7 @@ module.exports = {
 
         return Conversations.find({"userIds": userId})
         .populate("Users")
-        .sort({"lastUpdated": 1})
+        .sort({"lastUpdated": -1})
     },
     // Finds a conversation based on user Ids
     // associated with that conversation
@@ -25,8 +25,13 @@ module.exports = {
         let userIdsAsObjectIds = userIds.map(userId => ObjectId(userId));
 
         Conversations.find({"userIds": userIdsAsObjectIds})
-        .sort({"lastUpdated": 1})
+        .sort({"lastUpdated": -1})
         .then(cb)
+    },
+    getConversationById: (conversationId) => {
+        conversationId = ObjectId(conversationId);
+
+        return Conversations.findById(conversationId);
     },
     // Find all messages (with users) associated with the conversation
     // that they're a part of
@@ -34,8 +39,8 @@ module.exports = {
         conversationId = ObjectId(conversationId);
 
         return Messages.find({"conversationId": conversationId})
-        .sort({"dateSent": -1})
-        .populate("Users")
+        .sort({"dateSent": 1})
+        .populate("conversationId")
     },
     // ------------------ POST ------------------
     // Adds a message to the database 

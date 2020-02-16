@@ -89,13 +89,39 @@ export default {
     }, 
     createMessage: function(message) {
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
-        console.log(token);
+
         return axios({
             method: "POST", 
             url: "/api/messages/create", 
             data: {
                 "message": message
             },
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    }, 
+    getMessagesByConversation: function(conversationId) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken;
+
+        return axios({
+            method: "GET", 
+            url: "/api/conversations/messages/" + conversationId, 
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    }, 
+    getConversationById: function(conversationId) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken;
+
+        return axios({
+            method: "GET", 
+            url: "/api/conversations/one/" + conversationId, 
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",

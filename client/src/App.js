@@ -7,7 +7,7 @@ import Payment from "./pages/Payment"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react'
 import Login from "./components/auth/Login";
-import Messaging from "./pages/Messaging.js";
+import Messaging from "./pages/Messaging";
 
 function onAuthRequired({history}) {
   history.push("/login")

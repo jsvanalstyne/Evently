@@ -46,7 +46,7 @@ function ConversationForm(props) {
             
         })
         .catch(error => {
-            setRecipients("Could not add user");
+            setRecipientMessage("Could not add user");
         })
     }
 
@@ -74,7 +74,9 @@ function ConversationForm(props) {
         API.createConversation(conversation)
         .then(response => {
             if(response.data.message === "conversation created successfully") {
-                props.setConversations(conversation);
+                props.setConversations(prevConversations => {
+                    return [response.data.conversation, ...prevConversations]
+                });
 
                 handleClose();
             } else {
@@ -88,9 +90,9 @@ function ConversationForm(props) {
 
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
-          +
-        </Button>
+        <button className="modal-button" onClick={handleShow}>
+          <p className="add-sign">+</p>
+        </button>
             
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -107,6 +109,7 @@ function ConversationForm(props) {
                                 cleanname="Conversation Name"
                                 placeholder="Enter a name for your conversation"
                             />
+                            <label>Add a recipient</label>
                             <input
                                 className="form-control"
                                 style={{display: "inline", width: "90%", marginBottom: "10px"}}
@@ -114,7 +117,7 @@ function ConversationForm(props) {
                                 value={recipient}
                                 onChange={event => setRecipient(event.target.value)}
                                 cleanname="New user email"
-                                placeholder="Add a chat member with email"
+                                placeholder="Enter an email"
                             />
                             <button onClick={addRecipient} style={{display: "inline"}}>Add</button>
                             <p className="">{recipientMessage}</p>
@@ -127,13 +130,10 @@ function ConversationForm(props) {
                                            />
                                 })}
                             </div>
-                            <button>Submit</button>
+                            <Button variant="primary">Submit</Button>
                         </form>
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
-
-                </Modal.Footer>
             </Modal>
         </>
     )

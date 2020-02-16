@@ -10,13 +10,11 @@ import MessageForm from "../MessageForm";
 // message list component that holds all messages
 // in current conversation. (Passed in with props.)
 function MessageList(props) {
-    console.log(props.conversationId);
     return (
         <div className="curr-conversation-container">
             <div className="message-list-container">
-                {(props.messages) ? props.messages.map(message => {
+                {(props.currConversation.messages) ? props.currConversation.messages.map(message => {
                     return <Message 
-                        // photo={message.photo}
                         senderName={message.senderName}
                         text={message.text}
                         timeSent={message.timeSent}
@@ -26,9 +24,8 @@ function MessageList(props) {
             </div>
             <MessageForm 
                 user={props.user}
-                messages={props.messages}
-                conversationId={props.conversationId}
-                setMessages={props.setMessages}
+                currConversation={props.currConversation}
+                setCurrConversation={props.setCurrConversation}
             /> 
         </div>
     );

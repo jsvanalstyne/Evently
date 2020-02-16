@@ -11,10 +11,8 @@ const auth = require("../auth/authorization.js");
 // route to get all conversations associated with one user
 router.get("/all", auth, (req, res) => {
     // getting conversations with authorized user id 
-    console.log("meh")
     Conversations.getConversationsByUser(req.user.id)
     .then(conversations => {
-        console.log(conversations[0]._id)
         if(conversations.length < 1) {
             return res.json({
                 "message": "This user has no conversations yet"
@@ -24,7 +22,6 @@ router.get("/all", auth, (req, res) => {
         // get all messages and senders associated with the most recent conversation
         Conversations.getMessagesByConversation(conversations[0]._id)
         .then(messages => {
-            console.log(messages);
             // if no errors, sending conversations and messgaes back to client
             res.json({
                 "conversations": conversations, 
@@ -40,6 +37,23 @@ router.get("/all", auth, (req, res) => {
     })
 
 });
+
+router.get("/messages/:id", auth, (req, res) => {
+    Conversations.getMessagesByConversation(req.params.id)
+    .then(results => {
+        res.json({
+            "messages": results, 
+            "message": `found ${results.length} messages`
+        })
+        .status(200);
+    })
+    .catch(error => {
+        res.json({
+            "message": "could not find conversation"
+        })
+        .status(404);
+    });
+})
 
 
 router.post("/create", auth, (req, res) => {
@@ -64,6 +78,22 @@ router.post("/create", auth, (req, res) => {
         })
         .status(404);
     })
+});
+
+router.get("/one/:id", auth, (req, res) => {
+    Conversations.getConversationById(req.params.id)
+    .then(result => {
+        res.json({
+            "conversation": result, 
+        })
+        .status(200);
+    })
+    .catch(error => {
+        res.json({
+            "message": "could not find conversation"
+        })
+        .status(404);
+    });
 })
 
 module.exports = router;
