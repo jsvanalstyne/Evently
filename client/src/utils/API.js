@@ -68,5 +68,10 @@ export default {
                 "Authorization": "Bearer " + token
             }
         })
+    },
+    getCalendarEventPrograms: function(id) {
+        console.log("inside calendar");
+        return axios.get("/api/events/allevents/" + id);
+    
     }
 }

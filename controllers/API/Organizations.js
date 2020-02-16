@@ -20,6 +20,7 @@ module.exports = {
         .select("userIds")
         .then(cb)
     },
+   
     // ------------------ POST ------------------
     // Creates a new organization document 
     create: (organization, cb) => {
