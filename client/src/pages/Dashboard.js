@@ -47,6 +47,7 @@ class Dashboard extends Component {
   getUserCalendar = () => {
     API.getUserEventsProgramCalendar()
       .then(res => {
+        console.log("line 50 on dashboard.js" +JSON.stringify(res));
         this.setState({ calendar: res.data })
       })
   }

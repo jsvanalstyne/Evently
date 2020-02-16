@@ -77,7 +77,8 @@ router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
 })
 
 router.get("/calendar", verifyBlanketUser, (req, res) => {
-    let userEventsArray={};
+    // let userEventsArray={};
+    let userCalendarArray=[];
     let userId = req.user.id
     console.log("line57 in users.js"+userId)
     Events.getGroupIdForUser(userId, function (data) {
@@ -90,14 +91,15 @@ router.get("/calendar", verifyBlanketUser, (req, res) => {
                 description: event.description
                }
             });
-            console.log(userEventsArray);
+            console.log("line 93" + JSON.stringify(userEventsArray));
             // return res.json(userEventsArray);
         })
 
 })
 
     Programs.getGroupIdForUser(userId, function (data) {
-        let calendarEventsArray=[];
+        // let calendarEventsArray=[];
+        // let userProgramArray={}
         let groupIDArray = data.map(group => group._id)
         Programs.getProgramsForGroups(groupIDArray, function (program) {
             console.log("line 63 in users.js "+ JSON.stringify(program))
@@ -109,12 +111,15 @@ router.get("/calendar", verifyBlanketUser, (req, res) => {
                 price: programs.price
                }
             });
-            const userCalendar = Object.assign(userProgramArray, userEventsArray)
-            calendarEventsArray.push(userCalendar)
-            return res.json(calendarEventsArray);
+            console.log("line 112 in users.js" +JSON.stringify(userProgramArray))
+             userCalendarArray = userEventsArray.concat(userProgramArray);
+            // console.log("line 113" + JSON.stringify(userCalendar))
+            // calendarEventsArray.push(userCalendar)
+            // console.log("line 118 in users.js "+ JSON.stringify(calendarEventsArray));
+            return res.json(userCalendarArray).status(200);
         })
     
-});
+    });
 
 })
 
