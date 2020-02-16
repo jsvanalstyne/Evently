@@ -7,7 +7,6 @@ const Users = require("../../controllers/API/Users");
 const Events = require("../../controllers/API/Events");
 
 
-
 router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
     // doing stuff with user information (this assumes that auth was successful)
@@ -49,6 +48,25 @@ router.get("/information", verifyBlanketUser, (req, res) => {
     })
 
 
+});
+
+router.get("/information/:email", verifyBlanketUser, (req, res) => {
+    Users.findByEmail(req.params.email)
+    .then(results => {
+        if(results < 1) {
+            return res.json({
+                "message": "could not find user", 
+            }).status(404);
+        }
+        console.log(results[0]);
+        return res.json({"user": results[0]}).status(200);
+    })
+    .catch(error => {
+        return res.json({
+            "message": "could not get find user",
+            "error": error
+        })
+    })
 })
 
 

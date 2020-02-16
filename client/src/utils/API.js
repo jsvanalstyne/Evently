@@ -73,5 +73,34 @@ export default {
         console.log("inside calendar");
         return axios.get("/api/events/allevents/" + id);
     
+    }, 
+    getUserByEmail: function(email) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET", 
+            url: "/api/users/information/" + email, 
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    }, 
+    createMessage: function(message) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+        console.log(token);
+        return axios({
+            method: "POST", 
+            url: "/api/messages/create", 
+            data: {
+                "message": message
+            },
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
     }
 }

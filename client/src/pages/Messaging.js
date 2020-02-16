@@ -12,6 +12,8 @@ import ConversationHeader from "../components/Messaging/ConversationHeader";
 import ConversationForm from "../components/Messaging/ConversationForm";
 // importing messaging api for resource server interactions
 import API from "../utils/API"
+// importing ObjectId from mongoose
+import {ObjectId} from "mongoose"
 
 // master component for managing state for all functoinal, child components
 class Messaging extends Component {
@@ -21,36 +23,11 @@ class Messaging extends Component {
         this.state = {
             // holds all information about current conversation the user has selected
             // to focues on
-            currConversation: {
-                messages: [
-                    {
-                        text:"adsffad",
-                        firstName:"ads", 
-                        lastName:"daff", 
-                        timeSent:"6:11 PM"
-                    }, 
-                    {
-                        text:"asdfdfa",
-                        firstName:"ads", 
-                        lastName:"daff", 
-                        timeSent:"6:11 PM"
-                    }, 
-                    {
-                        text:"asfdadfadsf",
-                        firstName:"ads", 
-                        lastName:"daff", 
-                        timeSent:"6:11 PM"
-                    }
-                ], 
-            },
+            currConversation: {},
             // list of all conversations a user is involved in
-            conversations: [
-                {name: "adfads"},{name: "dFAFasdf"},{name: "adsfaf"},{name: "adfadfad"}
-            ], 
+            conversations: [], 
             // information for current user, including: first and last name
-            user: {
-
-            }
+            user: {}
         }
     }
     // on load, grabs all conversations and messages from default conversation
@@ -61,9 +38,12 @@ class Messaging extends Component {
             // and the respective user information
             this.setState({
                 conversations: result.data.conversations, 
-                messages: result.data.messages, 
+                currConversation: {
+                    messages: result.data.messages, 
+                    id: result.data.conversations[0]._id
+                },
                 user: result.data.user
-            })
+            }, () => console.log(this.state))
         })
     }
     // get all conversations and default display messages
@@ -72,40 +52,25 @@ class Messaging extends Component {
         .then(cb);
     }
 
-    // send message for server to handle. if recieve status of 200, 
-    // set the last message as sent, else, set as unsent
-    handleSubmit = (message) => {
-        let newMessage = {
-            senderId: ObjectId(this.state.user.id), 
-            senderName: this.state.user.name,
-            conversationId: ObjectId(this.state.currConversation.id), 
-            text: message
-        }
-
-        this.setMessages(newMessage);
-
-        API.createMessage(newMessage)
-        .then(response => {
-            if(response.status === 200) {
-                // add logic to tell when the last message sent has been
-                // delivered or not
-            } 
-        })
-        .catch(err => {
-            console.log(err);
-            // same as above comment
-        })
-    }
-
     setMessages = (newMessage) => {
+        console.log(newMessage);
         this.setState(prevState => {
-            let messages = prevState.currConversation.messages;
-            messages.push(newMessage);
+            let messages = prevState.currConversation.messages.concat(newMessage);
 
             return {
                 currConversation: {
                     messages: messages
                 }
+            }
+        }, () => console.log(this.state))
+    }
+
+    setConversations = (newConversation) => {
+        this.setState(prevState => {
+            let conversations = [newConversation, ...prevState.conversations];
+
+            return {
+                conversations: conversations 
             }
         })
     }
@@ -114,17 +79,23 @@ class Messaging extends Component {
         return (
             <div style={{display: "flex"}}>
                 <div style={{height: "100vh", width: "20vw"}}>
-                    <ConversationForm />
-                    <ConversationList conversations={this.state.conversations}/>
+                    <ConversationForm 
+                        userId={this.state.user.id}
+                        setConversations={this.setConversations}
+                    />
+                    <ConversationList 
+                        conversations={this.state.conversations}
+                        currConversation={this.state.currConversation}
+                    />
                 </div>
                 <div style={{height: "100vh", width: "80vw", backgroundColor: "rgba(33, 33, 33, 0.6)"}}>
                     <ConversationHeader conversationName="Conversation"/>
                     <MessageContainer 
                         messages={this.state.currConversation.messages}
+                        conversationId={this.state.currConversation.id}
+                        user={this.state.user}
+                        setMessages={this.setMessages}
                     />
-                    <MessageForm 
-                        getUser={this.getUser}
-                    /> 
                 </div>
             </div>
         )

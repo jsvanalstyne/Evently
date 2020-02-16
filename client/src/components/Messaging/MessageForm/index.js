@@ -1,37 +1,54 @@
-import React, { Component } from 'react';
+import React, {useState} from 'react';
 import "./index.css";
 import API from '../../../utils/API';
 // importing ObjectId from mongoose
-import { ObjectId } from "mongoose"
+import mongoose from "mongoose"
+const ObjectId = mongoose.Types.ObjectId
 
-class MessageForm extends Component {
-    constructor(props) {
-        super(props);
+function MessageForm(props) {
+    const [message, setMessage] = useState("");
 
-        this.state = {
-            message: "", 
+    // send message for server to handle. if recieve status of 200, 
+    // set the last message as sent, else, set as unsent
+    const handleMessageSubmit = (event) => {
+        event.preventDefault();
+
+        let newMessage = {
+            senderId: ObjectId(props.user.id), 
+            senderName: props.user.name,
+            conversationId: ObjectId(props.conversationId), 
+            text: message
         }
-    }
 
-    updateMessage = (event) => {
-        const {name, value} = event.target;
+        console.log(props.conversationId);
 
-        this.setState({
-            [name]: value
+        API.createMessage(newMessage)
+        .then(response => {
+            console.log(response);
+            if(response.status === 200) {
+                // add logic to tell when the last message sent has been
+                // delivered or not
+                props.setMessages(newMessage);
+            } else {
+                console.log("not suppposed to be inhere");
+                // set a warning message
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            // same as above comment
         })
     }
-    
 
-    render() {
-        return (
+    return (
         <div style={{padding: "0 40px"}}>
         <div className="form-container">
-            <form onSubmit={() => this.props.handleSubmit(this.state.message)} className="message-form">
+            <form onSubmit={handleMessageSubmit} className="message-form">
                 <input
                     name="message"
-                    value={this.state.message}
+                    value={message}
                     type="text"
-                    onChange={this.updateMessage}
+                    onChange={event => setMessage(event.target.value)}
                     className="message-input"
                     placeholder="Message"
                 ></input>
@@ -41,10 +58,7 @@ class MessageForm extends Component {
             </div>
         </div>
         </div> 
-        )
-    }
-
-
+    )
 }
 
 export default MessageForm

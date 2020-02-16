@@ -13,6 +13,9 @@ module.exports = {
         return Users.find({"authId": authId})
         .select("_id")
     },
+    findByEmail: email => {
+        return Users.find({"email": email})
+    },
     // ------------------ POST ------------------
     // Creates a new user document 
     create: (user, cb) => {

@@ -30,13 +30,12 @@ module.exports = {
     },
     // Find all messages (with users) associated with the conversation
     // that they're a part of
-    getMessagesByConversation: (conversationId, cb) => {
+    getMessagesByConversation: (conversationId) => {
         conversationId = ObjectId(conversationId);
 
-        Messages.find({"conversationId": conversationId})
+        return Messages.find({"conversationId": conversationId})
         .sort({"dateSent": -1})
         .populate("Users")
-        .then(cb)
     },
     // ------------------ POST ------------------
     // Adds a message to the database 
@@ -46,16 +45,14 @@ module.exports = {
     //      is associated with
     //   3. text: text from the message
     createMessage: (message, cb) => {
-        Messages.create(message)
-        .then(cb)
+        return Messages.create(message)
     },
     // Adds a conversation to the database 
     // Conversation object contains: 
     //   1. userIds: Ids of users associated with the conver-
     //      sation
-    createConversation: (conversation, cb) => {
-        Conversations.create(conversation)
-        .then(cb)
+    createConversation: (conversation) => {
+        return Conversations.create(conversation)
     },
     // ------------------ PUT ------------------
     // Finds one message based on id, changes

@@ -1,6 +1,10 @@
+.curr-conversation-container {
+    height: 90%;
+}
+
 .message-list-container {
     width: 80%;
-    height: 80%;
+    height: 87.5%;
     display: flex;
     flex-direction: column;
     padding: 10px;

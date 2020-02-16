@@ -1,54 +1,141 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 // importing styling
 import "./index.css";
 import Modal from 'react-bootstrap/Modal';
+import {Button} from 'react-bootstrap'
 import Input from "../../Input";
+import Recipient from "../Recipient";
+import mongoose from "mongoose";
 import API from '../../../utils/API.js';
+
+const ObjectId = mongoose.Types.ObjectId;
+
 
 function ConversationForm(props) {
     
     const [show, setShow] = useState(false);
-    const [name, setName] = useState("");
+    const [conversationName, setConversationName] = useState("");
     const [recipients, setRecipients] = useState([]);
+    const [recipient, setRecipient] = useState("");
+    const [recipientMessage, setRecipientMessage] = useState("");
+    const [conversationMessage, setConversationMessage] = useState("");
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleChange = (event) => {
-        setName(event.value);
+    const addRecipient = (event) => {
+        event.preventDefault();
+        
+        for(const currRecipient of recipients) {
+            if(currRecipient.email === recipient) {
+                
+                return setRecipientMessage("User already exists in recipient list");
+            }
+        }
+
+        API.getUserByEmail(recipient)
+        .then(response => {
+            if(response.data.user) {
+                setRecipients(prevRecipients => prevRecipients.concat(response.data.user));
+
+                setRecipient("");
+                setRecipientMessage("");
+            } else {
+                setRecipientMessage(response.data.message);
+            }
+            
+        })
+        .catch(error => {
+            setRecipients("Could not add user");
+        })
     }
 
-    const handleSubmit = () => {
-        // send the information to the server
-        // if the conversation is created, then 
-        // close the modal, if not, display error
-        // message
-        API.createConversation()
+    const deleteRecipient = (event, recipientId) => {
+        event.preventDefault();
+        
+        setRecipients(prevRecipients => prevRecipients.filter(recipient => recipient._id != recipientId));
     }
-/*
-id={props.id}
-                type={props.type}
-                name={props.name}
-                onChange={props.onChange}
-                cleanname={props.cleanname}
-                placeholder={props.cleanname}
-*/
+
+    const handleConversationSubmit = (event) => {
+        event.preventDefault();
+        if(recipients.length < 1) {
+
+            return setConversationMessage("Must enter at least one recipient");
+        }
+
+        let userIds = recipients.map(recipient => ObjectId(recipient._id));
+        userIds.push(ObjectId(props.userId));
+
+        let conversation = {
+            "name": conversationName, 
+            "userIds": userIds
+        }
+        
+        API.createConversation(conversation)
+        .then(response => {
+            if(response.data.message === "conversation created successfully") {
+                props.setConversations(conversation);
+
+                handleClose();
+            } else {
+                setConversationMessage(response.data.message);
+            }
+        })
+        .catch(error => {
+            setConversationMessage("Could not create conversation");
+        })
+    }
+
     return (
-        <div className="conversation-form-container">
-            <h3 className="conversation-form-header">Create a conversation</h3>
-            <form className="conversation-form" onSubmit={handleSubmit}>
-                <Input 
-                    type="input"
-                    name="Name"
-                    onChange={handleChange}
-                    cleanname="Name"
-                    placeholder="Enter a name for your conversation"
-                />
-                <button>Submit</button>
-            </form>
-        </div>
-        
-        
+        <>
+        <Button variant="primary" onClick={handleShow}>
+          +
+        </Button>
+            
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Create a conversation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="conversation-form-container">
+                        <form className="conversation-form" onSubmit={handleConversationSubmit}>
+                            <p>{conversationMessage}</p>
+                            <Input 
+                                type="input"
+                                value={conversationName}
+                                onChange={event => setConversationName(event.target.value)}
+                                cleanname="Conversation Name"
+                                placeholder="Enter a name for your conversation"
+                            />
+                            <input
+                                className="form-control"
+                                style={{display: "inline", width: "90%", marginBottom: "10px"}}
+                                type="input"
+                                value={recipient}
+                                onChange={event => setRecipient(event.target.value)}
+                                cleanname="New user email"
+                                placeholder="Add a chat member with email"
+                            />
+                            <button onClick={addRecipient} style={{display: "inline"}}>Add</button>
+                            <p className="">{recipientMessage}</p>
+                            <div className="recipients-container">
+                                {recipients.map(recipient => {
+                                    return <Recipient 
+                                            deleteRecipient={deleteRecipient} 
+                                            name={`${recipient.firstName} ${recipient.lastName}`}
+                                            id={recipient._id}
+                                           />
+                                })}
+                            </div>
+                            <button>Submit</button>
+                        </form>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+
+                </Modal.Footer>
+            </Modal>
+        </>
     )
 
 

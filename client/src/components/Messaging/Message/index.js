@@ -11,11 +11,11 @@ function Message(props) {
     return (
         <div className="message-container">
             <div className="photo-container">
-                <img className="photo-id" src="https://google.com" ttt={`${props.firstName} ${props.lastName} id photo`}/>
+                <img className="photo-id" src="https://google.com" ttt={`${props.senderName} id photo`}/>
             </div>
             <div className="name-and-message-container">
                 <div className="name-display-container">
-                    <h4 className="name-display">{`${props.firstName} ${props.lastName}`}</h4>
+                    <h4 className="name-display">{`${props.senderName}`}</h4>
                     <p className="time-sent-display">{props.timeSent}</p>
                 </div>
                 <p className="text-display">{props.text}</p>
