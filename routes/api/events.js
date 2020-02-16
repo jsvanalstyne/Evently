@@ -20,15 +20,12 @@ router.delete("/removal/:eventId", verifyBlanketUser, (req, res) => {
        console.log("line 16" + result);
         console.log("line 20" +result[0].groupIds);
         console.log(result)
-        // let authId = req.user.id
-        // let authId= "7"
+        
         let groupIDArray = result[0].groupIds
-        // userController.findByAuthId(authId,  function (results) {
-            // console.log("line 17 " + results);
-            // res.json(results)
+        
     
             let userId = req.user.id
-            // let userId = "5e3e0a2e1442d70b7c49eec8"
+           
             console.log("line 30" + userId);
             console.log(groupIDArray)
     
@@ -38,7 +35,7 @@ router.delete("/removal/:eventId", verifyBlanketUser, (req, res) => {
                res.json(200);
            })
          
-    // });
+    
 
     })
 
