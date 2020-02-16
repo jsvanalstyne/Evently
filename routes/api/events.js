@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const eventController = require("../../controllers/API/Events");
 const verifyBlanketUser = require("../auth/authorization");
+const programController = require("../../controllers/API/Programs")
 
 const auth = require("../auth/authorization.js")
 
@@ -26,9 +27,24 @@ module.exports = router;
 // getEventsByOrganization
 router.get("/allevents/:organizationid", (req, res) => {
     let id = req.params.organizationid
+    let organizationPrograms = []
+    let organizationEvents=[];
     eventController.getEventsByOrganization(id, function(results) {
-        return res.json(results);
+        organizationEvents = results.map(event => {
+            return event
+        })
+        
     })
+
+    programController.getProgramsByOrganization(id, function(results) {
+        organizationPrograms = results.map(program => {
+            return program
+        })
+        organizationCalendarArray = organizationEvents.concat(organizationPrograms);
+        return res.json(organizationCalendarArray).status(200);
+    })
+
+
 } )
 
 router.put("/add-user-to-event", (req, res) => {
