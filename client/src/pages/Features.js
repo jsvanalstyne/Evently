@@ -7,7 +7,7 @@ import Container from "../components/Container";
 // import { Link } from "react-router-dom";
 // import { Col, Row, Container } from "../components/Grid";
 // import Card from "../components/Card";
-// import Footer from "../components/Footer"
+import Footer from "../components/Footer"
 
 
 
@@ -25,6 +25,7 @@ class Features extends Component {
         <Container>
           <FeaturesCardGroup />
         </Container>
+        <Footer></Footer>
       </Wrapper>
     );
   }

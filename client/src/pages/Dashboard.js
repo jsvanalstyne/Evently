@@ -12,8 +12,7 @@ import Dropdowns from "../components/Dropdown";
 import PromoDropdowns from "../components/PromoDropdown"
 // import Moment from 'react-moment';
 
-// const promo = [{ event: "Race for the Cure", date: "April 17, 2020 at 3pm" }, { event: "Community Yard Sale", date: "April 17, 2020 at 3pm" }, { event: "Father Daughter Dance", date: "April 17, 2020 at 3pm" }, { event: "CPR training", date: "April 17, 2020 at 3pm" }
-// ];
+
 
 
 class Dashboard extends Component {
@@ -23,30 +22,34 @@ class Dashboard extends Component {
     upcomingevent: [],
     programopen: false,
     eventopen: false,
+    calendar: [],
     promo: []
   }
   componentDidMount() {
-    // this.getUserInformation();
+    this.getUserInformation();
     this.getOrganizationsPromoEvents(this.state.organizationId);
   }
   getUserInformation = () => {
     API.getUserInformationFromDb()
       .then(dataRes => {
-        // console.log(dataRes.data);
-        this.setState({ upcomingprogram: dataRes.data })
+        console.log(dataRes.data);
+        this.setState({ upcomingevent: dataRes.data })
       })
+    API.getUserPrograms()
+      .then(dataResults => {
+        console.log("line40on dashboard.js " +JSON.stringify(dataResults))
+        this.setState({upcomingprogram: dataResults.data})
+      })
+    
   }
 
   getOrganizationsPromoEvents= (id)=> {
     console.log("Line 40 dashboard " +id)
     API.getOrganizationsPromos(id)
       .then(results => {
-        //  console.log("line 42 " + JSON.stringify(results))
-        //  console.log("Line 43 " + JSON.stringify(results.data.results[0]))
          this.setState({promo: results.data.results})
       })
   }
-
   render() {
     return (
       <div>
@@ -59,8 +62,11 @@ class Dashboard extends Component {
               <Card title="Your upcoming events and programs:" >
 
                 {this.state.upcomingevent.map(upcomingEvents => (
-                  <List event={upcomingEvents.name} date={upcomingEvents.dateStart}
-                  ></List>
+                  <Dropdowns
+                  name={upcomingEvents.name}
+                  description={upcomingEvents.description}
+                  dateStart={upcomingEvents.dateStart}
+                  />
                 ))}
                 {this.state.upcomingprogram.map(upcomingPrograms => (
                  
@@ -94,7 +100,7 @@ class Dashboard extends Component {
             <Col size="12">
               <Headers heading="Your Programs and Events Calendar" />
               <MyCalendars
-                events={this.state.upcomingprogram}
+                events={this.state.calendar}
               // programs={this.state.upcomingprogram}
               />
             </Col>

@@ -5,6 +5,7 @@ const oktaClient = require('./oktaClient');
 const verifyBlanketUser = require("../auth/authorization");
 const Users = require("../../controllers/API/Users");
 const Events = require("../../controllers/API/Events");
+const Programs = require("../../controllers/API/Programs");
 
 
 
@@ -13,12 +14,12 @@ router.get("/information", verifyBlanketUser, (req, res) => {
     // doing stuff with user information (this assumes that auth was successful)
     // console.log( req.user)
     // let authId = req.user.id
-    let authId = "5";
-    Users.findByAuthId(authId, function (results) {
+    // let authId = "5";
+    // Users.findByAuthId(authId, function (results) {
         // console.log("line 17 " + results);
         // res.json(results)
 
-        let userId = results[0]._id
+        let userId = req.user.id
         console.log(userId);
         Events.getGroupIdForUser(userId, function (data) {
             // console.log("line 25 " + data)
@@ -41,10 +42,41 @@ router.get("/information", verifyBlanketUser, (req, res) => {
             // }
 
 
-        })
+        // })
 
     })
 
+
+});
+router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
+    // let authId = req.user.id
+    // console.log("line53 in users.js"+authId)
+    // Users.findByAuthId(authId, function (results) {
+        // console.log(results)
+        let userId = req.user.id
+        console.log("line57 in users.js"+userId)
+        Programs.getGroupIdForUser(userId, function (data) {
+            // console.log("line 25 " + data)
+            let groupIDArray = data.map(group => group._id)
+            
+            // console.log(groupIDArray + "line 27")
+            
+            Programs.getProgramsForGroups(groupIDArray, function (program) {
+                console.log("line 63 in users.js "+ JSON.stringify(program))
+                let userProgramArray = program.map(programs => {
+                   return { name: programs.name,
+                    dateStart: programs.dateStart,
+                    dateEnd: programs.dateEnd,
+                    description: programs.description,
+                    price: programs.price
+                   }
+                });
+
+                return res.json(userProgramArray);
+            })
+        
+    });
+// })
 
 })
 
@@ -58,8 +90,12 @@ router.post("/", (req, res) => {
     oktaClient.createUser(user)
         .then(newUser => {
             // user to be added to local db
+            console.log(newUser.id);
             let createdUser = {
-                "authId": newUser.id
+                "authId": newUser.id, 
+                "firstName": user.profile.firstName, 
+                "lastName": user.profile.lastName, 
+                "email": user.profile.email
             }
             // creating user in local db
             userController.create(createdUser, result => {

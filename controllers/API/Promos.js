@@ -11,7 +11,7 @@ module.exports = {
     getPromosByOrganization:(id, cb) => {
         let organizationId = ObjectId(id)
         let orgId = ObjectId("5e35c71607cf87e4497c41a9")
-        console.log(organizationId + " line13 inside Promo.js controller")
+        // console.log(organizationId + " line13 inside Promo.js controller")
         Promos.find({"organizationId": orgId})
         .then(cb);
     },

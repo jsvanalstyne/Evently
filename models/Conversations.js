@@ -8,7 +8,11 @@ var ConversationsSchema = new Schema({
         ref: "Users", 
         required: [true, "Must enter valid user Id"], 
         unique: true
-    }]
+    }], 
+    lastUpdated: {
+        type: Date, 
+        default: Date.now
+    }
 });
 
 var Conversations = mongoose.model("Conversations", ConversationsSchema);
