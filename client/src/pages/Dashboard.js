@@ -4,6 +4,7 @@ import { Col, Row } from "../components/Grid";
 import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
+// import Nav from "../components/Nav";
 import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
 import Nav from "../components/Nav"

@@ -44,6 +44,7 @@ export default class PaymentForm extends Component {
 
   requestCardNonce() {
     this.paymentForm.requestCardNonce();
+    // this.props.eventId
   }
 
   componentDidMount() {
@@ -136,6 +137,7 @@ export default class PaymentForm extends Component {
         // if a nonce (payment key) is recieved, do this stuff
         cardNonceResponseReceived: (errors, nonce, cardData) => {
           // if errors, log them
+        console.log("inside card Nonce received");
           if (errors) {
             // Log errors from nonce generation to the Javascript console
             console.log("Encountered errors:");
@@ -151,14 +153,19 @@ export default class PaymentForm extends Component {
             nonce: nonce
           })
           // fetch the payament route to process the payment
+          const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
           fetch('api/payments/process', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json', 
+              "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
-              nonce: this.state.nonce
+              nonce: this.state.nonce,
+              amount: (this.props.price * 100),
+              eventId: this.props.eventId
             })
           })
             // network arror catching
@@ -265,7 +272,7 @@ export default class PaymentForm extends Component {
             <div id="sq-postal-code"></div>
           </div>
           <button className="button-credit-card"
-            onClick={this.requestCardNonce}>Pay</button>
+            onClick={this.requestCardNonce} eventId={this.props.eventId}>Pay</button>
         </div>
         <p style={styles.center} id="error"></p>
       </div>

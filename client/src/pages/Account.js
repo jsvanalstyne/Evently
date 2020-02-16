@@ -14,7 +14,8 @@ class Account extends Component{
     
     state={
         events:[],
-        information:[]
+        information:[],
+        programs: []
     }
 
     componentDidMount(){
@@ -73,6 +74,16 @@ class Account extends Component{
                         <EventList
                         name= {event.name}
                         eventid = {event._id}
+                        />
+                          
+                      ))}
+                      </AccountEventCard>  
+                          <AccountEventCard>
+                        {this.state.programs.map(program =>(
+                        
+                        <EventList
+                        name= {program.name}
+                        eventid = {program._id}
                         />
                           
                       ))}

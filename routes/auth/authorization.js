@@ -14,6 +14,7 @@ module.exports = async (req, res, next) => {
     let cache = req.app.get("cache");
     // grabbing jwt sent in body of request
     const bearer = req.headers["authorization"];
+
     if (bearer) {
         const accessToken = bearer.split(" ")[1];
         // getting clientId from env file
@@ -40,14 +41,28 @@ module.exports = async (req, res, next) => {
                         }
                         next();
                     }
+                    // if(!id) {
+                    //     // if not, getting userId from db and setting it in cache
+                    //     Users.findByAuthId(sub).then(results => {
+                    //         console.log(sub);
+                    //         console.log(results);
+                    //         let subKey = "user" + sub;
+                    //         cache.set(subKey, results[0]._id.toString());
+                    //         req.user.id = results[0]._id;
+                    //         "message": "authorization error", 
+                    //         "error": req.error
+                    //     }
+
+                    //     next();
+                    // }
+
                     if(!id) {
                         // if not, getting userId from db and setting it in cache
                         Users.findByAuthId(sub).then(results => {
-                            console.log(sub);
-                            console.log(results);
                             let subKey = "user" + sub;
                             cache.set(subKey, results[0]._id.toString());
                             req.user.id = results[0]._id;
+
                             next();
                         });
                     } else {
@@ -73,3 +88,4 @@ module.exports = async (req, res, next) => {
         next();
     }
 }
+// }

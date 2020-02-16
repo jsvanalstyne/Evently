@@ -1,18 +1,34 @@
 import axios from "axios";
 export default {
     getAllPrograms: function (id) {
-        console.log("inside getAllPrograms");
-        console.log(id)
-        return axios.get("/api/programs/" + id);
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET",
+            url: "/api/programs/" + id,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        });
     },
     getAllEvents: function (id) {
-        console.log("inside all events")
-        return axios.get("/api/events/" + id)
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET",
+            url: "/api/events/" + id,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+           
+        })
     },
     getUserInformationFromDb: function () {
-        console.log("inside of getUserInformation")
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
-        console.log(token)
 
         return axios({
             method: "GET",
@@ -49,5 +65,10 @@ export default {
                 "Authorization": "Bearer " + token
             }
         })
+    },
+    getCalendarEventPrograms: function(id) {
+        console.log("inside calendar");
+        return axios.get("/api/events/allevents/" + id);
+    
     }
 }

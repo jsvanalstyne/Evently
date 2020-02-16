@@ -14,19 +14,20 @@ router.get("/:organizationid", verifyBlanketUser, (req, res) => {
 })
 router.delete("/removal/:eventId", verifyBlanketUser, (req, res) => {
     let eventid = req.params.eventId
-    console.log(eventid);
+    console.log("line 17 in events "+eventid);
     eventController.getEventById(eventid, function(result){
+        console.log("line 19 event.js "+ JSON.stringify(result))
        console.log("line 16" + result);
-        console.log(result.groupIds);
+        console.log("line 20" +result[0].groupIds);
         console.log(result)
-        let authId = req.user.id
+        // let authId = req.user.id
         // let authId= "7"
-        let groupIDArray = result.groupIds
-        userController.findByAuthId(authId,  function (results) {
-            console.log("line 17 " + results);
+        let groupIDArray = result[0].groupIds
+        // userController.findByAuthId(authId,  function (results) {
+            // console.log("line 17 " + results);
             // res.json(results)
     
-            let userId = results[0]._id
+            let userId = req.user.id
             // let userId = "5e3e0a2e1442d70b7c49eec8"
             console.log("line 30" + userId);
             console.log(groupIDArray)
@@ -37,10 +38,27 @@ router.delete("/removal/:eventId", verifyBlanketUser, (req, res) => {
                res.json(200);
            })
          
-    });
+    // });
 
     })
 
+})
+
+router.get("/allevents/:organizationid", (req, res) => {
+    let id = req.params.organizationid
+    eventController.getEventsByOrganization(id, function(results) {
+        return res.json(results);
+    })
+} )
+
+router.put("/add-user-to-event", (req, res) => {
+    let eventId = req.body.eventId;
+    let userId = req.body.userId;
+
+    eventController.addUserToEvent(eventId, userId, (err, result) => {
+        if(err) console.log(err);
+        console.log(result);
+    })
 })
 
 module.exports = router;

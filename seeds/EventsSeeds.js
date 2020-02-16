@@ -11,7 +11,8 @@ let model = {
             adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"], 
             facilityId: "5e35c71607cf87e4497c41a6", 
             setupNotes: "adsfdsaffds", 
-            tearDownNotes: "adfsasff"
+            tearDownNotes: "adfsasff",
+            price: 25
         }, 
         {
             _id: "5e35c71607cf87e4497c41ba",
@@ -23,7 +24,8 @@ let model = {
             adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"], 
             facilityId: "5e35c71607cf87e4497c41a6", 
             setupNotes: "adsfdsaffds", 
-            tearDownNotes: "adfsasff"
+            tearDownNotes: "adfsasff",
+            price: 25
         },
         {
             _id: "5e35c71607cf87e4497c41bb",
@@ -35,7 +37,8 @@ let model = {
             adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"], 
             facilityId: "5e35c71607cf87e4497c41a6", 
             setupNotes: "adsfdsaffds", 
-            tearDownNotes: "adfsasff"
+            tearDownNotes: "adfsasff",
+            price: 25
         },
         {
             _id: "5e35c71607cf87e4497c41bc",
@@ -47,7 +50,8 @@ let model = {
             adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"], 
             facilityId: "5e35c71607cf87e4497c41a6", 
             setupNotes: "adsfdsaffds", 
-            tearDownNotes: "adfsasff"
+            tearDownNotes: "adfsasff",
+            price: 25
         },
         {
             _id: "5e35c71607cf87e4497c41bd",
@@ -59,7 +63,8 @@ let model = {
             adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"], 
             facilityId: "5e35c71607cf87e4497c41a6", 
             setupNotes: "adsfdsaffds", 
-            tearDownNotes: "adfsasff"
+            tearDownNotes: "adfsasff",
+            price: 25
         },
         {
             _id: "5e35c71607cf87e4497c41be",
@@ -71,7 +76,8 @@ let model = {
             adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"], 
             facilityId: "5e35c71607cf87e4497c41a3", 
             setupNotes: "adsfdsaffds", 
-            tearDownNotes: "adfsasff"
+            tearDownNotes: "adfsasff",
+            price: 25
         }, 
         {
             _id: "5e35c71607cf87e4497c41bf",
@@ -83,7 +89,8 @@ let model = {
             adminIds: ["5e35c71607cf87e4497c41ab", "5e35c71607cf87e4497c41ac"], 
             facilityId: "5e35c71607cf87e4497c41a3", 
             setupNotes: "adsfdsaffds", 
-            tearDownNotes: "adfsasff"
+            tearDownNotes: "adfsasff",
+            price: 25
         }
     ]
 }
