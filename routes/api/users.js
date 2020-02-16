@@ -14,12 +14,12 @@ router.get("/information", verifyBlanketUser, (req, res) => {
     // doing stuff with user information (this assumes that auth was successful)
     // console.log( req.user)
     // let authId = req.user.id;
-    let authId = "00u24pm87E0bSt6Y54x6";
-    Users.findByAuthId(authId, function (results) {
-        console.log("line 17 " + results);
+    // let authId = "00u24pm87E0bSt6Y54x6";
+    // Users.findByAuthId(authId, function (results) {
+    //     console.log("line 17 " + results);
         // res.json(results)
 
-        let userId = results[0]._id
+        let userId = req.user.id
         console.log(userId);
         Events.getGroupIdForUser(userId, function (data) {
         
@@ -41,7 +41,7 @@ router.get("/information", verifyBlanketUser, (req, res) => {
 
         })
 
-    })
+    // })
 
 
 })
