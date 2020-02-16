@@ -62,7 +62,7 @@ class Account extends Component{
                 <Nav></Nav>
                 <div className="container">
                     <Row>
-                        <Col size="6">
+                        <Col size="3">
                         {this.state.information.map(data =>(
                         
                           <AccountInfoCard
@@ -76,8 +76,8 @@ class Account extends Component{
                             
                         ))}
                         </Col>
-                        <Col size ="6">
-                          <AccountEventCard>
+                        <Col size ="3">
+                          <AccountEventCard header="Your Events:">
                         {this.state.events.map(event =>(
                         
                         <EventList
@@ -86,6 +86,10 @@ class Account extends Component{
                         />
                           
                       ))}
+                      </AccountEventCard>
+                      </Col>
+                      <Col size ="3">
+                          <AccountEventCard header="Your Programs:">
                         {this.state.programs.map(program =>(
                         
                         <EventList
