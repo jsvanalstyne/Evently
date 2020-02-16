@@ -37,7 +37,7 @@ module.exports = {
     getGroupIdForUser: (id, cb) => {
         // userId= ObjectId(id)
         console.log("line39 in events controller" +id)
-        Groups.find({"userIds":{$in: id}})
+        Groups.find({"userIds": id})
         .then(cb)
     },
     getEventsForGroups: (groupId, cb) => {

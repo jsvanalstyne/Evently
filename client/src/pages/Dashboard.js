@@ -17,7 +17,7 @@ import PromoDropdowns from "../components/PromoDropdown"
 
 class Dashboard extends Component {
   state = {
-    organizationId: "5e35c71607cf87e4497c41a9", 
+    organizationId: "5e35c71607cf87e4497c41a9",
     upcomingprogram: [],
     upcomingevent: [],
     programopen: false,
@@ -28,26 +28,34 @@ class Dashboard extends Component {
   componentDidMount() {
     this.getUserInformation();
     this.getOrganizationsPromoEvents(this.state.organizationId);
+    this.getUserCalendar();
   }
   getUserInformation = () => {
     API.getUserInformationFromDb()
       .then(dataRes => {
-        console.log(dataRes.data);
-        this.setState({ upcomingevent: dataRes.data })
+        console.log(dataRes);
+        this.setState({ upcomingevent: dataRes.data})
+        console.log(this.state.upcomingevent);
       })
     API.getUserPrograms()
       .then(dataResults => {
-        console.log("line40on dashboard.js " +JSON.stringify(dataResults))
-        this.setState({upcomingprogram: dataResults.data})
+        console.log("line40on dashboard.js " + JSON.stringify(dataResults))
+        this.setState({ upcomingprogram: dataResults.data })
       })
-    
+
+  }
+  getUserCalendar = () => {
+    API.getUserEventsProgramCalendar()
+      .then(res => {
+        this.setState({ calendar: res.data })
+      })
   }
 
-  getOrganizationsPromoEvents= (id)=> {
-    console.log("Line 40 dashboard " +id)
+  getOrganizationsPromoEvents = (id) => {
+    console.log("Line 40 dashboard " + id)
     API.getOrganizationsPromos(id)
       .then(results => {
-         this.setState({promo: results.data.results})
+        this.setState({ promo: results.data.results })
       })
   }
   render() {
@@ -63,20 +71,20 @@ class Dashboard extends Component {
 
                 {this.state.upcomingevent.map(upcomingEvents => (
                   <Dropdowns
-                  name={upcomingEvents.name}
-                  description={upcomingEvents.description}
-                  dateStart={upcomingEvents.dateStart}
+                    name={upcomingEvents.name}
+                    description={upcomingEvents.description}
+                    dateStart={upcomingEvents.dateStart}
                   />
                 ))}
                 {this.state.upcomingprogram.map(upcomingPrograms => (
-                 
+
                   <Dropdowns
-                   name={upcomingPrograms.name}
-                   description={upcomingPrograms.description}
-                   dateStart={upcomingPrograms.dateStart}
-                   />
-                    
-                  
+                    name={upcomingPrograms.name}
+                    description={upcomingPrograms.description}
+                    dateStart={upcomingPrograms.dateStart}
+                  />
+
+
                 ))}
 
               </Card>
@@ -85,12 +93,12 @@ class Dashboard extends Component {
             <Col size="6">
               <Card title="Events you may be interested in:">
                 {this.state.promo.map(promoEvents => (
-                   <PromoDropdowns
-                   name={promoEvents.name}
-                   description={promoEvents.description}
-                   dateStart={promoEvents.dateStart}
-                   price= {promoEvents.price}
-                   />
+                  <PromoDropdowns
+                    name={promoEvents.name}
+                    description={promoEvents.description}
+                    dateStart={promoEvents.dateStart}
+                    price={promoEvents.price}
+                  />
                 ))}
               </Card>
             </Col>

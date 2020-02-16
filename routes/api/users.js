@@ -25,7 +25,7 @@ router.get("/information", verifyBlanketUser, (req, res) => {
             // console.log("line 25 " + data)
             let groupIDArray = data.map(group => group._id)
             
-            // console.log(groupIDArray + "line 27")
+            console.log(groupIDArray + "line 27")
             
             Events.getEventsForGroups(groupIDArray, function (events) {
                 let userEventsArray = events.map(event => {
@@ -35,7 +35,7 @@ router.get("/information", verifyBlanketUser, (req, res) => {
                     description: event.description
                    }
                 });
-
+                console.log("line 38" + JSON.stringify(userEventsArray))
                 return res.json(userEventsArray);
             })
 
@@ -49,10 +49,7 @@ router.get("/information", verifyBlanketUser, (req, res) => {
 
 });
 router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
-    // let authId = req.user.id
-    // console.log("line53 in users.js"+authId)
-    // Users.findByAuthId(authId, function (results) {
-        // console.log(results)
+   
         let userId = req.user.id
         console.log("line57 in users.js"+userId)
         Programs.getGroupIdForUser(userId, function (data) {
@@ -76,7 +73,48 @@ router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
             })
         
     });
-// })
+
+})
+
+router.get("/calendar", verifyBlanketUser, (req, res) => {
+    let userEventsArray={};
+    let userId = req.user.id
+    console.log("line57 in users.js"+userId)
+    Events.getGroupIdForUser(userId, function (data) {
+        let groupIDArray = data.map(group => group._id)
+        Events.getEventsForGroups(groupIDArray, function (events) {
+                userEventsArray = events.map(event => {
+               return { name: event.name,
+                dateStart: event.dateStart,
+                dateEnd: event.dateEnd,
+                description: event.description
+               }
+            });
+            console.log(userEventsArray);
+            // return res.json(userEventsArray);
+        })
+
+})
+
+    Programs.getGroupIdForUser(userId, function (data) {
+        let calendarEventsArray=[];
+        let groupIDArray = data.map(group => group._id)
+        Programs.getProgramsForGroups(groupIDArray, function (program) {
+            console.log("line 63 in users.js "+ JSON.stringify(program))
+            let userProgramArray = program.map(programs => {
+               return { name: programs.name,
+                dateStart: programs.dateStart,
+                dateEnd: programs.dateEnd,
+                description: programs.description,
+                price: programs.price
+               }
+            });
+            const userCalendar = Object.assign(userProgramArray, userEventsArray)
+            calendarEventsArray.push(userCalendar)
+            return res.json(calendarEventsArray);
+        })
+    
+});
 
 })
 

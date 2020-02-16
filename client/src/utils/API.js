@@ -72,6 +72,19 @@ export default {
                 "Authorization": "Bearer " + token
             }
         })
+    },
+    getUserEventsProgramCalendar: function(){
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET",
+            url: "/api/users/calendar",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
     }
 
 }
