@@ -41,6 +41,7 @@ router.get("/allevents/:organizationid", (req, res) => {
             return program
         })
         organizationCalendarArray = organizationEvents.concat(organizationPrograms);
+        console.log("line 44 in events.js" + JSON.stringify(organizationCalendarArray))
         return res.json(organizationCalendarArray).status(200);
     })
 
