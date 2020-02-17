@@ -10,6 +10,7 @@ const Programs = require("../../controllers/API/Programs");
 
 
 
+
 router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
         let userId = req.user.id
@@ -55,6 +56,7 @@ router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
         })
     });
 });
+
 
 router.get("/account", verifyBlanketUser, (req, res) => {
     let userRegistrationInfoArray=[];

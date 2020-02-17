@@ -97,5 +97,18 @@ export default {
                 "Authorization": "Bearer " + token
             }
         })
+    },
+    getUserBills: function (){
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET",
+            url: "/api/bills",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        }) 
     }
 }

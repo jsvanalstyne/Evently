@@ -15,13 +15,15 @@ class Account extends Component{
     state={
         events:[],
         information:[],
-        programs: []
+        programs: [],
+        bills:[]
     }
 
     componentDidMount(){
         this.userAccountInfo();
         this.getUserEvents();
         this.getUserPrograms();
+        this.getUserBills();
     }
     userAccountInfo(){
         API.getUserAccountInfoFromDb()
@@ -50,6 +52,12 @@ class Account extends Component{
             this.setState({programs: data.data})
         })
         
+    }
+    getUserBills(){
+        API.getUserBills()
+        .then(data => {
+            console.log(data)
+        });
     }
 
 
