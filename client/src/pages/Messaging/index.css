@@ -18,6 +18,11 @@
     padding: 10px;
 }
 
+.new-message {
+    font-weight: 800;
+    color: red;
+}
+
 .conversation-container:hover {
     background-color: rgba(225, 225, 225);
 }

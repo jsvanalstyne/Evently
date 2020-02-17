@@ -103,6 +103,22 @@ export default {
             }
         })
     }, 
+    createSocketConnection: function(socketId, conversationId) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken;
+
+        return axios({
+            method: "POST", 
+            url: "/api/conversations/create-connection",
+            data: {
+                "socketId": socketId
+            },
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    },
     getMessagesByConversation: function(conversationId) {
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken;
 

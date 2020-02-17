@@ -9,7 +9,6 @@ import axios from 'axios'
 // importing withAuth and OktaAuth
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
-import Button from 'react-bootstrap/Button';
 
 
 /* creating stateful login component

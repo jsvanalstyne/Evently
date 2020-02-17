@@ -5,6 +5,7 @@ require('dotenv').config();
 const mongoose = require("mongoose");
 const routes = require("./routes/index");
 const app = express();
+const bodyParser = require("body-parser")
 const PORT = process.env.PORT || 3030;
 
 // Square pay stuff
@@ -13,8 +14,8 @@ const squareConnect = require('square-connect');
 const accessToken = process.env.PAY_TOKEN;
 
 // Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -36,6 +37,7 @@ client.on("connect", () => {
 client.on("error", err => {
   console.log(err);
 });
+
 // Add routes, both API and view
 app.use(routes);
 
@@ -60,9 +62,20 @@ defaultClient.basePath = 'https://connect.squareupsandbox.com';
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Balls"
 console.log(MONGODB_URI);
 mongoose.connect(MONGODB_URI);
+
 // Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
+let server = app.listen(PORT, function() {
+    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+
+    const io = require("socket.io");
+    const socket = io(server);
+    app.set("socket", socket);
+
+    socket.on("connection", socket => {
+      console.log("in server file");
+      console.log(socket.id)
+      socket.emit("id", socket.id);
+    });
+  });
 
 // MONGODB_URI=mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd

@@ -22,27 +22,14 @@ function MessageForm(props) {
         
         API.createMessage(newMessage)
         .then(response => {
-            if(response.status === 200) {
-                // add logic to tell when the last message sent has been
-                // delivered or not
-                props.setCurrConversation(prevCurrConversation => {
-                    let newMessages = prevCurrConversation.messages.concat(response.data.newMessage);
-
-                    return {
-                        name: prevCurrConversation.name, 
-                        _id: prevCurrConversation.id, 
-                        messages: newMessages
-                    }
-                })
-            } else {
-                console.log("not suppposed to be inhere");
-                // set a warning message
-            }
         })
         .catch(err => {
             console.log(err);
             // same as above comment
         })
+
+        setMessage("");
+
     }
 
     return (

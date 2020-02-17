@@ -1,5 +1,5 @@
 // importing React for jsx
-import React, {useState} from "react";
+import React from "react";
 // importing styling from index.css
 import "./index.css";
 // importing Message component
@@ -18,6 +18,7 @@ function MessageList(props) {
                         senderName={message.senderName}
                         text={message.text}
                         timeSent={message.timeSent}
+                        key={message._id}
                         />
                     }) : <p align="center">You don't have any messages in this conversation yet!</p>
                 }

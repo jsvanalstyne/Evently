@@ -5,7 +5,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 module.exports = {
     // ------------------ GET ------------------
     // Find all users associated with a conversation
-    getUsers: (conversationId, cb) => {
+    getUsers: async (conversationId, cb) => {
         conversationId = ObjectId(conversationId);
 
         return Conversations.findById(conversationId)

@@ -14,6 +14,11 @@ import {ObjectId} from "mongoose"
 // importing react and necessary hooks
 import React, { useState, useEffect } from "react";
 import "./index.css"
+// importing client-side socket.io
+import socketClient from "socket.io-client";
+// cereating socket at local host for testing
+const PORT = process.env.PORT || "http://localhost:3030"
+const socket = socketClient(PORT);
 
 
 // Conversation list component containing all conversations
@@ -24,26 +29,81 @@ function Messaging() {
     const [currConversation, setCurrConversation] = useState({});
     const [user, setUser] = useState({});
     // get all conversations and default display messages
-    const getConversations = (cb) => {
+    const getConversations = () => {
         API.getAllConversations()
-        .then(cb);
+        .then(result => {
+            setConversations(result.data.conversations);
+                setUser(result.data.user);
+                setCurrConversation({
+                    messages: result.data.messages, 
+                    _id: result.data.conversations[0]._id, 
+                    name: result.data.conversations[0].name, 
+                })
+        });
     }
     // on load, grabs all conversations and messages from default conversation
     // that the current user is involved in
     useEffect(() => {
-        getConversations(result => {
-            console.log(result.data.messages);
-            // setting initial state with all conversations, all messages, 
-            // and the respective user information
-            setConversations(result.data.conversations);
-            setUser(result.data.user);
-            setCurrConversation({
-                messages: result.data.messages, 
-                _id: result.data.conversations[0]._id, 
-                name: result.data.conversations[0].name
-            })
-        })
+        try {
+            getConversations();
+        } catch(error) {
+            console.log(error);
+            getConversations();
+        }
+        
     }, [])
+
+    socket.on("id", socketId => {
+        console.log("we got in here");
+        console.log(socket.id);
+        console.log(socketId);
+        API.createSocketConnection(socketId)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    })
+
+    // socket.on("connect", () => {
+    //     API.createSocketConnection(socket.id)
+    //     .then(response => {
+    //         console.log(response);
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     })    
+    // })
+
+    socket.on("newMessage", message => {
+        console.log(message);
+        console.log(currConversation);
+        // console.log(currConversation);
+        // for(let i = 0; i < currConversation.messages.length; i++) {
+        //     if(message._id == currConversation.messages[i]._id) {
+        //         console.log("match found");
+        //         return;
+        //     }
+        // }
+
+        // if(message.conversationId == currConversation._id) {
+        //     console.log("we go tin here 2");
+        //     setMessages(message);
+        // }
+    })
+
+    const setMessages = newMessage => {
+        setCurrConversation(prevCurrConversation => {
+            let newMessages = prevCurrConversation.messages.concat(newMessage);
+            console.log(newMessages);
+            return {
+                messages: newMessages, 
+                _id: prevCurrConversation._id, 
+                name: prevCurrConversation.name
+            }
+        })
+    }
 
     const getNewConversation = (conversationId) => {
         if(conversationId !== currConversation._id) {
@@ -88,10 +148,9 @@ function Messaging() {
                         </div>
                         {conversations.map(conversation => {
                             return (
-                                <div className="conversation-container">
+                                <div className="conversation-container" key={conversation._id}> 
                                     <a 
                                      onClick={() => getNewConversation(conversation._id)}
-                                     key={conversation._id} 
                                      className="conversation-title" 
                                      conversationid={conversation.id}
                                     >{conversation.name}
@@ -106,7 +165,6 @@ function Messaging() {
                     <MessageContainer 
                         currConversation={currConversation}                        
                         user={user}
-                        setCurrConversation={setCurrConversation}
                     />
                 </div>
             </div>

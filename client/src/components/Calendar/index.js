@@ -10,7 +10,6 @@ class MyCalendars extends Component {
 
   constructor(props) {
     super(props);
-    const now = new Date();
     
     this.state = {
       name: 'React',

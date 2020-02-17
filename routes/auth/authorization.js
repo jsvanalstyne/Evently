@@ -35,12 +35,11 @@ module.exports = async (req, res, next) => {
                 // checking if the user authId exists in our cache
                 cache.get(`user${sub}`, (err, id) => {
                     if(err) {
-                        req.error = {
+                        res.json({
                             "message": "authorization error", 
-                            "error": req.error
-                        }
-
-                        next();
+                            "error": error
+                        })
+                        .status(401);
                     }
 
                     if(!id) {
@@ -54,7 +53,6 @@ module.exports = async (req, res, next) => {
                         });
                     } else {
                         req.user.id = id;
-                        console.log(req.user);
                         next();
                     }
                 });
@@ -62,16 +60,16 @@ module.exports = async (req, res, next) => {
             // if unsuccessful, catch the error and add a failed message to the
             // to the request to be handled later in the workflow
             .catch(error => {
-                req.error = {
+                return res.json({
                     "message": "authorization unsuccessful",
                     "error": error
-                }
-                next();
+                })
+                .status(401)
             })
     } else {
-        req.error = {
+        return res.json({
             "message": "no token provided from user"
-        }
-        next();
+        })
+        .status(401)
     }
 }

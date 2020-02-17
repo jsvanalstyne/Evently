@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3030/",
+  "proxy": "http://127.0.0.1:3030/",
   "dependencies": {
     "@okta/okta-auth-js": "^2.13.0",
     "@okta/okta-react": "^1.4.0",
@@ -27,6 +27,7 @@
     "react-event-calendar": "^0.3.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
+    "socket.io-client": "^2.3.0",
     "wavesurfer.js": "^1.0.52"
   },
   "scripts": {
