@@ -52,11 +52,12 @@ class Funtivity extends Component {
                 this.setState({ calendar: res.data})
             })
     }
+    // Get the user events/programs, map over them to get ids and setstate of registered events to array of ids
 
     render() {
         return (
             <div>
-                <Nav></Nav>
+                <Nav/>
                 <div className="container">
                     <Border>
                         <Headers heading="Programs" />
@@ -64,6 +65,7 @@ class Funtivity extends Component {
                             {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
 
                                 <FunCard
+                                // registered={this.state.registeredprograms. includes(upcomingprograms._id)}
                                     key={upcomingprograms._id}
                                     event={upcomingprograms.name}
                                     // eventId= {upcomingprograms._id}
@@ -193,7 +195,7 @@ class Funtivity extends Component {
                     </Border>
 
                 </div>
-                <Footer></Footer>
+                <Footer/>
             </div>
         );
     }

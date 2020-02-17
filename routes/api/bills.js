@@ -17,20 +17,22 @@ router.get("/", verifyBlanketUser, (req, res) => {
                 eventPaidFor: data.eventPaidFor
             }
         })
-       let eventIdArray = userBillsArray.map(eventId => {
+        console.log(userBillsArray)
+    //    let eventIdArray = userBillsArray.map(eventId => {
         
-              return [eventId.eventPaidFor]
+    //           return {id: eventId.eventPaidFor}
             
-        })
-        console.log("line 24 bills.js "+ eventIdArray);
+    //     })
+    //     console.log("line 24 bills.js "+ eventIdArray);
 
-        eventController.getEventsByManyIds(eventIdArray, function(data){
-            console.log("line 28 " +data[0].name)
-                for (var i =0; userBillsArray.length; i++){
-                    userBillsArray[0].eventName = data[0].name
+        eventController.getEventsByManyIds(userBillsArray.map(bill => bill.eventPaidFor), function(data){
+            console.log("line 28 " +data)
+                for (var i =0; i<userBillsArray.length; i++){
+                    userBillsArray[i].eventName = data[i].name
+                    // console.log(userBillsArray[i], data[i])
                 }
                 console.log("line 32 in bills.js "+ JSON.stringify(userBillsArray))
-            res.json().status(userBillsArray);
+            res.json(userBillsArray).status(200);
         })
     })
 
