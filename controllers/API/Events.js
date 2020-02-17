@@ -38,6 +38,10 @@ module.exports = {
         Groups.find({"userIds":{$in: id}})
         .then(cb)
     },
+    getEventsByManyIds: (eventIdArray, cb) => {
+        Events.find({"_id": {$in: eventIdArray}})
+        .then(cb)
+    },
     getEventsForGroups: (groupId, cb) => {
         // groupIds = ObjectId(groupId)
         Events.find({"groupIds":{$in : groupId}})

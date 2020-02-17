@@ -4,6 +4,7 @@ const verifyBlanketUser = require("../auth/authorization");
 const eventController = require("../../controllers/API/Events");
 
 router.get("/", verifyBlanketUser, (req, res) => {
+    let eventIdAsrray = [];
     let userId = req.user.id;
     console.log(userId)
     billController.findByUserId(userId, function(results){
@@ -16,9 +17,20 @@ router.get("/", verifyBlanketUser, (req, res) => {
                 eventPaidFor: data.eventPaidFor
             }
         })
-        eventController.getEventById(eventId, function(data){
-            console.log(data)
-            res.json().status(200);
+       let eventIdArray = userBillsArray.map(eventId => {
+        
+              return [eventId.eventPaidFor]
+            
+        })
+        console.log("line 24 bills.js "+ eventIdArray);
+
+        eventController.getEventsByManyIds(eventIdArray, function(data){
+            console.log("line 28 " +data[0].name)
+                for (var i =0; userBillsArray.length; i++){
+                    userBillsArray[0].eventName = data[0].name
+                }
+                console.log("line 32 in bills.js "+ JSON.stringify(userBillsArray))
+            res.json().status(userBillsArray);
         })
     })
 
