@@ -37,9 +37,9 @@ function SignupModal(props) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose} eventId={props.eventId}>
+            {/* <Button variant="primary" onClick={handleClose} eventId={props.eventId}>
               {props.closeBtnText}
-            </Button>
+            </Button> */}
           </Modal.Footer>
         </Modal>
       </>
