@@ -12,6 +12,7 @@ return(
 
   <Dropdown.Menu>
     <Dropdown.Item href="#/action-1">{props.description}</Dropdown.Item>
+    <Dropdown.Item href="#/action-1">{props.dateStart}</Dropdown.Item>
     
   </Dropdown.Menu>
 </Dropdown>

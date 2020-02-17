@@ -10,7 +10,7 @@ import Nav from "../components/Nav";
 import Headers from "../components/Headers";
 import Dropdowns from "../components/Dropdown";
 import PromoDropdowns from "../components/PromoDropdown"
-// import Moment from 'react-moment';
+var moment = require("moment");
 
 
 
@@ -74,7 +74,7 @@ class Dashboard extends Component {
                   <Dropdowns
                     name={upcomingEvents.name}
                     description={upcomingEvents.description}
-                    dateStart={upcomingEvents.dateStart}
+                    dateStart={moment(upcomingEvents.dateStart).format('LLL')}
                   />
                 ))}
                 {this.state.upcomingprogram.map(upcomingPrograms => (
@@ -82,9 +82,8 @@ class Dashboard extends Component {
                   <Dropdowns
                     name={upcomingPrograms.name}
                     description={upcomingPrograms.description}
-                    dateStart={upcomingPrograms.dateStart}
+                    dateStart={moment(upcomingPrograms.dateStart).format('LLL')}
                   />
-
 
                 ))}
 
