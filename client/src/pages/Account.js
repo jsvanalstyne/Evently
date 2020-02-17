@@ -83,6 +83,7 @@ class Account extends Component{
                         <EventList
                         name= {event.name}
                         eventid = {event._id}
+                        type="event"
                         />
                           
                       ))}
@@ -94,7 +95,8 @@ class Account extends Component{
                         
                         <EventList
                         name= {program.name}
-                        eventid = {program._id}
+                        eventid = {program.id}
+                        type="program"
                         />
                           
                       ))}

@@ -66,6 +66,20 @@ export default {
             }
         })
     },
+    cancelProgramRegistration: function(id){
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+        console.log(token + "inside cancelEventRegistration")
+        console.log(id);
+        return axios({
+            method: "DELETE",
+            url: "/api/programs/removal/" + id,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    },
     getCalendarEventPrograms: function(id) {
         console.log("inside calendar");
         return axios.get("/api/events/allevents/" + id);

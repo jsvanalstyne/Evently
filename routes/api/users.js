@@ -12,14 +12,10 @@ const Programs = require("../../controllers/API/Programs");
 
 router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
-    
-
         let userId = req.user.id
         console.log(userId);
         Events.getGroupIdForUser(userId, function (data) {
-        
             let groupIDArray = data.map(group => group._id)
-
             Events.getEventsForGroups(groupIDArray, function (events) {
                 console.log(events);
                 let userEventsArray = events.map(event => {
@@ -29,17 +25,11 @@ router.get("/information", verifyBlanketUser, (req, res) => {
                     _id: event._id
                    }
                 })
-
                 return res.json(userEventsArray);
             })
-
-
         })
-
-    
-
-
 })
+
 router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
    
     let userId = req.user.id
@@ -57,16 +47,15 @@ router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
                 dateStart: programs.dateStart,
                 dateEnd: programs.dateEnd,
                 description: programs.description,
-                price: programs.price
+                price: programs.price,
+                id: programs._id
                }
             });
-
             return res.json(userProgramArray);
         })
-    
+    });
 });
 
-})
 router.get("/account", verifyBlanketUser, (req, res) => {
     let userRegistrationInfoArray=[];
     let userObject = req.user
@@ -79,20 +68,16 @@ router.get("/account", verifyBlanketUser, (req, res) => {
                 street: information[0].street,
                 zipcode: information[0].zipcode,
                 stateCode: information[0].stateCode,
-                city: information[0].city
-                           
+                city: information[0].city      
             }
             let userRegistrationInfo =Object.assign(userAccountObject, userObject)
             console.log(userRegistrationInfo);
             userRegistrationInfoArray.push(userRegistrationInfo);
             console.log("line 89" +userRegistrationInfoArray);
-
             return res.json(userRegistrationInfoArray);
-        })
-    // });
-
-
+        });
 });
+
 
 
 router.post("/", (req, res) => {
