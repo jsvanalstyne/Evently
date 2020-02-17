@@ -37,13 +37,15 @@ export default class PaymentForm extends Component {
       nonce: undefined,
       googlePay: false,
       applePay: false,
-      masterpass: false
+      masterpass: false,
+      showing: true
     }
     this.requestCardNonce = this.requestCardNonce.bind(this);
   }
 
   requestCardNonce() {
     this.paymentForm.requestCardNonce();
+    // this.setState({showing: true})
     // this.props.eventId
   }
 
@@ -234,8 +236,11 @@ export default class PaymentForm extends Component {
 
   render() {
     // the payment form itself
+    const { showing } = this.state.showing;
     return (
-      <div className="pay-container">
+      <div>
+        {showing ? 
+        <div className="pay-container">
         <div id="form-container">
           <div id="sq-walletbox">
             <button style={{ display: (this.state.applePay) ? 'inherit' : 'none' }}
@@ -276,6 +281,11 @@ export default class PaymentForm extends Component {
         </div>
         <p style={styles.center} id="error"></p>
       </div>
+      : 
+      <p>You have paid for this</p>
+          }
+    </div>
+      
     )
   }
 }

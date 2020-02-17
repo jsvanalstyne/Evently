@@ -103,7 +103,10 @@ import { Collapse, Button } from "react-bootstrap";
 
 // ];
 
-
+// get all bills for user
+// create a prop for the fun card of paid with a boolean value
+// if the value it false, show the payment form
+// if the value is true, show a note saying the event has already been paid for
 
 class Funtivity extends Component {
 

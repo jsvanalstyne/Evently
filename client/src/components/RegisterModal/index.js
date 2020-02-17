@@ -9,6 +9,11 @@ function SignupModal(props) {
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    // logic for dynamically rendering the pay form
+    // make a call to the DB to get all of the users bills
+    // check the paid boolean to see if any events have been paid for
+    // if an event has been paid for, dont show the squareapp component
   
     return (
       <>
