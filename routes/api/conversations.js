@@ -6,6 +6,8 @@ const Conversations = require("../../controllers/API/Conversations.js");
 const Users = require("../../controllers/API/Users.js");
 // importing middleware for authorization
 const auth = require("../auth/authorization.js");
+// middleware for gett live sockets
+const getUsers = require("./chat.js");
 
 
 // route to get all conversations associated with one user
@@ -56,7 +58,7 @@ router.get("/messages/:id", auth, (req, res) => {
 })
 
 
-router.post("/create", auth, (req, res) => {
+router.post("/create", auth, getUsers, (req, res) => {
     Conversations.createConversation(req.body.conversation)
     .then(result => {
         if(result.name) {
@@ -94,6 +96,37 @@ router.get("/one/:id", auth, (req, res) => {
         })
         .status(404);
     });
+})
+
+router.post("/create-connection", auth, (req, res) => {
+    const cache = req.app.get("cache");
+    cache.set(`socket${req.user.id}`, req.body.socketId);
+
+    cache.get(`socket${req.user.id}`, (err, result) => {
+        if(err) {
+            console.log("error on server")
+            console.log(err)
+            return res.json({
+                "message": "could not add connection"
+            })
+            .status(404)
+        }
+
+        if(result === req.body.socketId && typeof result === "string") {
+            console.log(`${req.user.name}: ${result}`)
+            return res.json({
+                "message": "connection created", 
+                "socketId": result
+            })
+            .status(200)
+        } else {
+            console.log("shouldn't have gotten in here");
+            return res.json({
+                "message": "could not add connection"
+            })
+            .status(404)
+        }
+    })
 })
 
 module.exports = router;
