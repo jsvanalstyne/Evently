@@ -60,6 +60,10 @@ class Funtivity extends Component {
         API.getUserPrograms()
         .then(res => {
             console.log("GET USER PROG: " + JSON.stringify(res.data))
+            let paidPrograms = res.data.map(paidIds => {
+                return paidIds.id
+            })
+            console.log(paidPrograms)
         })
     }
     // Get the user events/programs, map over them to get ids and setstate of registered events to array of ids
