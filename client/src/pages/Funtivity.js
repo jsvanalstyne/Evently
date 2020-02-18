@@ -18,7 +18,8 @@ class Funtivity extends Component {
         events: [],
         programopen: false,
         eventopen: false,
-        calendar: []
+        calendar: [],
+        registeredfor: []
     }
 
     handleCollapse(name) {
@@ -28,21 +29,24 @@ class Funtivity extends Component {
         this.getPrograms();
         this.getEvents();
         this.getCalendar();
+        this.getUserPrograms();
 
     }
 
     getPrograms = () => {
         API.getAllPrograms(this.state.organizationid)
             .then(res => {
-                // console.log(res)
+                console.log("PROGRAMS RES: " + JSON.stringify(res.data))
                 this.setState({ programs: res.data })
+                console.log("EVENT RES: " + this.state.programs)
             })
     }
     getEvents = () => {
         API.getAllEvents(this.state.organizationid)
             .then(res => {
-                // console.log(res)
+                console.log("EVENT RES: " + res.data[0])
                 this.setState({ events: res.data })
+                console.log("EVENT RES: " + this.state.events)
             });
         
     }
@@ -51,6 +55,12 @@ class Funtivity extends Component {
             .then(res => {
                 this.setState({ calendar: res.data})
             })
+    }
+    getUserPrograms = () => {
+        API.getUserPrograms()
+        .then(res => {
+            console.log("GET USER PROG: " + JSON.stringify(res.data))
+        })
     }
     // Get the user events/programs, map over them to get ids and setstate of registered events to array of ids
 
