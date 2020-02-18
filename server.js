@@ -64,18 +64,22 @@ console.log(MONGODB_URI);
 mongoose.connect(MONGODB_URI);
 
 // Start the API server
-let server = app.listen(PORT, function() {
+var server = app.listen(PORT, function() {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 
-    const io = require("socket.io");
-    const socket = io(server);
-    app.set("socket", socket);
+});
 
-    socket.on("connection", socket => {
-      console.log("in server file");
-      console.log(socket.id)
-      socket.emit("id", socket.id);
-    });
-  });
+const io = require("socket.io");
+const socket = io(server);
+app.set("socket", socket);
+
+socket.on("connection", socket => {
+  console.log(`socket connected: ${socket.id}`)
+
+  socket.on("disconnect", () => {
+    console.log("client disconnected: " + socket.id)
+  })
+});
+
 
 // MONGODB_URI=mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd

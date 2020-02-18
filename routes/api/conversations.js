@@ -32,6 +32,9 @@ router.get("/all", auth, (req, res) => {
             })
             .status(200);
         })
+        .catch(error => {
+            console.log(error);
+        })
     
     })
     .catch(err => {
@@ -100,8 +103,6 @@ router.get("/one/:id", auth, (req, res) => {
 
 router.post("/create-connection", auth, (req, res) => {
     const cache = req.app.get("cache");
-    cache.set(`socket${req.user.id}`, req.body.socketId);
-
     cache.get(`socket${req.user.id}`, (err, result) => {
         if(err) {
             console.log("error on server")
@@ -111,18 +112,30 @@ router.post("/create-connection", auth, (req, res) => {
             })
             .status(404)
         }
-
-        if(result === req.body.socketId && typeof result === "string") {
+        console.log("115: " + result);
+        if(!result) {
             console.log(`${req.user.name}: ${result}`)
+            cache.set(`socket${req.user.id}`, req.body.socketId);
+
             return res.json({
                 "message": "connection created", 
-                "socketId": result
+                "socketId": req.body.socketId
+            })
+            .status(200)
+        } 
+        else if(result != req.body.socketId) {
+            cache.set(`socket${req.user.id}`, req.body.socketId);
+            
+            return res.json({
+                "message": "new socket id set", 
+                "socketId": req.body.socketId, 
+                "oldSocketId": result
             })
             .status(200)
         } else {
-            console.log("shouldn't have gotten in here");
+            console.log("socket and user already exist in redis");
             return res.json({
-                "message": "could not add connection"
+                "message": "connection already"
             })
             .status(404)
         }

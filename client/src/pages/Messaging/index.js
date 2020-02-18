@@ -17,12 +17,11 @@ import "./index.css"
 // importing client-side socket.io
 import socketClient from "socket.io-client";
 // cereating socket at local host for testing
-const PORT = process.env.PORT || "http://localhost:3030"
-const socket = socketClient(PORT);
-
-
+const PORT = process.env.PORT || "http://127.0.0.1:3030/messages";
 // Conversation list component containing all conversations
 // that users are a part of
+const socket = socketClient(PORT, {}).connect();
+
 function Messaging() {
 
     const [conversations, setConversations] = useState([]);
@@ -32,77 +31,113 @@ function Messaging() {
     const getConversations = () => {
         API.getAllConversations()
         .then(result => {
+            console.log(result);
             setConversations(result.data.conversations);
-                setUser(result.data.user);
-                setCurrConversation({
-                    messages: result.data.messages, 
-                    _id: result.data.conversations[0]._id, 
-                    name: result.data.conversations[0].name, 
-                })
+            setCurrConversation({
+                messages: result.data.messages, 
+                _id: result.data.conversations[0]._id, 
+                name: result.data.conversations[0].name, 
+            })
+            setUser(result.data.user);
         });
     }
     // on load, grabs all conversations and messages from default conversation
     // that the current user is involved in
     useEffect(() => {
-        try {
-            getConversations();
-        } catch(error) {
-            console.log(error);
-            getConversations();
-        }
+        console.log("ew got in here");
+        getConversations();
         
     }, [])
 
-    socket.on("id", socketId => {
-        console.log("we got in here");
-        console.log(socket.id);
-        console.log(socketId);
-        API.createSocketConnection(socketId)
-        .then(response => {
-            console.log(response);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    })
+    // socket.on("id", socketId => {
+    //     console.log("we got in here");
 
-    // socket.on("connect", () => {
-    //     API.createSocketConnection(socket.id)
-    //     .then(response => {
-    //         console.log(response);
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //     })    
+    //     const currSocketId = localStorage.getItem("socketId");
+    //     console.log(`curr socket Id: ${currSocketId}`);
+    //     console.log(`ppotentially new socket id: ${socketId}`);
+    //     if(currSocketId !== socketId) {
+    //         API.createSocketConnection(socketId)
+    //         .then(response => {
+    //             console.log(response);
+    //             if(response.status === 200) {
+    //                 localStorage.setItem("socketId", response.data.socketId)
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         })
+    //     }
     // })
 
-    socket.on("newMessage", message => {
-        console.log(message);
-        console.log(currConversation);
-        // console.log(currConversation);
-        // for(let i = 0; i < currConversation.messages.length; i++) {
-        //     if(message._id == currConversation.messages[i]._id) {
-        //         console.log("match found");
-        //         return;
-        //     }
-        // }
+    socket.on("connect", () => {
+        console.log("we're connected at: " + socket.id);
 
-        // if(message.conversationId == currConversation._id) {
-        //     console.log("we go tin here 2");
-        //     setMessages(message);
+        const currSocketId = localStorage.getItem("socketId");
+        console.log(`curr socket Id: ${currSocketId}`);
+        console.log(`ppotentially new socket id: ${socket.id}`);
+        if(currSocketId !== socket.id) {
+            API.createSocketConnection(socket.id)
+            .then(response => {
+                console.log(response);
+                if(response.status === 200) {
+                    console.log("local should be set to: " + response.data.socketId);
+                    localStorage.setItem("socketId", response.data.socketId)
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+        // API.createSocketConnection(socket.id)
+        // .then(response => {
+        //     console.log(response);
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // })    
+    });
+
+    socket.on("disconnect", reason => {
+        console.log(reason);
+        socket.connect();
+    })
+
+    socket.on("connect_error", error => {
+        console.log(error);
+    })
+
+    socket.on("reconnect", Infinity => {
+        console.log("blah");
+    })
+
+    socket.on("newMessage", message => {
+        // if the incoming message is part of the displayed conversation, 
+        // add it update the messages on currConversation w
+        console.log(currConversation);
+        console.log(conversations);
+        console.log(message);
+
+        if(message.conversationId == currConversation._id) {
+            console.log("we go tin here");
+            setMessages(message);
+            return;
+        }
+        // } else {
+        //     console.log("we also got in here because who doesn't want 4 of the same response");
+        //     let newConversations = conversations.map(conversation => {
+        //         if(conversation._id == message.conversationId) {
+        //             conversation.hasNewMessage = true;
+        //         }
+        //     })
+
+        //     setConversations(newConversations);
         // }
     })
 
     const setMessages = newMessage => {
-        setCurrConversation(prevCurrConversation => {
-            let newMessages = prevCurrConversation.messages.concat(newMessage);
-            console.log(newMessages);
-            return {
-                messages: newMessages, 
-                _id: prevCurrConversation._id, 
-                name: prevCurrConversation.name
-            }
-        })
+        let newMessages = currConversation.messages.concat(newMessage);
+
+        setCurrConversation({...currConversation, messages: newMessages})
     }
 
     const getNewConversation = (conversationId) => {
@@ -145,8 +180,8 @@ function Messaging() {
                                 userId={user.id}
                                 setConversations={setConversations}
                             />
-                        </div>
-                        {conversations.map(conversation => {
+                        </div> 
+                        {conversations ? conversations.map(conversation => {
                             return (
                                 <div className="conversation-container" key={conversation._id}> 
                                     <a 
@@ -157,7 +192,7 @@ function Messaging() {
                                     </a>
                                 </div>
                             )
-                        })}
+                        }) : <p>lame</p>}
                     </div>
                 </div>
                 <div style={{height: "100vh", width: "80vw", backgroundColor: "rgba(33, 33, 33, 0.6)"}}>

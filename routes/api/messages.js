@@ -19,10 +19,12 @@ router.post("/create", auth, getLiveUsers, (req, res) => {
     .then(result => {
         if(result.senderName) {
             for(let i = 0; i < req.userIds.length; i++) {
+                console.log(`current user: ${req.userIds[i]}`);
                 cache.get(`socket${req.userIds[i]}`, (err, socketId) => {
                     if(err) {
                         console.log(err)
                     } else {
+                        console.log(socketId);
                         if(socket.sockets.connected[socketId]) {
                             const recipientSocket = socket.sockets.connected[socketId];
                             recipientSocket.emit("newMessage", req.body.message);
