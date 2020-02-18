@@ -20,6 +20,7 @@ module.exports = {
         .sort({"startDate": 1})
         .then(cb)
     }, 
+    
     // Find all events associated with a given organization
     // and exclude all events that are associated with 
     // a given program and sort by 
@@ -35,7 +36,8 @@ module.exports = {
     },
     getGroupIdForUser: (id, cb) => {
         // userId= ObjectId(id)
-        Groups.find({"userIds":{$in: id}})
+        console.log("line39 in events controller" +id)
+        Groups.find({"userIds": id})
         .then(cb)
     },
     getEventsByManyIds: (eventIdArray, cb) => {

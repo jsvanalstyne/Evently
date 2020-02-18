@@ -8,14 +8,15 @@ var EventsSeeds = require("../seeds/EventsSeeds");
 var EmployeesSeeds = require("../seeds/EmployeesSeeds");
 var ConversationsSeeds = require("../seeds/ConversationsSeeds");
 var AccountsSeeds = require("../seeds/AccountsSeeds");
+var PromosSeeds = require("../seeds/PromosSeeds");
 var path = require("path")
 
 const modelsData = [UsersSeeds, AccountsSeeds, ConversationsSeeds, MessagesSeeds, 
                     OrganizationsSeeds, FacilitiesSeeds, EmployeesSeeds, 
-                    ProgramsSeeds, EventsSeeds]
+                    ProgramsSeeds, EventsSeeds, PromosSeeds]
 
 const models = ['Users', 'Accounts', 'Conversations', 'Messages', 'Organizations', 
-                'Facilities', 'Employees', 'Programs', 'Events']
+                'Facilities', 'Employees', 'Programs', 'Events', 'Promos']
 
 // Connect to MongoDB via Mongoose
 // mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd
@@ -31,7 +32,8 @@ seeder.connect('mongodb://localhost/Balls', function() {
         "../models/Messages.js",
         "../models/Organizations.js",
         "../models/Programs.js", 
-        "../models/Users"
+        "../models/Users",
+        "../models/Promos"
     ]);
 
     seeder.clearModels(models, function() {

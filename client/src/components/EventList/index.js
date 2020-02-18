@@ -20,6 +20,7 @@ class EventList extends Component {
           });
         break;
       case "program":
+        console.log("program")
         API.cancelProgramRegistration(id)
           .then(res => {
             console.log(res)

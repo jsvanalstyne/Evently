@@ -7,6 +7,7 @@ const auth = require("../auth/authorization.js");
 const Bills = require("../../models/Bills");
 const billsController = require("../../controllers/API/Bills");
 const Events = require("../../controllers/API/Events");
+const Programs = require("../../controllers/API/Programs")
 
 
 // More square stuff
@@ -34,6 +35,7 @@ router.post('/process', auth, async (req, res) => {
   console.log(request_params)
   const eventId = req.body.eventId
   const userId = req.user.id;
+  const type = req.body.type;
   // creating a bill for the users payemnt
   console.log("user: " + req.user.name);
   console.log(request_params.amount/100)
@@ -59,9 +61,23 @@ router.post('/process', auth, async (req, res) => {
 
   try {
     const response = await payments_api.createPayment(request_body);
-    Events.addUserToEvent(eventId, userId, function(res){
-      console.log(res);
-    })
+    console.log("line 63 in payment.js "+ type)
+    switch (type){
+      case "program":
+          Programs.addUserToProgram(eventId, userId, function(res){
+            console.log(res);
+          });
+        break;
+      case "event":
+          Events.addUserToEvent(eventId, userId, function(res){
+            console.log(res);
+          });
+        break;
+      default:
+        console.log("broke switch")
+    }
+
+   
     res.status(200).json({
       'title': 'Payment Successful',
       'result': response

@@ -4,65 +4,103 @@ import { Col, Row } from "../components/Grid";
 import Card from "../components/Card";
 import Footer from "../components/Footer"
 import List from "../components/List";
-// import Nav from "../components/Nav";
 import MyCalendars from "../components/Calendar";
 import API from "../utils/API";
-import Nav from "../components/Nav"
-import Headers from "../components/Headers"
+import Nav from "../components/Nav";
+import Headers from "../components/Headers";
+import Dropdowns from "../components/Dropdown";
+import PromoDropdowns from "../components/PromoDropdown"
+var moment = require("moment");
 
-const promo = [{ event: "Race for the Cure",  date: "April 17, 2020 at 3pm" }, { event: "Community Yard Sale",  date: "April 17, 2020 at 3pm"  }, { event: "Father Daughter Dance",  date: "April 17, 2020 at 3pm"  }, { event: "CPR training",  date: "April 17, 2020 at 3pm"  }
-];
+
 
 
 class Dashboard extends Component {
   state = {
+    organizationId: "5e35c71607cf87e4497c41a9",
     upcomingprogram: [],
     upcomingevent: [],
     programopen: false,
     eventopen: false,
-    promo:[]
+    calendar: [],
+    promo: []
   }
-  componentDidMount(){
+  componentDidMount() {
     this.getUserInformation();
+    this.getOrganizationsPromoEvents(this.state.organizationId);
+    this.getUserCalendar();
   }
-getUserInformation = () =>{
-  API.getUserInformationFromDb()
-    .then(dataRes => {
-      console.log (dataRes.data);
-      this.setState({upcomingprogram: dataRes.data})
-      
-    })
+  getUserInformation = () => {
+    API.getUserInformationFromDb()
+      .then(dataRes => {
+        console.log(dataRes);
+        this.setState({ upcomingevent: dataRes.data})
+        console.log(this.state.upcomingevent);
+      })
+    API.getUserPrograms()
+      .then(dataResults => {
+        console.log("line40on dashboard.js " + JSON.stringify(dataResults))
+        this.setState({ upcomingprogram: dataResults.data })
+      })
 
-}
+  }
+  getUserCalendar = () => {
+    API.getUserEventsProgramCalendar()
+      .then(res => {
+        console.log("line 50 on dashboard.js" +JSON.stringify(res));
+        this.setState({ calendar: res.data })
+      })
+  }
 
+  getOrganizationsPromoEvents = (id) => {
+    console.log("Line 40 dashboard " + id)
+    API.getOrganizationsPromos(id)
+      .then(results => {
+        this.setState({ promo: results.data.results })
+      })
+  }
   render() {
     return (
       <div>
-        <Nav/>
+        <Nav />
         <div className="container">
           <h1 className="text-center dashboard"> Dashboard</h1>
           <Row>
             <Col size="6">
 
               <Card title="Your upcoming events and programs:" >
-                
+
                 {this.state.upcomingevent.map(upcomingEvents => (
-                  <List event={upcomingEvents.name} date={upcomingEvents.dateStart}
-                  ></List>
+                  <Dropdowns
+                    name={upcomingEvents.name}
+                    description={upcomingEvents.description}
+                    dateStart={moment(upcomingEvents.dateStart).format('LLL')}
+                  />
                 ))}
                 {this.state.upcomingprogram.map(upcomingPrograms => (
-                  <List event={upcomingPrograms.name} 
-                  // date={upcomingPrograms.dateStart}
-                  ></List>
+
+                  <Dropdowns
+                    name={upcomingPrograms.name}
+                    description={upcomingPrograms.description}
+                    dateStart={moment(upcomingPrograms.dateStart).format('LLL')}
+                  />
+
                 ))}
-                
+
               </Card>
 
             </Col>
             <Col size="6">
               <Card title="Events you may be interested in:">
-                {promo.map(promoEvents => (
-                  <List event={promoEvents.event} />
+                {this.state.promo.map(promoEvents => (
+                  <PromoDropdowns
+                    name={promoEvents.name}
+                    description={promoEvents.description}
+                    dateStart={promoEvents.dateStart}
+                    price={promoEvents.price}
+                    eventId={promoEvents._id}
+                    type="event"
+                  />
                 ))}
               </Card>
             </Col>
@@ -70,10 +108,10 @@ getUserInformation = () =>{
 
           <Row>
             <Col size="12">
-            <Headers heading="Your Programs and Events Calendar" />
+              <Headers heading="Your Programs and Events Calendar" />
               <MyCalendars
-                events={this.state.upcomingprogram}
-                // programs={this.state.upcomingprogram}
+                events={this.state.calendar}
+              // programs={this.state.upcomingprogram}
               />
             </Col>
           </Row>

@@ -71,6 +71,7 @@ class Funtivity extends Component {
                                     // eventId= {upcomingprograms._id}
                                     description={upcomingprograms.description}
                                     date={upcomingprograms.dateStart}
+                                    type= "program"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingprograms.price}
                                     eventId={upcomingprograms._id}>
@@ -85,6 +86,7 @@ class Funtivity extends Component {
                                             // eventId= {upcomingprograms._id}
                                             description={upcomingprograms.description}
                                             date={upcomingprograms.dateStart}
+                                            type= "program"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingprograms.price}
                                             eventId={upcomingprograms._id}>
@@ -101,6 +103,7 @@ class Funtivity extends Component {
                                                         // eventId= {upcomingprograms._id}
                                                         description={upcomingprograms.description}
                                                         date={upcomingprograms.dateStart}
+                                                        type= "program"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingprograms.price}
                                                         eventId={upcomingprograms._id}>
@@ -132,6 +135,7 @@ class Funtivity extends Component {
                                     event={upcomingevents.name}
                                     description={upcomingevents.description}
                                     date={upcomingevents.dateStart}
+                                    type= "event"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingevents.price}
                                     eventId={upcomingevents._id}>
@@ -146,6 +150,7 @@ class Funtivity extends Component {
                                             event={upcomingevents.name}
                                             description={upcomingevents.description}
                                             date={upcomingevents.dateStart}
+                                            type= "event"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingevents.price}
                                             eventId={upcomingevents._id}>
@@ -162,6 +167,7 @@ class Funtivity extends Component {
                                                         event={upcomingevents.name}
                                                         description={upcomingevents.description}
                                                         date={upcomingevents.dateStart}
+                                                        type= "event"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingevents.price}
                                                         eventId={upcomingevents._id}>

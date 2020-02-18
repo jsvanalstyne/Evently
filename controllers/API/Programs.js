@@ -1,7 +1,6 @@
 const Events = require("../../models/Events.js");
 const Programs = require("../../models/Programs.js");
 const Groups = require("../../models/Groups");
-
 const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports = {
@@ -47,7 +46,20 @@ module.exports = {
         Programs.find({"groupIds":{$in : groupId}})
         .then(cb);
     },
-   
+    addUserToProgram: (eventId, userId, cb) => {
+        let programIdAsObject = ObjectId(eventId);
+        // console.log("we got in this bitch")
+        // console.log(eventIdAsObject);
+        Programs.findById(programIdAsObject)
+        .then(function(result) {
+            console.log(result);
+            // console.log("we got in the callback from the helper");
+            id = result.groupIds;
+            // console.log(id)
+            Groups.findByIdAndUpdate(id, {$push:{"userIds": userId}})
+            .then(cb)
+        })
+    },
     // ------------------ POST ------------------
     // Add new program to database. Event object contains: 
     //  1. name: name of program being created

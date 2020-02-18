@@ -50,6 +50,7 @@ class Account extends Component{
         .then(data => {
                 console.log(data)
             this.setState({programs: data.data})
+            console.log(this.state.programs)
         })
         
     }
