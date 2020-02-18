@@ -40,7 +40,11 @@ var ProgramsSchema = new Schema({
     }], 
     price: {
         type: Number
-    }
+    },
+    groupIds: [{
+        type: Schema.Types.ObjectId, 
+        ref: "Groups",
+    }], 
 });
 
 var Programs = mongoose.model("Programs", ProgramsSchema);

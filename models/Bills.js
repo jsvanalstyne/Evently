@@ -10,9 +10,9 @@ var BillsSchema = new Schema({
     amountOwed: {
         type: Number
     },
-    // eventPaidFor: {
-    //     type: Schema.Types.ObjectId
-    // },
+    eventPaidFor: {
+        type: Schema.Types.ObjectId
+    },
     dateIssued: {
         type: Date, 
         default: Date.now

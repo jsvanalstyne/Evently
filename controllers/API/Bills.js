@@ -1,5 +1,5 @@
 const Bills = require("../../models/Bills");
-
+// const Events = require("../../models/Events.js");
 const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports = {
@@ -16,6 +16,11 @@ module.exports = {
             "isPaid": true,
             "note": "paid"}
             )
+        .then(cb)
+    },
+    findByUserId: (userId, cb) => {
+        userId = ObjectId(userId)
+        Bills.find({"accountId": userId})
         .then(cb)
     }
     

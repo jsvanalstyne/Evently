@@ -2,16 +2,46 @@ const router = require("express").Router();
 const eventController = require("../../controllers/API/Events");
 const verifyBlanketUser = require("../auth/authorization");
 const programController = require("../../controllers/API/Programs")
+const userController = require("../../controllers/API/Users")
 
 const auth = require("../auth/authorization.js")
 
-router.get("/:organizationid", auth, (req, res) => {
+
+router.get("/:organizationid", verifyBlanketUser, (req, res) => {
     let id = req.params.organizationid
     // console.log("events id:" + id)
     eventController.getEventsByOrganization(id, function(results) {
         // console.log("results: " + results);
         return res.json(results)
     } )
+})
+router.delete("/removal/:eventId", verifyBlanketUser, (req, res) => {
+    let eventid = req.params.eventId
+    console.log("line 17 in events "+eventid);
+    eventController.getEventById(eventid, function(result){
+        console.log("line 19 event.js "+ JSON.stringify(result))
+       console.log("line 16" + result);
+        console.log("line 20" +result[0].groupIds);
+        console.log(result)
+        
+        let groupIDArray = result[0].groupIds
+        
+    
+            let userId = req.user.id
+           
+            console.log("line 30" + userId);
+            console.log(groupIDArray)
+    
+
+           userController.removeUserIdFromGroup(groupIDArray, userId, function(result){
+               console.log("removed user" + result);
+               res.json(200);
+           })
+         
+    
+
+    })
+
 })
 router.get("/promos/:organizationid", verifyBlanketUser, (req, res) => {
     let id = req.params.organizationid
@@ -22,7 +52,7 @@ router.get("/promos/:organizationid", verifyBlanketUser, (req, res) => {
     });
 })
 
-module.exports = router;
+
 
 // getEventsByOrganization
 router.get("/allevents/:organizationid", (req, res) => {

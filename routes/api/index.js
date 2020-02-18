@@ -6,6 +6,8 @@ const users = require("./users");
 // const promos = require("./promo")
 const conversations = require("./conversations");
 const messages = require("./messages");
+const bills = require("./bills");
+
  
 
 router.use("/programs", programRoutes);
@@ -15,5 +17,6 @@ router.use("/users", users);
 // router.use("/promos", promos);
 router.use("/conversations", conversations);
 router.use("/messages", messages);
+router.use("/bills", bills);
 
 module.exports= router;

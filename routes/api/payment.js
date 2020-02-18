@@ -2,6 +2,7 @@ const router = require("express").Router();
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
 const accessToken = process.env.PAY_TOKEN;
+
 const auth = require("../auth/authorization.js");
 const Bills = require("../../models/Bills");
 const billsController = require("../../controllers/API/Bills");
