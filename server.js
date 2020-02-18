@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3030;
 // Square pay stuff
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
-const accessToken = 'EAAAEBBwzDGOZMRiQ9mLCf8K37RfcKDTXENE4OgSSJ2X9EoS16pP3SzOJkb_nqDh';
+const accessToken = procees.env.PAY_TOKEN;
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
