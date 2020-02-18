@@ -98,6 +98,8 @@ class Dashboard extends Component {
                     description={promoEvents.description}
                     dateStart={promoEvents.dateStart}
                     price={promoEvents.price}
+                    eventId={promoEvents._id}
+                    type="event"
                   />
                 ))}
               </Card>

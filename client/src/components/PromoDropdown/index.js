@@ -16,7 +16,7 @@ return(
   <Dropdown.Menu> 
     <Dropdown.Item href="#/action-1"className="overflow-auto">
 
-      <RegisterModal title={props.name} price={props.price} body={props.description}></RegisterModal></Dropdown.Item>
+      <RegisterModal title={props.name} price={props.price} body={props.description} eventId={props.eventId} type="event"></RegisterModal></Dropdown.Item>
       <Dropdown.Item>When:{props.dateStart}</Dropdown.Item>
     
   </Dropdown.Menu>
