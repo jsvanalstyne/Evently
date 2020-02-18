@@ -23,10 +23,7 @@ if (process.env.NODE_ENV === "production") {
 // redis stuffs
 const redis = require("redis");
 let redisURL = process.env.REDIS_URL || "127.0.0.1"
-const client = redis.createClient({
-  host: redisURL,
-  port: 6379
-});
+const client = redis.createClient(redisURL);
 
 client.on("connect", () => {
   console.log("redis connected");
