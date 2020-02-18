@@ -10,101 +10,6 @@ import { isValidObjectId } from "mongoose";
 import Nav from "../components/Nav"
 import { Collapse, Button } from "react-bootstrap";
 
-// const programs = [{
-//     event: "Dolphin Swim Practice",
-//     description: "Ages 7-10",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-// },
-
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// }
-
-// ];
-// const events = [{
-//     event: "Dolphin Swim Practice",
-//     description: "Ages 7-10",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-// },
-
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// }
-
-// ];
-
-
-
 class Funtivity extends Component {
 
     state = {
@@ -161,9 +66,10 @@ class Funtivity extends Component {
                                 <FunCard
                                     key={upcomingprograms._id}
                                     event={upcomingprograms.name}
-                                    eventId= {upcomingprograms._id}
+                                    // eventId= {upcomingprograms._id}
                                     description={upcomingprograms.description}
                                     date={upcomingprograms.dateStart}
+                                    type= "program"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingprograms.price}
                                     eventId={upcomingprograms._id}>
@@ -175,9 +81,10 @@ class Funtivity extends Component {
                                         <FunCard
                                             key={upcomingprograms._id}
                                             event={upcomingprograms.name}
-                                            eventId= {upcomingprograms._id}
+                                            // eventId= {upcomingprograms._id}
                                             description={upcomingprograms.description}
                                             date={upcomingprograms.dateStart}
+                                            type= "program"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingprograms.price}
                                             eventId={upcomingprograms._id}>
@@ -191,9 +98,10 @@ class Funtivity extends Component {
                                                     <FunCard
                                                         key={upcomingprograms._id}
                                                         event={upcomingprograms.name}
-                                                        eventId= {upcomingprograms._id}
+                                                        // eventId= {upcomingprograms._id}
                                                         description={upcomingprograms.description}
                                                         date={upcomingprograms.dateStart}
+                                                        type= "program"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingprograms.price}
                                                         eventId={upcomingprograms._id}>
@@ -221,10 +129,11 @@ class Funtivity extends Component {
 
                                 <FunCard
                                     key={upcomingevents._id}
-                                    eventId= {upcomingevents._id}
+                                    // eventId= {upcomingevents._id}
                                     event={upcomingevents.name}
                                     description={upcomingevents.description}
                                     date={upcomingevents.dateStart}
+                                    type= "event"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingevents.price}
                                     eventId={upcomingevents._id}>
@@ -235,10 +144,11 @@ class Funtivity extends Component {
                                     {[...this.state.events].splice(0, 3).map(upcomingevents => (
                                         <FunCard
                                             key={upcomingevents._id}
-                                            eventId= {upcomingevents._id}
+                                            // eventId= {upcomingevents._id}
                                             event={upcomingevents.name}
                                             description={upcomingevents.description}
                                             date={upcomingevents.dateStart}
+                                            type= "event"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingevents.price}
                                             eventId={upcomingevents._id}>
@@ -251,10 +161,11 @@ class Funtivity extends Component {
                                                 {[...this.state.events].splice(3).map(upcomingevents => (
                                                     <FunCard
                                                         key={upcomingevents._id}
-                                                        eventId= {upcomingevents._id}
+                                                        // eventId= {upcomingevents._id}
                                                         event={upcomingevents.name}
                                                         description={upcomingevents.description}
                                                         date={upcomingevents.dateStart}
+                                                        type= "event"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingevents.price}
                                                         eventId={upcomingevents._id}>

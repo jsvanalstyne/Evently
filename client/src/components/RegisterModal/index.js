@@ -25,19 +25,22 @@ function SignupModal(props) {
             {props.body}
             </p>
             <p>
+            Price: ${props.price}
+            </p>
+            <p>
             {props.statement}
             </p>
             <SquareApp
               price={props.price}
               eventId={props.eventId}
-              eventId={props.eventId}
+              type={props.type}
             />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose} eventId={props.eventId}>
+            <Button variant="primary" onClick={handleClose} type={props.type} eventId={props.eventId}>
               {props.closeBtnText}
             </Button>
           </Modal.Footer>
