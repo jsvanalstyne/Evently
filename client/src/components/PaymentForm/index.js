@@ -184,7 +184,8 @@ export default class PaymentForm extends Component {
             // alerts for payment success and failure
             .then(data => {
               console.log(JSON.stringify(data));
-              alert('Payment complete successfully!\nCheck browser developer console for more details');
+              alert('Payment complete successfully!\nYou are now paid and registered for this event. You can close this window.')
+              this.props.closeModal()
             })
             .catch(err => {
               console.error(err);
@@ -238,7 +239,8 @@ export default class PaymentForm extends Component {
   render() {
     // the payment form itself
     return (
-      <div className="pay-container">
+      <div>
+        <div className="pay-container">
         <div id="form-container">
           <div id="sq-walletbox">
             <button style={{ display: (this.state.applePay) ? 'inherit' : 'none' }}
@@ -275,10 +277,12 @@ export default class PaymentForm extends Component {
             <div id="sq-postal-code"></div>
           </div>
           <button className="button-credit-card"
-            onClick={this.requestCardNonce} eventId={this.props.eventId}>Pay</button>
+            // need to close modal from this button
+            onClick={this.requestCardNonce} eventId={this.props.eventId}>Pay and Register</button>
         </div>
         <p style={styles.center} id="error"></p>
       </div>
+    </div>
     )
   }
 }

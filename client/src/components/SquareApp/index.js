@@ -28,10 +28,11 @@ class SquareApp extends Component {
     return (
       this.state.loaded &&
         <PaymentForm
-        eventId={this.props.eventId}
+          eventId={this.props.eventId}
           paymentForm={ window.SqPaymentForm }
           price={this.props.price}
           eventId={this.props.eventId}
+          closeModal={this.props.closeModal}
           type={this.props.type}
           eventName={this.props.eventName}
         />
