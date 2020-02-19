@@ -19,7 +19,8 @@ class Funtivity extends Component {
         programopen: false,
         eventopen: false,
         calendar: [],
-        registeredprograms: ["5e35c71607cf87e4497c41b5"]
+        registeredprograms: [],
+        registeredevents: []
     }
 
     handleCollapse(name) {
@@ -30,6 +31,7 @@ class Funtivity extends Component {
         this.getEvents();
         this.getCalendar();
         this.getUserPrograms();
+        this.getUserEvents();
 
     }
 
@@ -60,16 +62,30 @@ class Funtivity extends Component {
         API.getUserPrograms()
         .then(res => {
             console.log("GET USER PROG: " + JSON.stringify(res.data))
-            let paidPrograms = res.data.map(paidIds => {
-                return paidIds.id
+            let paidPrograms = res.data.map(paidProgIds => {
+                return paidProgIds.id
             })
             console.log(paidPrograms)
             this.setState({registeredprograms: paidPrograms})
         })
     }
+    getUserEvents = () => {
+        API.getUserInformationFromDb()
+        .then(res => {
+            console.log("GET USER EVENTS: " + JSON.stringify(res.data))
+            let paidEvents = res.data.map(paidEventIds => {
+                return paidEventIds._id
+            })
+            console.log(paidEvents)
+            this.setState({registeredevents: paidEvents})
+        })
+    }
     // Get the user events/programs, map over them to get ids and setstate of registered events to array of ids
-    determinePaid = (id) => {
+    determinePaidProg = (id) => {
         return this.state.registeredprograms.includes(id)
+    }
+    determinePaidEvent = (id) => {
+        return this.state.registeredevents.includes(id)
     }
 
     render() {
@@ -85,7 +101,7 @@ class Funtivity extends Component {
                         
                             {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
                                 <FunCard
-                                    registered={this.determinePaid(upcomingprograms._id)}
+                                    registered={this.determinePaidProg(upcomingprograms._id)}
                                     key={upcomingprograms._id}
                                     event={upcomingprograms.name}
                                     // eventId= {upcomingprograms._id}
@@ -101,7 +117,7 @@ class Funtivity extends Component {
                                 <Row>
                                     {[...this.state.programs].splice(0, 3).map(upcomingprograms => (
                                         <FunCard
-                                            registered={this.determinePaid(upcomingprograms._id)}
+                                            registered={this.determinePaidProg(upcomingprograms._id)}
                                             key={upcomingprograms._id}
                                             event={upcomingprograms.name}
                                             // eventId= {upcomingprograms._id}
@@ -119,7 +135,7 @@ class Funtivity extends Component {
                                             <Row>
                                                 {[...this.state.programs].splice(3).map(upcomingprograms => (
                                                     <FunCard
-                                                        registered={this.determinePaid(upcomingprograms._id)}
+                                                        registered={this.determinePaidProg(upcomingprograms._id)}
                                                         key={upcomingprograms._id}
                                                         event={upcomingprograms.name}
                                                         // eventId= {upcomingprograms._id}
@@ -152,6 +168,7 @@ class Funtivity extends Component {
                             {this.state.events.length <= 3 ? this.state.events.map(upcomingevents => (
 
                                 <FunCard
+                                    registered={this.determinePaidEvent(upcomingevents._id)}
                                     key={upcomingevents._id}
                                     // eventId= {upcomingevents._id}
                                     event={upcomingevents.name}
@@ -167,6 +184,7 @@ class Funtivity extends Component {
                                 <Row>
                                     {[...this.state.events].splice(0, 3).map(upcomingevents => (
                                         <FunCard
+                                            registered={this.determinePaidEvent(upcomingevents._id)}
                                             key={upcomingevents._id}
                                             // eventId= {upcomingevents._id}
                                             event={upcomingevents.name}
@@ -184,6 +202,7 @@ class Funtivity extends Component {
                                             <Row>
                                                 {[...this.state.events].splice(3).map(upcomingevents => (
                                                     <FunCard
+                                                        registered={this.determinePaidEvent(upcomingevents._id)}
                                                         key={upcomingevents._id}
                                                         // eventId= {upcomingevents._id}
                                                         event={upcomingevents.name}
