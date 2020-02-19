@@ -115,7 +115,7 @@ router.get("/account", verifyBlanketUser, (req, res) => {
 // })
 
 router.get("/calendar", verifyBlanketUser, (req, res) => {
-    // let userEventsArray={};
+    let userEventsArray=[];
     let userCalendarArray=[];
     let userId = req.user.id
     console.log("line57 in users.js"+userId)

@@ -33,6 +33,7 @@ class SquareApp extends Component {
           price={this.props.price}
           eventId={this.props.eventId}
           type={this.props.type}
+          eventName={this.props.eventName}
         />
     );
   }

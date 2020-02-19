@@ -14,10 +14,12 @@ router.get("/", verifyBlanketUser, (req, res) => {
                 note: data.note,
                 amount: data.amountOwed,
                 date: data.dateIssued,
-                eventPaidFor: data.eventPaidFor
+                eventPaidFor: data.eventPaidFor,
+                eventName: data.eventName,
+                programPaidFor: data.programPaidFor
             }
         })
-        console.log(userBillsArray)
+        console.log( "line 21 in bills.js " + JSON.stringify(userBillsArray));
     //    let eventIdArray = userBillsArray.map(eventId => {
         
     //           return {id: eventId.eventPaidFor}
@@ -25,15 +27,17 @@ router.get("/", verifyBlanketUser, (req, res) => {
     //     })
     //     console.log("line 24 bills.js "+ eventIdArray);
 
-        eventController.getEventsByManyIds(userBillsArray.map(bill => bill.eventPaidFor), function(data){
-            console.log("line 28 " +data)
-                for (var i =0; i<userBillsArray.length; i++){
-                    userBillsArray[i].eventName = data[i].name
-                    // console.log(userBillsArray[i], data[i])
-                }
-                console.log("line 32 in bills.js "+ JSON.stringify(userBillsArray))
-            res.json(userBillsArray).status(200);
-        })
+        // eventController.getEventsByManyIds(userBillsArray.map(bill => bill.eventPaidFor), function(data){
+        //     console.log("line 28 " +data)
+        //         for (var i =0; i<userBillsArray.length; i++){
+        //             userBillsArray[i].eventName = data[i].name
+        //             // console.log(userBillsArray[i], data[i])
+        //             // console.log(i, {data})
+        //         }
+        //         console.log("line 32 in bills.js "+ JSON.stringify(userBillsArray))
+        //     
+        // })
+        res.json(userBillsArray).status(200);
     })
 
 });
