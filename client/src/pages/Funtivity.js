@@ -19,7 +19,9 @@ class Funtivity extends Component {
         events: [],
         programopen: false,
         eventopen: false,
-        calendar: []
+        calendar: [],
+        registeredprograms: [],
+        registeredevents: []
     }
 
     handleCollapse(name) {
@@ -29,21 +31,25 @@ class Funtivity extends Component {
         this.getPrograms();
         this.getEvents();
         this.getCalendar();
+        this.getUserPrograms();
+        this.getUserEvents();
 
     }
 
     getPrograms = () => {
         API.getAllPrograms(this.state.organizationid)
             .then(res => {
-                // console.log(res)
+                // console.log("PROGRAMS RES: " + JSON.stringify(res.data))
                 this.setState({ programs: res.data })
+                // console.log("EVENT RES: " + this.state.programs)
             })
     }
     getEvents = () => {
         API.getAllEvents(this.state.organizationid)
             .then(res => {
-                // console.log(res)
+                // console.log("EVENT RES: " + res.data[0])
                 this.setState({ events: res.data })
+                // console.log("EVENT RES: " + this.state.events)
             });
         
     }
@@ -53,9 +59,39 @@ class Funtivity extends Component {
                 this.setState({ calendar: res.data})
             })
     }
+    getUserPrograms = () => {
+        API.getUserPrograms()
+        .then(res => {
+            console.log("GET USER PROG: " + JSON.stringify(res.data))
+            let paidPrograms = res.data.map(paidProgIds => {
+                return paidProgIds.id
+            })
+            console.log(paidPrograms)
+            this.setState({registeredprograms: paidPrograms})
+        })
+    }
+    getUserEvents = () => {
+        API.getUserInformationFromDb()
+        .then(res => {
+            console.log("GET USER EVENTS: " + JSON.stringify(res.data))
+            let paidEvents = res.data.map(paidEventIds => {
+                return paidEventIds._id
+            })
+            console.log(paidEvents)
+            this.setState({registeredevents: paidEvents})
+        })
+    }
     // Get the user events/programs, map over them to get ids and setstate of registered events to array of ids
+    determinePaidProg = (id) => {
+        return this.state.registeredprograms.includes(id)
+    }
+    determinePaidEvent = (id) => {
+        return this.state.registeredevents.includes(id)
+    }
 
     render() {
+        // this.state.programs.map(upcomingprograms => 
+        //     console.log("TESTING:" + this.state.registeredprograms.includes(upcomingprograms._id)))
         return (
             <div>
                 <Nav/>
@@ -63,10 +99,10 @@ class Funtivity extends Component {
                     <Border>
                         <Headers heading="Programs" />
                         <div>
+                        
                             {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
-
                                 <FunCard
-                                // registered={this.state.registeredprograms. includes(upcomingprograms._id)}
+                                    registered={this.determinePaidProg(upcomingprograms._id)}
                                     key={upcomingprograms._id}
                                     event={upcomingprograms.name}
                                     // eventId= {upcomingprograms._id}
@@ -83,6 +119,7 @@ class Funtivity extends Component {
                                 <Row>
                                     {[...this.state.programs].splice(0, 3).map(upcomingprograms => (
                                         <FunCard
+                                            registered={this.determinePaidProg(upcomingprograms._id)}
                                             key={upcomingprograms._id}
                                             event={upcomingprograms.name}
                                             // eventId= {upcomingprograms._id}
@@ -102,6 +139,7 @@ class Funtivity extends Component {
                                             <Row>
                                                 {[...this.state.programs].splice(3).map(upcomingprograms => (
                                                     <FunCard
+                                                        registered={this.determinePaidProg(upcomingprograms._id)}
                                                         key={upcomingprograms._id}
                                                         event={upcomingprograms.name}
                                                         // eventId= {upcomingprograms._id}
@@ -136,6 +174,7 @@ class Funtivity extends Component {
                             {this.state.events.length <= 3 ? this.state.events.map(upcomingevents => (
 
                                 <FunCard
+                                    registered={this.determinePaidEvent(upcomingevents._id)}
                                     key={upcomingevents._id}
                                     // eventId= {upcomingevents._id}
                                     event={upcomingevents.name}
@@ -152,6 +191,7 @@ class Funtivity extends Component {
                                 <Row>
                                     {[...this.state.events].splice(0, 3).map(upcomingevents => (
                                         <FunCard
+                                            registered={this.determinePaidEvent(upcomingevents._id)}
                                             key={upcomingevents._id}
                                             // eventId= {upcomingevents._id}
                                             event={upcomingevents.name}
@@ -170,6 +210,7 @@ class Funtivity extends Component {
                                             <Row>
                                                 {[...this.state.events].splice(3).map(upcomingevents => (
                                                     <FunCard
+                                                        registered={this.determinePaidEvent(upcomingevents._id)}
                                                         key={upcomingevents._id}
                                                         // eventId= {upcomingevents._id}
                                                         event={upcomingevents.name}
