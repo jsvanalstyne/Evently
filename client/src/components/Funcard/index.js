@@ -13,6 +13,8 @@ return (
     {/* <h5>{props.eventId}</h5> */}
     <p className="card-text">{props.description}</p>
     <h4><strong>Price: ${props.price}</strong></h4>
+    <h4><strong>When: {props.date}</strong></h4>
+
 
     {/* {{props.registered ? null(add tag already registered/<h6> Currently Registered</h6>) : (insert registermodal)}} */}
     <RegisterModal 
@@ -25,6 +27,7 @@ return (
       price={props.price}
       eventId={props.eventId}
       type={props.type}
+      eventName={props.eventName}
     />
   </div>
 </div>

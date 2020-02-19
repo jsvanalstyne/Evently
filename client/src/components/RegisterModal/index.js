@@ -34,13 +34,14 @@ function SignupModal(props) {
               price={props.price}
               eventId={props.eventId}
               type={props.type}
+              eventName={props.eventName}
             />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose} type={props.type} eventId={props.eventId}>
+            <Button variant="primary" onClick={handleClose} type={props.type} eventId={props.eventId} eventName={props.eventName}>
               {props.closeBtnText}
             </Button>
           </Modal.Footer>
