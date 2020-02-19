@@ -181,7 +181,8 @@ export default class PaymentForm extends Component {
             // alerts for payment success and failure
             .then(data => {
               console.log(JSON.stringify(data));
-              alert('Payment complete successfully!\nYou are now paid and registered for this event. You can close this window.');
+              alert('Payment complete successfully!\nYou are now paid and registered for this event. You can close this window.')
+              this.props.closeModal()
             })
             .catch(err => {
               console.error(err);
@@ -273,12 +274,12 @@ export default class PaymentForm extends Component {
             <div id="sq-postal-code"></div>
           </div>
           <button className="button-credit-card"
+            // need to close modal from this button
             onClick={this.requestCardNonce} eventId={this.props.eventId}>Pay and Register</button>
         </div>
         <p style={styles.center} id="error"></p>
       </div>
     </div>
-      
     )
   }
 }

@@ -36,6 +36,7 @@ function SignupModal(props) {
               price={props.price}
               eventId={props.eventId}
               eventId={props.eventId}
+              closeModal={handleClose}
             />
           </Modal.Body>
           <Modal.Footer>
