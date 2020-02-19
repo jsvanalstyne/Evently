@@ -9,7 +9,7 @@ class SquareApp extends Component {
     this.state = {
       loaded: false
     }
-
+    console.log(this.props.type + "line12 in squareapp")
   }
 // defining the squarepayment javascript library and setting the loaded state to true
   componentWillMount(){
@@ -33,6 +33,8 @@ class SquareApp extends Component {
           price={this.props.price}
           eventId={this.props.eventId}
           closeModal={this.props.closeModal}
+          type={this.props.type}
+          eventName={this.props.eventName}
         />
     );
   }

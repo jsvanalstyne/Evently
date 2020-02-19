@@ -30,6 +30,9 @@ function SignupModal(props) {
             {props.body}
             </p>
             <p>
+            Price: ${props.price}
+            </p>
+            <p>
             {props.statement}
             </p>
             <SquareApp
@@ -37,6 +40,8 @@ function SignupModal(props) {
               eventId={props.eventId}
               eventId={props.eventId}
               closeModal={handleClose}
+              type={props.type}
+              eventName={props.eventName}
             />
           </Modal.Body>
           <Modal.Footer>

@@ -36,12 +36,25 @@ module.exports = async (req, res, next) => {
                 cache.get(`user${sub}`, (err, id) => {
                     if(err) {
                         req.error = {
-                            "message": "authorization error", 
+                            "message": "authorization error",
                             "error": req.error
                         }
-
                         next();
                     }
+                    // if(!id) {
+                    //     // if not, getting userId from db and setting it in cache
+                    //     Users.findByAuthId(sub).then(results => {
+                    //         console.log(sub);
+                    //         console.log(results);
+                    //         let subKey = "user" + sub;
+                    //         cache.set(subKey, results[0]._id.toString());
+                    //         req.user.id = results[0]._id;
+                    //         "message": "authorization error", 
+                    //         "error": req.error
+                    //     }
+
+                    //     next();
+                    // }
 
                     if(!id) {
                         // if not, getting userId from db and setting it in cache
@@ -75,3 +88,4 @@ module.exports = async (req, res, next) => {
         next();
     }
 }
+// }

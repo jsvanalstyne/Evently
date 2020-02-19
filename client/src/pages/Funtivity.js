@@ -9,104 +9,7 @@ import API from "../utils/API";
 import { isValidObjectId } from "mongoose";
 import Nav from "../components/Nav"
 import { Collapse, Button } from "react-bootstrap";
-
-// const programs = [{
-//     event: "Dolphin Swim Practice",
-//     description: "Ages 7-10",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-// },
-
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// }
-
-// ];
-// const events = [{
-//     event: "Dolphin Swim Practice",
-//     description: "Ages 7-10",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-// },
-
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// }
-
-// ];
-
-// get all bills for user
-// create a prop for the fun card of paid with a boolean value
-// if the value it false, show the payment form
-// if the value is true, show a note saying the event has already been paid for
+var moment = require("moment");
 
 class Funtivity extends Component {
 
@@ -150,11 +53,12 @@ class Funtivity extends Component {
                 this.setState({ calendar: res.data})
             })
     }
+    // Get the user events/programs, map over them to get ids and setstate of registered events to array of ids
 
     render() {
         return (
             <div>
-                <Nav></Nav>
+                <Nav/>
                 <div className="container">
                     <Border>
                         <Headers heading="Programs" />
@@ -162,14 +66,17 @@ class Funtivity extends Component {
                             {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
 
                                 <FunCard
+                                // registered={this.state.registeredprograms. includes(upcomingprograms._id)}
                                     key={upcomingprograms._id}
                                     event={upcomingprograms.name}
-                                    eventId= {upcomingprograms._id}
+                                    // eventId= {upcomingprograms._id}
                                     description={upcomingprograms.description}
-                                    date={upcomingprograms.dateStart}
+                                    date={moment(upcomingprograms.dateStart).format('LLL')}
+                                    type= "program"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingprograms.price}
-                                    eventId={upcomingprograms._id}>
+                                    eventId={upcomingprograms._id}
+                                    eventName={upcomingprograms.name}>
                                 </FunCard>
                             ))
                                 :
@@ -178,12 +85,15 @@ class Funtivity extends Component {
                                         <FunCard
                                             key={upcomingprograms._id}
                                             event={upcomingprograms.name}
-                                            eventId= {upcomingprograms._id}
+                                            // eventId= {upcomingprograms._id}
                                             description={upcomingprograms.description}
-                                            date={upcomingprograms.dateStart}
+                                            date={moment(upcomingprograms.dateStart).format('LLL')}
+                                            type= "program"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingprograms.price}
-                                            eventId={upcomingprograms._id}>
+                                            eventId={upcomingprograms._id}
+                                            eventName={upcomingprograms.name}
+                                            >
                                         </FunCard>
                                     ))
                                     }
@@ -194,12 +104,15 @@ class Funtivity extends Component {
                                                     <FunCard
                                                         key={upcomingprograms._id}
                                                         event={upcomingprograms.name}
-                                                        eventId= {upcomingprograms._id}
+                                                        // eventId= {upcomingprograms._id}
                                                         description={upcomingprograms.description}
-                                                        date={upcomingprograms.dateStart}
+                                                        date={moment(upcomingprograms.dateStart).format('LLL')}
+                                                        type= "program"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingprograms.price}
-                                                        eventId={upcomingprograms._id}>
+                                                        eventId={upcomingprograms._id}
+                                                        eventName={upcomingprograms.name}
+                                                        >
                                                     </FunCard>))}
                                             </Row>
                                         </div>
@@ -224,12 +137,14 @@ class Funtivity extends Component {
 
                                 <FunCard
                                     key={upcomingevents._id}
-                                    eventId= {upcomingevents._id}
+                                    // eventId= {upcomingevents._id}
                                     event={upcomingevents.name}
                                     description={upcomingevents.description}
-                                    date={upcomingevents.dateStart}
+                                    date={moment(upcomingevents.dateStart).format('LLL')}
+                                    type= "event"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingevents.price}
+                                    eventName={upcomingevents.name}
                                     eventId={upcomingevents._id}>
                                 </FunCard>
                             ))
@@ -238,10 +153,12 @@ class Funtivity extends Component {
                                     {[...this.state.events].splice(0, 3).map(upcomingevents => (
                                         <FunCard
                                             key={upcomingevents._id}
-                                            eventId= {upcomingevents._id}
+                                            // eventId= {upcomingevents._id}
                                             event={upcomingevents.name}
                                             description={upcomingevents.description}
-                                            date={upcomingevents.dateStart}
+                                            date={moment(upcomingevents.dateStart).format('LLL')}
+                                            eventName={upcomingevents.name}
+                                            type= "event"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingevents.price}
                                             eventId={upcomingevents._id}>
@@ -254,10 +171,12 @@ class Funtivity extends Component {
                                                 {[...this.state.events].splice(3).map(upcomingevents => (
                                                     <FunCard
                                                         key={upcomingevents._id}
-                                                        eventId= {upcomingevents._id}
+                                                        // eventId= {upcomingevents._id}
                                                         event={upcomingevents.name}
+                                                        eventName={upcomingevents.name}
                                                         description={upcomingevents.description}
-                                                        date={upcomingevents.dateStart}
+                                                        date={moment(upcomingevents.dateStart).format('LLL')}
+                                                        type= "event"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingevents.price}
                                                         eventId={upcomingevents._id}>
@@ -291,7 +210,7 @@ class Funtivity extends Component {
                     </Border>
 
                 </div>
-                <Footer></Footer>
+                <Footer/>
             </div>
         );
     }

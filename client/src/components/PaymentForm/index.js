@@ -138,6 +138,7 @@ export default class PaymentForm extends Component {
         cardNonceResponseReceived: (errors, nonce, cardData) => {
           // if errors, log them
         console.log("inside card Nonce received");
+        console.log(this.props.type +"line 157 in paymentform")
           if (errors) {
             // Log errors from nonce generation to the Javascript console
             console.log("Encountered errors:");
@@ -154,7 +155,7 @@ export default class PaymentForm extends Component {
           })
           // fetch the payament route to process the payment
           const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
-
+          
           fetch('api/payments/process', {
             method: 'POST',
             headers: {
@@ -165,7 +166,9 @@ export default class PaymentForm extends Component {
             body: JSON.stringify({
               nonce: this.state.nonce,
               amount: (this.props.price * 100),
-              eventId: this.props.eventId
+              eventId: this.props.eventId,
+              type: this.props.type,
+              eventName:this.props.eventName
             })
           })
             // network arror catching

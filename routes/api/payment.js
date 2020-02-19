@@ -2,10 +2,12 @@ const router = require("express").Router();
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
 const accessToken = process.env.PAY_TOKEN;
+
 const auth = require("../auth/authorization.js");
 const Bills = require("../../models/Bills");
 const billsController = require("../../controllers/API/Bills");
 const Events = require("../../controllers/API/Events");
+const Programs = require("../../controllers/API/Programs")
 
 
 // More square stuff
@@ -33,11 +35,14 @@ router.post('/process', auth, async (req, res) => {
   console.log(request_params)
   const eventId = req.body.eventId
   const userId = req.user.id;
+  const type = req.body.type;
   // creating a bill for the users payemnt
   console.log("user: " + req.user.name);
   console.log(request_params.amount/100)
   // need to pass in userId, billAmount and cb
-  billsController.createBillforPayment(req.user.id, (request_params.amount/100), request_params.eventId, function(results) {
+  console.log(type);
+  console.log(eventId);
+  billsController.createBillforPayment(req.user.id, (request_params.amount/100), type, eventId, function(results) {
     console.log("bill results: " + results)
   })
 
@@ -58,9 +63,23 @@ router.post('/process', auth, async (req, res) => {
 
   try {
     const response = await payments_api.createPayment(request_body);
-    Events.addUserToEvent(eventId, userId, function(res){
-      console.log(res);
-    })
+    console.log("line 63 in payment.js "+ type)
+    switch (type){
+      case "program":
+          Programs.addUserToProgram(eventId, userId, function(res){
+            console.log(res);
+          });
+        break;
+      case "event":
+          Events.addUserToEvent(eventId, userId, function(res){
+            console.log(res);
+          });
+        break;
+      default:
+        console.log("broke switch")
+    }
+
+   
     res.status(200).json({
       'title': 'Payment Successful',
       'result': response

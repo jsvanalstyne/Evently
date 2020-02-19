@@ -7,6 +7,7 @@ import Payment from "./pages/Payment"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react'
 import Login from "./components/auth/Login";
+import Account from "./pages/Account"
 import Messaging from "./pages/Messaging.js";
 
 function onAuthRequired({history}) {
@@ -26,6 +27,7 @@ function App() {
       >
         <Route exact path="/" component={Landingpage}/>
         <SecureRoute exact path="/dashboard" component={Dashboard}/>
+        <SecureRoute exact path="/account" component={Account}/>
         <Route exact path="/features" component={Features}/>
         <SecureRoute exact path="/funtivity" component={Funtivity}/>
         <Route path="/implicit/callback" component={ImplicitCallback}/>
