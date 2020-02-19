@@ -26,7 +26,7 @@ function MessageList(props) {
             <MessageForm 
                 user={props.user}
                 currConversation={props.currConversation}
-                setCurrConversation={props.setCurrConversation}
+                socket={props.socket}
             /> 
         </div>
     );

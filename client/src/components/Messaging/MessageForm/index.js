@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import "./index.css";
-import API from '../../../utils/API';
 // importing ObjectId from mongoose
 import mongoose from "mongoose"
 const ObjectId = mongoose.Types.ObjectId
 
 function MessageForm(props) {
     const [message, setMessage] = useState("");
-
+    console.log(props);
     // send message for server to handle. if recieve status of 200, 
     // set the last message as sent, else, set as unsent
     const handleMessageSubmit = (event) => {
@@ -20,15 +19,8 @@ function MessageForm(props) {
             text: message
         }
         
-        API.createMessage(newMessage)
-        .then(response => {
-        })
-        .catch(err => {
-            console.log(err);
-            // same as above comment
-        })
-
-        setMessage("");
+        console.log(props.socket.id);
+        props.socket.emit("newMessage", newMessage);
 
     }
 
