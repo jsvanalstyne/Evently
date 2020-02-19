@@ -17,10 +17,11 @@ import "./index.css"
 // importing client-side socket.io
 import socketClient from "socket.io-client";
 // cereating socket at local host for testing
-const PORT = process.env.PORT || "http://127.0.0.1:3030/messages";
+const PORT = process.env.PORT || "http://127.0.0.1:3030";
 // Conversation list component containing all conversations
 // that users are a part of
-let socket = socketClient().connect(PORT, {transports: ['websocket']});
+let socket = socketClient(PORT);
+socket.connect();
 
 function Messaging() {
     const [conversations, setConversations] = useState([]);
@@ -28,6 +29,7 @@ function Messaging() {
     const [user, setUser] = useState({});
     // get all conversations and default display messages
     const getConversations = () => {
+        console.log("we got in here");
         API.getAllConversations()
         .then(result => {
             setConversations(result.data.conversations);
@@ -47,12 +49,14 @@ function Messaging() {
     // useEffect(() => {
     //     idListener();
     // })
+    socket.on("connect", () => {
+        console.log("connected " + socket.id)
+    })
 
     const idListener = () => {
         socket.on("id", socketId => {
-            console.log('we got in here');
+            console.log('we got in here 2');
             getConversations();
-            
             const currSocketId = localStorage.getItem("socketId");
             console.log(`curr socket Id: ${currSocketId}`);
             console.log(`potentially new socket id: ${socketId}`);
@@ -100,19 +104,28 @@ function Messaging() {
         //     // })    
         // });    
     }
+    const sentMessageListener = () => {
+        socket.once("sentMessage", sentMessage => {
+            console.log("we got in here");
+            console.log(sentMessage);
+            console.log(currConversation);
+        })
+    }
     
+
 
     socket.on("disconnect", reason => {
         console.log(reason);
-        connectListener();
+        socket.connect();
     })
 
     socket.on("connect_error", error => {
         console.log(error);
     })
 
-    socket.on("reconnect", Infinity => {
-        console.log("blah");
+    socket.on("reconnect", numTurn => {
+        console.log(numTurn);
+        socket.connect();
     })
 
 

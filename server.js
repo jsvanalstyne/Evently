@@ -7,7 +7,7 @@ const routes = require("./routes/index");
 const app = express();
 const bodyParser = require("body-parser")
 const PORT = process.env.PORT || 3030;
-
+const Conversations = require("./controllers/API/Conversations.js")
 // Square pay stuff
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
@@ -75,11 +75,52 @@ app.set("socket", socket);
 
 socket.on("connection", socket => {
   console.log(`socket connected: ${socket.id}`)
+  socket.emit("id", socket.id);
 
   socket.on("disconnect", () => {
-    console.log("client disconnected: " + socket.id)
+    console.log("socket: " + socket.id + " disconnected");
+  })
+
+  socket.on("newMessage", message => {
+    console.log(message);
+    Conversations.getUsers(message.conversationId)
+    .then(usersResponse => {
+      Conversations.createMessage(message)
+      .then(result => {
+        if(result.senderName) {
+            for(let i = 0; i < usersResponse.userIds.length; i++) {
+                console.log(`current user: ${usersResponse.userIds[i]}`);
+                client.get(`socket${usersResponse.userIds[i]}`, (err, socketId) => {
+                    if(err) {
+                        console.log(err)
+                    } else {
+                        console.log(socketId);
+                        if(socketId) {
+                          console.log("found recipient socket");
+                            socket.to(socketId).emit("sentMessage", message);
+                        }
+                    }
+                })
+            }
+        } else {
+            console.log("could not write to db")
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+    .catch(error => {
+        console.log("some other error");
+        console.log(error);
+    })
+    socket.emit("sentMessage", message)
   })
 });
+
+
+
+
 
 
 // MONGODB_URI=mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd
