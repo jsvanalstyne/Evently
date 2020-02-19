@@ -9,6 +9,7 @@ import API from "../utils/API";
 import AccountInfoCard from "../components/AccountInfoCard"
 import AccountEventCard from "../components/AccountEventCard";
 import EventList from "../components/EventList";
+import BillsTable from "../components/BillsTable";
 
 class Account extends Component{
     
@@ -57,7 +58,11 @@ class Account extends Component{
     getUserBills(){
         API.getUserBills()
         .then(data => {
+            
+            // console.log(data.data[0].eventPaidFor.name);
             console.log(data)
+            this.setState({bills: data.data})
+
         });
     }
 
@@ -112,6 +117,18 @@ class Account extends Component{
                       </AccountEventCard>  
                             
                         </Col>
+                    </Row>
+                    <Row>
+
+                        <BillsTable bills= {this.state.bills}>
+                        {/* {this.state.bills.map(userBill => (
+                            {name: userBill.eventPaidFor.name,
+                            amount: userBill.amountOwed,
+                            datePaid: userBill.dateIssued
+                            }
+                        ))} */}
+                        </BillsTable>
+
                     </Row>
 
                 </div>

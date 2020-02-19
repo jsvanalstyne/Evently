@@ -9,6 +9,7 @@ import API from "../utils/API";
 import { isValidObjectId } from "mongoose";
 import Nav from "../components/Nav"
 import { Collapse, Button } from "react-bootstrap";
+var moment = require("moment");
 
 class Funtivity extends Component {
 
@@ -106,11 +107,12 @@ class Funtivity extends Component {
                                     event={upcomingprograms.name}
                                     // eventId= {upcomingprograms._id}
                                     description={upcomingprograms.description}
-                                    date={upcomingprograms.dateStart}
+                                    date={moment(upcomingprograms.dateStart).format('LLL')}
                                     type= "program"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingprograms.price}
-                                    eventId={upcomingprograms._id}>
+                                    eventId={upcomingprograms._id}
+                                    eventName={upcomingprograms.name}>
                                 </FunCard>
                             ))
                                 :
@@ -122,11 +124,13 @@ class Funtivity extends Component {
                                             event={upcomingprograms.name}
                                             // eventId= {upcomingprograms._id}
                                             description={upcomingprograms.description}
-                                            date={upcomingprograms.dateStart}
+                                            date={moment(upcomingprograms.dateStart).format('LLL')}
                                             type= "program"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingprograms.price}
-                                            eventId={upcomingprograms._id}>
+                                            eventId={upcomingprograms._id}
+                                            eventName={upcomingprograms.name}
+                                            >
                                         </FunCard>
                                     ))
                                     }
@@ -140,11 +144,13 @@ class Funtivity extends Component {
                                                         event={upcomingprograms.name}
                                                         // eventId= {upcomingprograms._id}
                                                         description={upcomingprograms.description}
-                                                        date={upcomingprograms.dateStart}
+                                                        date={moment(upcomingprograms.dateStart).format('LLL')}
                                                         type= "program"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingprograms.price}
-                                                        eventId={upcomingprograms._id}>
+                                                        eventId={upcomingprograms._id}
+                                                        eventName={upcomingprograms.name}
+                                                        >
                                                     </FunCard>))}
                                             </Row>
                                         </div>
@@ -173,10 +179,11 @@ class Funtivity extends Component {
                                     // eventId= {upcomingevents._id}
                                     event={upcomingevents.name}
                                     description={upcomingevents.description}
-                                    date={upcomingevents.dateStart}
+                                    date={moment(upcomingevents.dateStart).format('LLL')}
                                     type= "event"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingevents.price}
+                                    eventName={upcomingevents.name}
                                     eventId={upcomingevents._id}>
                                 </FunCard>
                             ))
@@ -189,7 +196,8 @@ class Funtivity extends Component {
                                             // eventId= {upcomingevents._id}
                                             event={upcomingevents.name}
                                             description={upcomingevents.description}
-                                            date={upcomingevents.dateStart}
+                                            date={moment(upcomingevents.dateStart).format('LLL')}
+                                            eventName={upcomingevents.name}
                                             type= "event"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingevents.price}
@@ -206,8 +214,9 @@ class Funtivity extends Component {
                                                         key={upcomingevents._id}
                                                         // eventId= {upcomingevents._id}
                                                         event={upcomingevents.name}
+                                                        eventName={upcomingevents.name}
                                                         description={upcomingevents.description}
-                                                        date={upcomingevents.dateStart}
+                                                        date={moment(upcomingevents.dateStart).format('LLL')}
                                                         type= "event"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingevents.price}

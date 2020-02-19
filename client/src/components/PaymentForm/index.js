@@ -167,7 +167,8 @@ export default class PaymentForm extends Component {
               nonce: this.state.nonce,
               amount: (this.props.price * 100),
               eventId: this.props.eventId,
-              type: this.props.type
+              type: this.props.type,
+              eventName:this.props.eventName
             })
           })
             // network arror catching

@@ -96,7 +96,7 @@ class Dashboard extends Component {
                   <PromoDropdowns
                     name={promoEvents.name}
                     description={promoEvents.description}
-                    dateStart={promoEvents.dateStart}
+                    dateStart={moment(promoEvents.dateStart).format('LLL')}
                     price={promoEvents.price}
                     eventId={promoEvents._id}
                     type="event"
