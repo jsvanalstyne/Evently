@@ -1,18 +1,23 @@
-.eventlycard {
-    background-size: cover;
-    background-position: center;
-    background-clip: content-box;
-    border: 6px solid white;
-    height: 400px;
-    width: 400px;
-    overflow: scroll;
-    position: relative;
-    margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 100px;
+..dashCard {
+  border: 6px solid white;
+  height: 400px;
+  width: 35%;
+  min-width: 300px;
+  overflow: scroll;
+  margin-top: 30px;
+  margin-bottom: 100px;
+}
+.dashTitles{
+  padding-top:15px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+@media only screen and (min-width: 1023px) {
+  .card {
+    width: 35%;
   }
-  .eventlytitles{
-    padding-top:15px;
-    margin-bottom: 30px;
-    text-align: center;
-  }
+}
+
+
+
+
