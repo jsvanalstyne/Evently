@@ -5,8 +5,8 @@ import "./style.css";
 
 function Dropdowns(props) {
   return (
-    <Dropdown className="mt-3">
-      <Dropdown.Toggle variant="primary " id="dropdown-basic">
+    <Dropdown className="mt-3 dropDownBar">
+      <Dropdown.Toggle variant="primary dropDownBar" id="dropdown-basic">
         {props.name}
       </Dropdown.Toggle>
 

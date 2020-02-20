@@ -8,7 +8,7 @@ body {
     overflow: scroll;
     margin-top: 30px;
     margin-bottom: 100px;
-    background-color: #D1D1D1;
+    background-color: #rgb(225, 225, 225);
   }
 
   .dashTitles{
