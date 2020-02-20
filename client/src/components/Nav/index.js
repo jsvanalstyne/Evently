@@ -56,7 +56,7 @@ export default withAuth(class Nav extends Component {
                                 text={"My Account"}
                             />
                         </ul> :
-                        <ul>
+                        <ul className="navbar-nav mr-auto">
                             <NavLink
                                 link={"/features"}
                                 text={"Features"}

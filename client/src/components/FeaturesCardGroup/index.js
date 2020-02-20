@@ -25,7 +25,7 @@ function FeaturesCardGroup(props) {
               <p className="card-text">Easliy pay for any event as you register with our built-in Square payment system.</p>
             </div>
           </div>
-          <div className="card bg-primary text-white text-center p-3">
+          <div className="card center-quote-card text-center p-3">
             <blockquote className="blockquote mb-0">
               <p>"All for one, one for all."</p>
               <p>That's Evently.</p>
