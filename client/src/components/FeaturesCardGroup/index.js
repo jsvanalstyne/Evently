@@ -1,26 +1,25 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
-import CardColumns from "react-bootstrap/CardColumns";
 import "./style.css";
 
 function FeaturesCardGroup(props) {
     return (
         <div className="card-columns featuresCardGroup">
           <div className="card">
-            <img className="card-img-top" src="https://place-hold.it/500" alt="" />
+            <img className="card-img-top" src="https://discover.dtic.mil/wp-content/uploads/2018/10/Registration.png" alt="" />
             <div className="card-body">
               <h5 className="card-title">Online Registration</h5>
               <p className="card-text">Easily register for any event within your organization with our intuitive registration. Instantly become part of any event with a few clicks.</p>
             </div>
           </div>
           <div className="card">
+          <img className="card-img-top" src="https://www.iot-now.com/wp-content/uploads/2018/03/Thumbnail-folderLogos.png" alt="" />
             <div className="card-body">
               <h5 className="card-title">Secure User Data</h5>
               <p className="card-text">You can have the peace of mind knowing all your valuable information is safe with our use of Square and Okta.</p>
             </div>
           </div>
           <div className="card">
-            <img className="card-img-top" src="https://place-hold.it/500" alt="" />
+            <img className="card-img-top" src="https://www.imore.com/sites/imore.com/files/topic_images/2015/Square_Logo_Portrait.png" alt="" />
             <div className="card-body">
               <h5 className="card-title">Integrated Payments</h5>
               <p className="card-text">Easliy pay for any event as you register with our built-in Square payment system.</p>
@@ -38,19 +37,21 @@ function FeaturesCardGroup(props) {
             </blockquote>
           </div>
           <div className="card text-center">
+          <img className="card-img-top" src="https://cdn0.iconfinder.com/data/icons/general-15/64/chat_reply-512.png" alt="" />
             <div className="card-body">
               <h5 className="card-title">Event Messaging</h5>
-              <p className="card-text">Have a question about an upcoming event? Just message the event group with our built-in messaging system.</p>
+              <p className="card-text">Have a question about an upcoming event? Just message the event group with our built-in messaging system. Coming soon!</p>
             </div>
           </div>
           <div className="card">
-            <img className="card-img-top" src="https://place-hold.it/500" alt="" />
+            <img className="card-img-top" src="https://blog.edmentum.com/sites/blog.edmentum.com/files/styles/blog_image/public/images/ReadingEggsDashboard.png?itok=3MjZ9Pjw" alt="" />
             <div className="card-body">
               <h5 className="card-title">User Dashboard</h5>
               <p className="card-text">View all of your upcoming events at a glance with your personalized user dashboard.</p>
             </div>
           </div>
           <div className="card">
+          <img className="card-img-top" src="https://media.istockphoto.com/vectors/calendar-reminder-isolated-icon-vector-id670134048?k=6&m=670134048&s=612x612&w=0&h=BlfNFO1EMrQpSfAgp3bCioukxC6uwxUtMd88nMbmxSc=" alt="" /> 
             <div className="card-body">
               <h5 className="card-title">Live Look Calendar</h5>
               <p className="card-text">Easily view your events as well as all events for your club in a smooth flowing calendar view.</p>
