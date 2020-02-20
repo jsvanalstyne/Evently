@@ -32,3 +32,17 @@
     color: rgba(12, 73, 153, 0.849);
     margin: 50px 0 0 10px;
 }
+
+.reroute-login-container {
+    width: 50%;
+}
+
+.login-title {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.route-login-btn {
+    background-color: #5BC0EB;
+}
