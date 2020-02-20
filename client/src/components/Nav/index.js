@@ -40,6 +40,10 @@ export default withAuth(class Nav extends Component {
                     {this.state.authenticated ?
                         <ul className="navbar-nav mr-auto">
                             <NavLink
+                                link={"/features"}
+                                text={"Features"}
+                            />
+                            <NavLink
                                 link={"/funtivity"}
                                 text={"Events and Programs"}
                             />
