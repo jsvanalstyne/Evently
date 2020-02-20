@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 
 // redis stuffs
 const redis = require("redis");
-let redisURL = process.env.REDIS_URL || "127.0.0.1"
+let redisURL = process.env.REDIS_URL || {host: "127.0.0.1"}
 const client = redis.createClient(redisURL);
 
 // const client = redis.createClient({
