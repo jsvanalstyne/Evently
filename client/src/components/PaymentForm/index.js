@@ -44,6 +44,7 @@ export default class PaymentForm extends Component {
 
   requestCardNonce() {
     this.paymentForm.requestCardNonce();
+    // this.props.eventId
   }
 
   componentDidMount() {
@@ -136,6 +137,8 @@ export default class PaymentForm extends Component {
         // if a nonce (payment key) is recieved, do this stuff
         cardNonceResponseReceived: (errors, nonce, cardData) => {
           // if errors, log them
+        console.log("inside card Nonce received");
+        console.log(this.props.type +"line 157 in paymentform")
           if (errors) {
             // Log errors from nonce generation to the Javascript console
             console.log("Encountered errors:");
@@ -151,14 +154,21 @@ export default class PaymentForm extends Component {
             nonce: nonce
           })
           // fetch the payament route to process the payment
+          const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+          
           fetch('api/payments/process', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json', 
+              "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
-              nonce: this.state.nonce
+              nonce: this.state.nonce,
+              amount: (this.props.price * 100),
+              eventId: this.props.eventId,
+              type: this.props.type,
+              eventName:this.props.eventName
             })
           })
             // network arror catching
@@ -174,7 +184,8 @@ export default class PaymentForm extends Component {
             // alerts for payment success and failure
             .then(data => {
               console.log(JSON.stringify(data));
-              alert('Payment complete successfully!\nCheck browser developer console for more details');
+              alert('Payment complete successfully!\nYou are now paid and registered for this event. You can close this window.')
+              this.props.closeModal()
             })
             .catch(err => {
               console.error(err);
@@ -228,7 +239,8 @@ export default class PaymentForm extends Component {
   render() {
     // the payment form itself
     return (
-      <div className="pay-container">
+      <div>
+        <div className="pay-container">
         <div id="form-container">
           <div id="sq-walletbox">
             <button style={{ display: (this.state.applePay) ? 'inherit' : 'none' }}
@@ -265,10 +277,12 @@ export default class PaymentForm extends Component {
             <div id="sq-postal-code"></div>
           </div>
           <button className="button-credit-card"
-            onClick={this.requestCardNonce}>Pay</button>
+            // need to close modal from this button
+            onClick={this.requestCardNonce} eventId={this.props.eventId}>Pay and Register</button>
         </div>
         <p style={styles.center} id="error"></p>
       </div>
+    </div>
     )
   }
 }

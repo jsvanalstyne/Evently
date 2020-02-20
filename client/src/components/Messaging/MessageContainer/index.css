@@ -1,0 +1,6 @@
+.message-list-container {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column-reverse;
+}

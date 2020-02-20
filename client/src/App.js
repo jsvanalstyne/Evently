@@ -7,6 +7,8 @@ import Payment from "./pages/Payment"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react'
 import Login from "./components/auth/Login";
+import Account from "./pages/Account"
+import Messaging from "./pages/Messaging.js";
 
 function onAuthRequired({history}) {
   history.push("/login")
@@ -25,13 +27,13 @@ function App() {
       >
         <Route exact path="/" component={Landingpage}/>
         <SecureRoute exact path="/dashboard" component={Dashboard}/>
+        <SecureRoute exact path="/account" component={Account}/>
         <Route exact path="/features" component={Features}/>
         <SecureRoute exact path="/funtivity" component={Funtivity}/>
         <Route path="/implicit/callback" component={ImplicitCallback}/>
         <Route path="/login" render={() => <Login baseUrl="https://dev-844753.okta.com"/>}/>
         <SecureRoute path="/pay" component={Payment}/>
-        {/* adding this below secure route for the account page. uncomment when account page is active */}
-        {/* <SecureRoute exact path="/account" component={Account}/> */}
+        <SecureRoute path="/messaging" component={Messaging}/>
       </Security>
     </Router>
   );

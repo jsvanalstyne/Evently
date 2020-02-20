@@ -9,101 +9,7 @@ import API from "../utils/API";
 import { isValidObjectId } from "mongoose";
 import Nav from "../components/Nav"
 import { Collapse, Button } from "react-bootstrap";
-
-// const programs = [{
-//     event: "Dolphin Swim Practice",
-//     description: "Ages 7-10",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-// },
-
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// }
-
-// ];
-// const events = [{
-//     event: "Dolphin Swim Practice",
-//     description: "Ages 7-10",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-// },
-
-// {
-//     event: "Boys Youth basketball",
-//     description: "Ages 12-15",
-//     date: "2/1/20-5/1/20",
-//     location: "Chapel Hill YMCA",
-//     price: "$100"
-
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// },
-// {
-//     event: "Dolphin Swim Practice",
-//     description: "",
-//     date: "February 1, 2020 at 6pm",
-//     location: "Carrboro, NC",
-//     price: "$75"
-// }
-
-// ];
-
-
+var moment = require("moment");
 
 class Funtivity extends Component {
 
@@ -112,7 +18,10 @@ class Funtivity extends Component {
         programs: [],
         events: [],
         programopen: false,
-        eventopen: false
+        eventopen: false,
+        calendar: [],
+        registeredprograms: [],
+        registeredevents: []
     }
 
     handleCollapse(name) {
@@ -120,52 +29,108 @@ class Funtivity extends Component {
     }
     componentDidMount() {
         this.getPrograms();
-        this.getEvents()
+        this.getEvents();
+        this.getCalendar();
+        this.getUserPrograms();
+        this.getUserEvents();
+
     }
+
     getPrograms = () => {
         API.getAllPrograms(this.state.organizationid)
             .then(res => {
-                // console.log(res)
+                // console.log("PROGRAMS RES: " + JSON.stringify(res.data))
                 this.setState({ programs: res.data })
+                // console.log("EVENT RES: " + this.state.programs)
             })
     }
     getEvents = () => {
         API.getAllEvents(this.state.organizationid)
             .then(res => {
-                // console.log(res)
+                // console.log("EVENT RES: " + res.data[0])
                 this.setState({ events: res.data })
+                // console.log("EVENT RES: " + this.state.events)
+            });
+        
+    }
+    getCalendar = () => {
+        API.getCalendarEventPrograms(this.state.organizationid)
+            .then(res => {
+                this.setState({ calendar: res.data})
             })
+    }
+    getUserPrograms = () => {
+        API.getUserPrograms()
+        .then(res => {
+            console.log("GET USER PROG: " + JSON.stringify(res.data))
+            let paidPrograms = res.data.map(paidProgIds => {
+                return paidProgIds.id
+            })
+            console.log(paidPrograms)
+            this.setState({registeredprograms: paidPrograms})
+        })
+    }
+    getUserEvents = () => {
+        API.getUserInformationFromDb()
+        .then(res => {
+            console.log("GET USER EVENTS: " + JSON.stringify(res.data))
+            let paidEvents = res.data.map(paidEventIds => {
+                return paidEventIds._id
+            })
+            console.log(paidEvents)
+            this.setState({registeredevents: paidEvents})
+        })
+    }
+    // Get the user events/programs, map over them to get ids and setstate of registered events to array of ids
+    determinePaidProg = (id) => {
+        return this.state.registeredprograms.includes(id)
+    }
+    determinePaidEvent = (id) => {
+        return this.state.registeredevents.includes(id)
     }
 
     render() {
+        // this.state.programs.map(upcomingprograms => 
+        //     console.log("TESTING:" + this.state.registeredprograms.includes(upcomingprograms._id)))
         return (
             <div>
-                <Nav></Nav>
+                <Nav/>
                 <div className="container">
                     <Border>
                         <Headers heading="Programs" />
                         <div>
+                        
                             {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
-
                                 <FunCard
+                                    registered={this.determinePaidProg(upcomingprograms._id)}
                                     key={upcomingprograms._id}
                                     event={upcomingprograms.name}
+                                    // eventId= {upcomingprograms._id}
                                     description={upcomingprograms.description}
-                                    date={upcomingprograms.dateStart}
+                                    date={moment(upcomingprograms.dateStart).format('LLL')}
+                                    type= "program"
                                     // {/* location={upcomingprograms.location} */}
-                                    price={upcomingprograms.price}>
+                                    price={upcomingprograms.price}
+                                    eventId={upcomingprograms._id}
+                                    eventName={upcomingprograms.name}>
                                 </FunCard>
                             ))
                                 :
                                 <Row>
                                     {[...this.state.programs].splice(0, 3).map(upcomingprograms => (
                                         <FunCard
+                                            registered={this.determinePaidProg(upcomingprograms._id)}
                                             key={upcomingprograms._id}
                                             event={upcomingprograms.name}
+                                            // eventId= {upcomingprograms._id}
                                             description={upcomingprograms.description}
-                                            date={upcomingprograms.dateStart}
+                                            date={moment(upcomingprograms.dateStart).format('LLL')}
+                                            type= "program"
                                             // {/* location={upcomingprograms.location} */}
-                                            price={upcomingprograms.price}>
+                                            price={upcomingprograms.price}
+                                            eventId={upcomingprograms._id}
+                                            eventName={upcomingprograms.name}
+                                            >
                                         </FunCard>
                                     ))
                                     }
@@ -174,12 +139,18 @@ class Funtivity extends Component {
                                             <Row>
                                                 {[...this.state.programs].splice(3).map(upcomingprograms => (
                                                     <FunCard
+                                                        registered={this.determinePaidProg(upcomingprograms._id)}
                                                         key={upcomingprograms._id}
                                                         event={upcomingprograms.name}
+                                                        // eventId= {upcomingprograms._id}
                                                         description={upcomingprograms.description}
-                                                        date={upcomingprograms.dateStart}
+                                                        date={moment(upcomingprograms.dateStart).format('LLL')}
+                                                        type= "program"
                                                         // {/* location={upcomingprograms.location} */}
-                                                        price={upcomingprograms.price}>
+                                                        price={upcomingprograms.price}
+                                                        eventId={upcomingprograms._id}
+                                                        eventName={upcomingprograms.name}
+                                                        >
                                                     </FunCard>))}
                                             </Row>
                                         </div>
@@ -197,32 +168,40 @@ class Funtivity extends Component {
                             }
                         </div>
                     </Border>
-                    {/* <div className="border align-middle"> */}
                     <Border>
-                        {/* <BorderWrapper> */}
                         <Headers heading="Events" />
                         <div>
                             {this.state.events.length <= 3 ? this.state.events.map(upcomingevents => (
 
                                 <FunCard
+                                    registered={this.determinePaidEvent(upcomingevents._id)}
                                     key={upcomingevents._id}
+                                    // eventId= {upcomingevents._id}
                                     event={upcomingevents.name}
                                     description={upcomingevents.description}
-                                    date={upcomingevents.dateStart}
+                                    date={moment(upcomingevents.dateStart).format('LLL')}
+                                    type= "event"
                                     // {/* location={upcomingprograms.location} */}
-                                    price={upcomingevents.price}>
+                                    price={upcomingevents.price}
+                                    eventName={upcomingevents.name}
+                                    eventId={upcomingevents._id}>
                                 </FunCard>
                             ))
                                 :
                                 <Row>
                                     {[...this.state.events].splice(0, 3).map(upcomingevents => (
                                         <FunCard
+                                            registered={this.determinePaidEvent(upcomingevents._id)}
                                             key={upcomingevents._id}
+                                            // eventId= {upcomingevents._id}
                                             event={upcomingevents.name}
                                             description={upcomingevents.description}
-                                            date={upcomingevents.dateStart}
+                                            date={moment(upcomingevents.dateStart).format('LLL')}
+                                            eventName={upcomingevents.name}
+                                            type= "event"
                                             // {/* location={upcomingprograms.location} */}
-                                            price={upcomingevents.price}>
+                                            price={upcomingevents.price}
+                                            eventId={upcomingevents._id}>
                                         </FunCard>
                                     ))
                                     }
@@ -231,12 +210,17 @@ class Funtivity extends Component {
                                             <Row>
                                                 {[...this.state.events].splice(3).map(upcomingevents => (
                                                     <FunCard
+                                                        registered={this.determinePaidEvent(upcomingevents._id)}
                                                         key={upcomingevents._id}
+                                                        // eventId= {upcomingevents._id}
                                                         event={upcomingevents.name}
+                                                        eventName={upcomingevents.name}
                                                         description={upcomingevents.description}
-                                                        date={upcomingevents.dateStart}
+                                                        date={moment(upcomingevents.dateStart).format('LLL')}
+                                                        type= "event"
                                                         // {/* location={upcomingprograms.location} */}
-                                                        price={upcomingevents.price}>
+                                                        price={upcomingevents.price}
+                                                        eventId={upcomingevents._id}>
                                                     </FunCard>))}
                                             </Row>
                                         </div>
@@ -260,21 +244,14 @@ class Funtivity extends Component {
                         <Headers heading=" Fun Calendar" />
                         <Row>
                             <Col size="12">
-                                {/* Need to get the programs from the get request and display them on the calendar and also display the events. */}
-                                {/* <h1>Calendar here</h1> */}
-                                {/* {this.state.programs.map(events => (events.push(events)))} */}
                                 <MyCalendars
-                                    events={this.state.events}
-                                // title={events.name}
-                                // startAccessor={events.dateStart}
-                                // endAccessor={events.dateEnd}
-                                />
+                                    events={this.state.calendar}/>
                             </Col>
                         </Row>
                     </Border>
 
                 </div>
-                <Footer></Footer>
+                <Footer/>
             </div>
         );
     }

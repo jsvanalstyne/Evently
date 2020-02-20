@@ -9,6 +9,11 @@ function SignupModal(props) {
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    // logic for dynamically rendering the pay form
+    // make a call to the DB to get all of the users bills
+    // check the paid boolean to see if any events have been paid for
+    // if an event has been paid for, dont show the squareapp component
   
     return (
       <>
@@ -25,17 +30,27 @@ function SignupModal(props) {
             {props.body}
             </p>
             <p>
+            Price: ${props.price}
+            </p>
+            <p>
             {props.statement}
             </p>
-            <SquareApp/>
+            <SquareApp
+              price={props.price}
+              eventId={props.eventId}
+              eventId={props.eventId}
+              closeModal={handleClose}
+              type={props.type}
+              eventName={props.eventName}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            {/* <Button variant="primary" onClick={handleClose} eventId={props.eventId}>
               {props.closeBtnText}
-            </Button>
+            </Button> */}
           </Modal.Footer>
         </Modal>
       </>

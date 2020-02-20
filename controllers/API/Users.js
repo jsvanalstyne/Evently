@@ -1,5 +1,6 @@
 const Users = require("../../models/Users.js");
 const ObjectId = require("mongoose").Types.ObjectId;
+const Groups = require("../../models/Groups");
 
 module.exports = {
     // ------------------ GET ------------------
@@ -9,9 +10,12 @@ module.exports = {
         .then(cb)
     }, 
     // Find user by okta id
-    findByAuthId: (authId, cb) => {
-        Users.find({"authId": authId})
-        .then(cb)
+    // findByAuthId: (authId, cb) => {
+    //     return Users.find({"authId": authId})
+    //     // .then(cb)
+    findByAuthId: (authId) => {
+        return Users.find({"authId": authId})
+        .select("_id")
     },
     // ------------------ POST ------------------
     // Creates a new user document 
@@ -31,6 +35,13 @@ module.exports = {
     deleteByAuthId: (authId, cb) => {
         Users.findOneAndRemove({"authId": authId})
         .then(cb)
+    },
+    getInfromationforGroups: (groupIdArray, cb) => {
+        Groups.find({"_id": {$in: groupIdArray}})
+        .then(cb)
+    },
+    removeUserIdFromGroup: (groupIdArray, userId, cb) => {
+        Groups.update({"_id": {$in: groupIdArray}}, {$pull: {"userIds": userId}})
+        .then(cb);
     }
-
 }

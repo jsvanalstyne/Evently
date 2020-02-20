@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3030;
 // Square pay stuff
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
-const accessToken = 'EAAAEBBwzDGOZMRiQ9mLCf8K37RfcKDTXENE4OgSSJ2X9EoS16pP3SzOJkb_nqDh';
+const accessToken = process.env.PAY_TOKEN;
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -19,6 +19,26 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+// redis stuffs
+const redis = require("redis");
+let redisURL = process.env.REDIS_URL || "127.0.0.1"
+const client = redis.createClient(redisURL);
+
+// const client = redis.createClient({
+//   host: "127.0.0.1",
+//   port: 6379
+// });
+
+client.on("connect", () => {
+  console.log("redis connected");
+  app.set("cache", client);
+  // app.use("cache", client);
+});
+
+client.on("error", err => {
+  console.log(err);
+});
 // Add routes, both API and view
 app.use(routes);
 
@@ -35,38 +55,6 @@ oauth2.accessToken = accessToken;
 // production: https://connect.squareup.com
 defaultClient.basePath = 'https://connect.squareupsandbox.com';
 
-// app.post('/process-payment', async (req, res) => {
-//   const request_params = req.body;
-//   console.log(request_params)
-
-//   // length of idempotency_key should be less than 45
-//   const idempotency_key = crypto.randomBytes(22).toString('hex');
-
-//   // Charge the customer's card
-//   const payments_api = new squareConnect.PaymentsApi();
-//   const request_body = {
-//     source_id: request_params.nonce,
-//     amount_money: {
-//       amount: 100, // $1.00 charge
-//       currency: 'USD'
-//     },
-//     idempotency_key: idempotency_key
-//   };
-
-//   try {
-//     const response = await payments_api.createPayment(request_body);
-//     res.status(200).json({
-//       'title': 'Payment Successful',
-//       'result': response
-//     });
-//   } catch(error) {
-//     res.status(500).json({
-//       'title': 'Payment Failure',
-//       'result': error.response.text
-//     });
-//   }
-// });
-
 // Connect to the Mongo DB
 // mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Balls");
 // mongodb://user:userpassword1@ds157276.mlab.com:57276/heroku_b1dcvdgd
@@ -80,5 +68,4 @@ app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
 
-
-// MONGODB_URI=mongodb://user:userpassword1@ds157276.mlab.com:57276/heroku_b1dcvdgd
+// MONGODB_URI=mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd
