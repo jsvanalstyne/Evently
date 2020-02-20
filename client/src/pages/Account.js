@@ -15,6 +15,7 @@ const style ={
     flex : {
         display: "flex",
         flexWrap: "wrap",
+        justifyContent: "space-around"
         
 
     }
@@ -84,6 +85,7 @@ class Account extends Component{
     render(){
         return(
             <div>
+                <Nav/>
                 <div style={style.flex}>
                 {this.state.information.map(data =>(
                         
@@ -119,7 +121,9 @@ class Account extends Component{
                           
                       ))}
                       </AccountEventCard>  
-                        <div>
+                      </div>
+                        {/* <div> */}
+                        
                       <BillsTable bills= {this.state.bills}>
                         {this.state.bills.map(userBill => (
                             {name: userBill.eventPaidFor.name,
@@ -128,12 +132,14 @@ class Account extends Component{
                             }
                         ))}
                         </BillsTable>
-                        </div>
+                        {/* </div> */}
+                        <Footer></Footer>
                 </div>
+                // <Footer/>
 
 
 
-                {/* <Nav></Nav>
+                /* <Nav></Nav>
                 <div className="container" >
                     <Row style={style.flex}> 
                         <Col size="4">
@@ -186,19 +192,19 @@ class Account extends Component{
                             amount: userBill.amountOwed,
                             datePaid: userBill.dateIssued
                             }
-                        ))} */}
-                        {/* </BillsTable> */}
-                        {/* </Col> */}
+                        ))} */
+                    /* </BillsTable> */
+                        /* </Col> */
 
-                    {/* </Row> */}
+                    /* </Row> */
 
-                {/* </div> */}
-                {/* <Footer></Footer> */} 
-            </div>
+                /* </div> */
+                /* <Footer></Footer> */
+            // </div>
         )
-    }
+    // }
 
-
+                        }
 
 }
 

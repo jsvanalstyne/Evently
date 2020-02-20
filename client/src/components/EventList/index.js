@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import Button from 'react-bootstrap/Button'
 import API from "../../utils/API";
 
+const style= {
+  eventBtn: {
+    backgroundColor: "#5BC0EB"
+  }
+}
+
 class EventList extends Component {
 
   constructor(props) {
@@ -36,9 +42,9 @@ class EventList extends Component {
   render() {
     return (
       <div className="card-body">
-        <div className="border">
+        <div className="border border-dark eventList">
           <p className="card-text mt-3">{this.props.name}</p>
-          <Button className="mb-3" eventid={this.props.eventid}
+          <Button className="mb-3" style= {style.eventBtn} eventid={this.props.eventid}
             onClick={() => this.cancelEvent(this.props.eventid, this.props.type)}
           >Cancel Registration</Button>
         </div>
