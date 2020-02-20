@@ -86,6 +86,7 @@ export default withAuth(class LoginForm extends Component {
     render() {
         return (
             <div className="container reroute-login-container">
+                
                 <form onSubmit={this.handleSubmit}>
                 <Input
                     name={"email"}

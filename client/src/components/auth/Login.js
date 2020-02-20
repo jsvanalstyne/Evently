@@ -42,7 +42,7 @@ export default withAuth(class Login extends Component {
     return this.state.authenticated ?
       <Redirect to={{ pathname: '/' }}/> :
       <div>
-          <h3 className="login-title">Oops! Please login to your Evently account to access this page.</h3>
+          <h3 className="login-title">Login with your Evently account</h3>
           <LoginForm
             baseUrl={this.props.baseUrl}
             onSuccess={this.onSuccess}
