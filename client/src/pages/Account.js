@@ -18,6 +18,9 @@ const style ={
         justifyContent: "space-around"
         
 
+    },
+    bills: {
+        justifyContent: "center"
     }
 }
 
@@ -122,9 +125,12 @@ class Account extends Component{
                       ))}
                       </AccountEventCard>  
                       </div>
-                        {/* <div> */}
+                        <div>
                         
-                      <BillsTable bills= {this.state.bills}>
+                      <BillsTable
+                    // //   className="mb-3"
+                    //   style={style.flex}
+                      bills= {this.state.bills}>
                         {this.state.bills.map(userBill => (
                             {name: userBill.eventPaidFor.name,
                             amount: userBill.amountOwed,
@@ -132,7 +138,7 @@ class Account extends Component{
                             }
                         ))}
                         </BillsTable>
-                        {/* </div> */}
+                        </div>
                         <Footer></Footer>
                 </div>
                 // <Footer/>

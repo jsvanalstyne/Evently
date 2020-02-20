@@ -1,6 +1,7 @@
 .billsTable{
     /* background-color: white; */
     color: rgb(15, 15, 15);
+    margin-bottom: 100px;
 }
 
 
@@ -8,8 +9,10 @@
 @media only screen and (min-width: 426px) {
     .billsTable{
         width: 90%;
-        margin: 0 auto;
+        /* margin: 0 auto; */
         /* background-color: #d1d1d1; */
+        margin-left: 75px;
         color: rgb(15, 15, 15);
+        margin-bottom: 100px;
     }
 }

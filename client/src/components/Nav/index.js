@@ -31,7 +31,7 @@ export default withAuth(class Nav extends Component {
     render() {
         console.log(this.state.authenticated);
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">{this.props.children}
+            <nav className="navbar navbar-expand-lg navbar-dark custom-nav-color">{this.props.children}
                 <a className="navbar-brand landing-title" href="/">Evently</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

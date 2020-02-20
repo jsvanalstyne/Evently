@@ -11,6 +11,14 @@ import Nav from "../components/Nav"
 import { Collapse, Button } from "react-bootstrap";
 var moment = require("moment");
 
+const style = {
+    seeBtn: {
+        backgroundColor: "#5BC0EB",
+        color: "rgb(15, 15, 15)",
+        border: "rgb(15, 15, 15)",
+    }
+}
+
 class Funtivity extends Component {
 
     state = {
@@ -158,6 +166,7 @@ class Funtivity extends Component {
 
                                     <Button
                                         className="collapsedButton"
+                                        style={style.seeBtn}
                                         onClick={() => this.handleCollapse("programopen")}
                                         aria-expanded={this.state.programopen}
                                         aria-controls="program-collapse"
@@ -228,6 +237,7 @@ class Funtivity extends Component {
 
                                     <Button
                                         className="collapsedButton"
+                                        style={style.seeBtn}
                                         onClick={() => this.handleCollapse("eventopen")}
                                         aria-expanded={this.state.eventopen}
                                         aria-controls="program-collapse"

@@ -105,6 +105,7 @@ class Dashboard extends Component {
               programs={this.state.upcomingprogram}
             />
           </div>
+          <Footer/>
       </div>
       // <div>
       //   <Nav />
