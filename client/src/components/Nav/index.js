@@ -29,7 +29,6 @@ export default withAuth(class Nav extends Component {
     }
 
     render() {
-        console.log(this.state.authenticated);
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">{this.props.children}
                 <a className="navbar-brand landing-title" href="/">Evently</a>
@@ -56,7 +55,7 @@ export default withAuth(class Nav extends Component {
                                 text={"My Account"}
                             />
                         </ul> :
-                        <ul>
+                        <ul className="navbar-nav mr-auto">
                             <NavLink
                                 link={"/features"}
                                 text={"Features"}

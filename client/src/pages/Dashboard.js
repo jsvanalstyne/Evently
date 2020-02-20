@@ -15,7 +15,8 @@ const styles = {
   flex: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-around"
+    justifyContent: "space-around", 
+    margin: "50px 0px 75px 0"
   },
   calendarContainer: {
     width: "85%",
@@ -69,7 +70,7 @@ class Dashboard extends Component {
       <div>
         <Nav />
         <div style={styles.flex}>
-          <Card title="Your upcoming events and programs:" >
+          <Card title="Your Events" >
             {this.state.upcomingevent.map(upcomingEvents => (
               <Dropdowns
                 name={upcomingEvents.name}
@@ -85,7 +86,7 @@ class Dashboard extends Component {
               />
             ))}
           </Card>
-          <Card title="Events you may be interested in:">
+          <Card title="Upcoming Events">
             {this.state.promo.map(promoEvents => (
               <PromoDropdowns
                 name={promoEvents.name}
@@ -104,7 +105,8 @@ class Dashboard extends Component {
               events={this.state.calendar}
               programs={this.state.upcomingprogram}
             />
-          </div>
+        </div>
+        <Footer />
       </div>
       // <div>
       //   <Nav />

@@ -1,23 +1,25 @@
+body {
+  background-color: #EFF1F3
+}
+
 .dashCard {
-  border: 6px solid white;
-  height: 400px;
-  width: 35%;
-  min-width: 300px;
-  overflow: scroll;
-  margin-top: 30px;
-  margin-bottom: 100px;
-}
-.dashTitles{
-  padding-top:15px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-@media only screen and (min-width: 1023px) {
-  .card {
+    height: 400px;
     width: 35%;
+    min-width: 300px;
+    overflow: scroll;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    background-color: #D1D1D1;
   }
-}
 
+  .dashTitles{
+    padding-top:15px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
 
-
-
+  @media only screen and (min-width: 1023px) {
+    .card {
+      width: 35%;
+    }
+  }
