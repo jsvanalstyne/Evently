@@ -6,7 +6,7 @@ import moment from "moment"
 
 function BillsTable(props){
    return(
-<Table striped bordered hover size="sm">
+<Table striped bordered hover size="sm" className="billsTable"> 
   <thead>
     <tr>
       <th>Event/Program Name</th>
