@@ -124,7 +124,7 @@ class Funtivity extends Component {
                                 </FunCard>
                             ))
                                 :
-                                <Row>
+                                <div className="row d-flex justify-content-center">
                                     {[...this.state.programs].splice(0, 3).map(upcomingprograms => (
                                         <FunCard
                                             registered={this.determinePaidProg(upcomingprograms._id)}
@@ -144,7 +144,7 @@ class Funtivity extends Component {
                                     }
                                     <Collapse in={this.state.programopen}>
                                         <div id="program-collapse">
-                                            <Row>
+                                            <div className="row d-flex justify-content-center">
                                                 {[...this.state.programs].splice(3).map(upcomingprograms => (
                                                     <FunCard
                                                         registered={this.determinePaidProg(upcomingprograms._id)}
@@ -160,7 +160,7 @@ class Funtivity extends Component {
                                                         eventName={upcomingprograms.name}
                                                         >
                                                     </FunCard>))}
-                                            </Row>
+                                            </div>
                                         </div>
                                     </Collapse>
 
@@ -173,7 +173,7 @@ class Funtivity extends Component {
                                     >
                                         {this.state.programopen ? "See Less" : "See More"}
                                     </Button>
-                                </Row>
+                                </div>
                             }
                         </div>
                     </Border>
@@ -197,7 +197,7 @@ class Funtivity extends Component {
                                 </FunCard>
                             ))
                                 :
-                                <Row>
+                                <div className="row d-flex justify-content-center">
                                     {[...this.state.events].splice(0, 3).map(upcomingevents => (
                                         <FunCard
                                             registered={this.determinePaidEvent(upcomingevents._id)}
@@ -216,7 +216,7 @@ class Funtivity extends Component {
                                     }
                                     <Collapse in={this.state.eventopen}>
                                         <div id="program-collapse">
-                                            <Row>
+                                            <div className="row d-flex justify-content-center">
                                                 {[...this.state.events].splice(3).map(upcomingevents => (
                                                     <FunCard
                                                         registered={this.determinePaidEvent(upcomingevents._id)}
@@ -231,7 +231,7 @@ class Funtivity extends Component {
                                                         price={upcomingevents.price}
                                                         eventId={upcomingevents._id}>
                                                     </FunCard>))}
-                                            </Row>
+                                            </div>
                                         </div>
                                     </Collapse>
 
@@ -244,7 +244,7 @@ class Funtivity extends Component {
                                     >
                                         {this.state.eventopen ? "See Less" : "See More"}
                                     </Button>
-                                </Row>
+                                </div>
                             }
                         </div>
                     </Border>
