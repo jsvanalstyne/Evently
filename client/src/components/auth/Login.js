@@ -3,7 +3,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import LoginForm from "./LoginForm.js"
+import LoginForm from "./LoginForm.js";
+import "./login.css"
 
 export default withAuth(class Login extends Component {
   constructor(props) {
