@@ -3,7 +3,6 @@ body {
 }
 
 .dashCard {
-    height: 400px;
     width: 35%;
     min-width: 300px;
     overflow: scroll;
@@ -19,7 +18,7 @@ body {
   }
 
   @media only screen and (min-width: 1023px) {
-    .card {
+    .dashCard {
       width: 35%;
     }
   }

@@ -7,11 +7,12 @@ import moment from "moment"
 function BillsTable(props){
    return(
 <Table striped bordered hover size="sm" className="billsTable"> 
+
   <thead>
     <tr>
-      <th>Event/Program Name</th>
-      <th>Date Paid</th>
-      <th>Amount</th>
+      <th>Event or Program Name:</th>
+      <th>Date Paid:</th>
+      <th>Amount:</th>
     </tr>
   </thead>
    {/* {/* {this.state.bills.map(userBill => ( */}

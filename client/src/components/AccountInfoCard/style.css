@@ -4,6 +4,11 @@
     overflow: scroll;
     min-width: 300px;
     /* margin-right: 200px; */
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #d1d1d1;
+    color: rgb(15, 15, 15);
+    font-size: 22px;
 }
 @media only screen and (max-width: 768px) {
     .accountInfoCard {
@@ -23,4 +28,14 @@
       margin-top: 20px;
       margin-bottom: 20px;
     }
+    .eventList{
+      margin-bottom: 150px;
+    
+    }
+    .eventButton{
+      padding:2px 4px;
+      margin: 2px;
+      font-size:80%;
+      line-height: 1;
+  }
   }

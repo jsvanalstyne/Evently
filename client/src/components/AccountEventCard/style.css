@@ -3,7 +3,22 @@
     width: 27.5%;
     min-width: 300px;
     overflow: scroll;
+    margin-top: 50px;
     /* margin-right: 200px; */
+    margin-bottom: 50px;
+    background-color: #d1d1d1;
+    color: rgb(15, 15, 15);
+    font-size: 22px;
+
+}
+.eventList{
+  color: rgb(15, 15, 15);
+  background-color: #E2E0E0;
+
+}
+.eventButton{
+  background-color: #5BC0EB;
+  color: rgb(15, 15, 15);
 }
 @media only screen and (max-width: 768px) {
     .accountEventCard {
@@ -21,4 +36,14 @@
       margin-top: 20px;
       margin-bottom: 20px;
     }
+    .eventList{
+      margin-bottom: 150px;
+    
+    }
+    .eventButton{
+      padding:2px 4px;
+      margin: 2px;
+      font-size:80%;
+      line-height: 1;
+  }
   }

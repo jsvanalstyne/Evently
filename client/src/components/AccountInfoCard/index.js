@@ -4,7 +4,7 @@ import "./style.css"
 
 function AccountInfoCard(props) {
     return (
-        <div className="card accountInfoCard text-center border">
+        <div className="card accountInfoCard text-center border border-dark">
             <div className="card-header">
                 Your Account Information:
             </div>
