@@ -10,7 +10,7 @@ function FeaturesJumbo(props) {
                     <div className="col-9 feature-jumbo-text">
                         <h1 className="display-4">{props.mainText}</h1>
                         <p className="lead">{props.smallText}</p>
-                        <button type="button" className="btn contact-features-btn">{props.buttontext}</button>
+                        <a href="/login" type="button" className="btn contact-features-btn">{props.buttontext}</a>
                     </div>
                 </div>
         </div>
