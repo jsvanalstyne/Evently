@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import Button from 'react-bootstrap/Button';
+import "./index.css"
 
 const issuer = 'https://dev-844753.okta.com/oauth2/default';
 const redirectUri = `${window.location.origin}/`;
@@ -24,7 +25,7 @@ export default withAuth(class Logout extends Component {
 
   render() {
     return (
-      <Button onClick={this.logout}>Logout</Button>
+      <Button className="logout-btn" onClick={this.logout}>Logout</Button>
     );
   }
 });
