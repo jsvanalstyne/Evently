@@ -11,6 +11,14 @@ import Nav from "../components/Nav"
 import { Collapse, Button } from "react-bootstrap";
 var moment = require("moment");
 
+const style = {
+    seeBtn: {
+        backgroundColor: "#5BC0EB",
+        color: "rgb(15, 15, 15)",
+        border: "rgb(15, 15, 15)",
+    }
+}
+
 class Funtivity extends Component {
 
     state = {
@@ -51,35 +59,35 @@ class Funtivity extends Component {
                 this.setState({ events: res.data })
                 // console.log("EVENT RES: " + this.state.events)
             });
-        
+
     }
     getCalendar = () => {
         API.getCalendarEventPrograms(this.state.organizationid)
             .then(res => {
-                this.setState({ calendar: res.data})
+                this.setState({ calendar: res.data })
             })
     }
     getUserPrograms = () => {
         API.getUserPrograms()
-        .then(res => {
-            console.log("GET USER PROG: " + JSON.stringify(res.data))
-            let paidPrograms = res.data.map(paidProgIds => {
-                return paidProgIds.id
+            .then(res => {
+                console.log("GET USER PROG: " + JSON.stringify(res.data))
+                let paidPrograms = res.data.map(paidProgIds => {
+                    return paidProgIds.id
+                })
+                console.log(paidPrograms)
+                this.setState({ registeredprograms: paidPrograms })
             })
-            console.log(paidPrograms)
-            this.setState({registeredprograms: paidPrograms})
-        })
     }
     getUserEvents = () => {
         API.getUserInformationFromDb()
-        .then(res => {
-            console.log("GET USER EVENTS: " + JSON.stringify(res.data))
-            let paidEvents = res.data.map(paidEventIds => {
-                return paidEventIds._id
+            .then(res => {
+                console.log("GET USER EVENTS: " + JSON.stringify(res.data))
+                let paidEvents = res.data.map(paidEventIds => {
+                    return paidEventIds._id
+                })
+                console.log(paidEvents)
+                this.setState({ registeredevents: paidEvents })
             })
-            console.log(paidEvents)
-            this.setState({registeredevents: paidEvents})
-        })
     }
     // Get the user events/programs, map over them to get ids and setstate of registered events to array of ids
     determinePaidProg = (id) => {
@@ -94,12 +102,12 @@ class Funtivity extends Component {
         //     console.log("TESTING:" + this.state.registeredprograms.includes(upcomingprograms._id)))
         return (
             <div>
-                <Nav/>
+                <Nav />
                 <div className="container">
                     <Border>
                         <Headers heading="Programs" />
                         <div>
-                        
+
                             {this.state.programs.length <= 3 ? this.state.programs.map(upcomingprograms => (
                                 <FunCard
                                     registered={this.determinePaidProg(upcomingprograms._id)}
@@ -108,7 +116,7 @@ class Funtivity extends Component {
                                     // eventId= {upcomingprograms._id}
                                     description={upcomingprograms.description}
                                     date={moment(upcomingprograms.dateStart).format('LLL')}
-                                    type= "program"
+                                    type="program"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingprograms.price}
                                     eventId={upcomingprograms._id}
@@ -116,7 +124,7 @@ class Funtivity extends Component {
                                 </FunCard>
                             ))
                                 :
-                                <Row>
+                                <div className="row d-flex justify-content-center">
                                     {[...this.state.programs].splice(0, 3).map(upcomingprograms => (
                                         <FunCard
                                             registered={this.determinePaidProg(upcomingprograms._id)}
@@ -125,18 +133,18 @@ class Funtivity extends Component {
                                             // eventId= {upcomingprograms._id}
                                             description={upcomingprograms.description}
                                             date={moment(upcomingprograms.dateStart).format('LLL')}
-                                            type= "program"
+                                            type="program"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingprograms.price}
                                             eventId={upcomingprograms._id}
                                             eventName={upcomingprograms.name}
-                                            >
+                                        >
                                         </FunCard>
                                     ))
                                     }
                                     <Collapse in={this.state.programopen}>
                                         <div id="program-collapse">
-                                            <Row>
+                                            <div className="row d-flex justify-content-center">
                                                 {[...this.state.programs].splice(3).map(upcomingprograms => (
                                                     <FunCard
                                                         registered={this.determinePaidProg(upcomingprograms._id)}
@@ -145,26 +153,30 @@ class Funtivity extends Component {
                                                         // eventId= {upcomingprograms._id}
                                                         description={upcomingprograms.description}
                                                         date={moment(upcomingprograms.dateStart).format('LLL')}
-                                                        type= "program"
+                                                        type="program"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingprograms.price}
                                                         eventId={upcomingprograms._id}
                                                         eventName={upcomingprograms.name}
-                                                        >
+                                                    >
                                                     </FunCard>))}
-                                            </Row>
+                                            </div>
                                         </div>
                                     </Collapse>
-
-                                    <Button
-                                        className="collapsedButton"
-                                        onClick={() => this.handleCollapse("programopen")}
-                                        aria-expanded={this.state.programopen}
-                                        aria-controls="program-collapse"
-                                    >
-                                        {this.state.programopen ? "See Less" : "See More"}
-                                    </Button>
-                                </Row>
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <Button
+                                                className="collapsedButton"
+                                                style={style.seeBtn}
+                                                onClick={() => this.handleCollapse("programopen")}
+                                                aria-expanded={this.state.programopen}
+                                                aria-controls="program-collapse"
+                                            >
+                                                {this.state.programopen ? "See Less" : "See More"}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
                             }
                         </div>
                     </Border>
@@ -180,7 +192,7 @@ class Funtivity extends Component {
                                     event={upcomingevents.name}
                                     description={upcomingevents.description}
                                     date={moment(upcomingevents.dateStart).format('LLL')}
-                                    type= "event"
+                                    type="event"
                                     // {/* location={upcomingprograms.location} */}
                                     price={upcomingevents.price}
                                     eventName={upcomingevents.name}
@@ -188,7 +200,7 @@ class Funtivity extends Component {
                                 </FunCard>
                             ))
                                 :
-                                <Row>
+                                <div className="row d-flex justify-content-center">
                                     {[...this.state.events].splice(0, 3).map(upcomingevents => (
                                         <FunCard
                                             registered={this.determinePaidEvent(upcomingevents._id)}
@@ -198,7 +210,7 @@ class Funtivity extends Component {
                                             description={upcomingevents.description}
                                             date={moment(upcomingevents.dateStart).format('LLL')}
                                             eventName={upcomingevents.name}
-                                            type= "event"
+                                            type="event"
                                             // {/* location={upcomingprograms.location} */}
                                             price={upcomingevents.price}
                                             eventId={upcomingevents._id}>
@@ -207,7 +219,7 @@ class Funtivity extends Component {
                                     }
                                     <Collapse in={this.state.eventopen}>
                                         <div id="program-collapse">
-                                            <Row>
+                                            <div className="row d-flex justify-content-center">
                                                 {[...this.state.events].splice(3).map(upcomingevents => (
                                                     <FunCard
                                                         registered={this.determinePaidEvent(upcomingevents._id)}
@@ -217,41 +229,45 @@ class Funtivity extends Component {
                                                         eventName={upcomingevents.name}
                                                         description={upcomingevents.description}
                                                         date={moment(upcomingevents.dateStart).format('LLL')}
-                                                        type= "event"
+                                                        type="event"
                                                         // {/* location={upcomingprograms.location} */}
                                                         price={upcomingevents.price}
                                                         eventId={upcomingevents._id}>
                                                     </FunCard>))}
-                                            </Row>
+                                            </div>
                                         </div>
                                     </Collapse>
-
-                                    <Button
-                                        className="collapsedButton"
-                                        onClick={() => this.handleCollapse("eventopen")}
-                                        aria-expanded={this.state.eventopen}
-                                        aria-controls="program-collapse"
-                                    >
-                                        {this.state.eventopen ? "See Less" : "See More"}
-                                    </Button>
-                                </Row>
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <Button
+                                                className="collapsedButton"
+                                                style={style.seeBtn}
+                                                onClick={() => this.handleCollapse("eventopen")}
+                                                aria-expanded={this.state.eventopen}
+                                                aria-controls="program-collapse"
+                                            >
+                                                {this.state.eventopen ? "See Less" : "See More"}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
                             }
                         </div>
                     </Border>
 
-                    
+
                     <Border>
                         <Headers heading=" Fun Calendar" />
                         <Row>
                             <Col size="12">
                                 <MyCalendars
-                                    events={this.state.calendar}/>
+                                    events={this.state.calendar} />
                             </Col>
                         </Row>
                     </Border>
 
                 </div>
-                <Footer/>
+                <Footer />
             </div>
         );
     }

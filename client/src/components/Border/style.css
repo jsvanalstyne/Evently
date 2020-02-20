@@ -1,4 +1,5 @@
 .borderStyle{
     margin: 20px;
     padding: 30px;
-}
+    border-radius: 15px;
+background-image: url(../HomeJumbo/Sports.png);}

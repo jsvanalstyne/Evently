@@ -12,7 +12,7 @@ function SignupModal(props) {
   
     return (
       <>
-        <Button variant="primary" onClick={handleShow}>
+        <Button className="signup-btn" onClick={handleShow}>
           Sign Up
         </Button>
   

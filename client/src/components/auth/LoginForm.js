@@ -5,6 +5,8 @@ import Input from "../Input"
 // importing Okta modules 
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
+import Nav from "../Nav"
+import "./login.css"
 
 /* creating stateful login component
 ** state: 
@@ -83,7 +85,9 @@ export default withAuth(class LoginForm extends Component {
     // rendering component
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <div className="container reroute-login-container">
+                
+                <form onSubmit={this.handleSubmit}>
                 <Input
                     name={"email"}
                     value={this.state.value}
@@ -110,10 +114,9 @@ export default withAuth(class LoginForm extends Component {
                     onChange={this.togglePasswordVisbility}
                     checked={!this.state.hidePassword}
                 />
-                <button type="submit" className="btn btn-primary mb-2">Sign in</button>
+                <button type="submit" className="btn route-login-btn mb-2">Sign in</button>
             </form>
-            
-            
+            </div> 
         )
     }
 });

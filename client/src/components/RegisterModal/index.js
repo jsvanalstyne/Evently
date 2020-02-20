@@ -17,7 +17,7 @@ function SignupModal(props) {
   
     return (
       <>
-        <Button variant="primary" onClick={handleShow}>
+        <Button  className = "registerBtn" variant="primary" onClick={handleShow}>
           Register
         </Button>
   
@@ -30,7 +30,7 @@ function SignupModal(props) {
             {props.body}
             </p>
             <p>
-            Price: ${props.price}
+            Cost: ${props.price}
             </p>
             <p>
             {props.statement}

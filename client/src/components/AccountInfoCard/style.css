@@ -1,4 +1,41 @@
 .accountInfoCard{
-    height: 300px;
+    height: 360px;
+    width: 27.5%;
     overflow: scroll;
+    min-width: 300px;
+    /* margin-right: 200px; */
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #d1d1d1;
+    color: rgb(15, 15, 15);
+    font-size: 22px;
 }
+@media only screen and (max-width: 768px) {
+    .accountInfoCard {
+      margin: 30px;
+    }
+  }
+
+
+  @media only screen and (max-width: 320px) {
+    .accountInfoCard {
+      width: 20%;
+      min-width: 210px;
+      height: 300px;
+      /* margin: 0 auto; */
+      margin-right: 50px;
+      margin-left: 50px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .eventList{
+      margin-bottom: 150px;
+    
+    }
+    .eventButton{
+      padding:2px 4px;
+      margin: 2px;
+      font-size:80%;
+      line-height: 1;
+  }
+  }

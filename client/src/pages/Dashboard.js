@@ -11,10 +11,17 @@ import Headers from "../components/Headers";
 import Dropdowns from "../components/Dropdown";
 import PromoDropdowns from "../components/PromoDropdown"
 var moment = require("moment");
-
-
-
-
+const styles = {
+  flex: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around"
+  },
+  calendarContainer: {
+    width: "85%",
+    marginLeft: "7.5%"
+  }
+}
 class Dashboard extends Component {
   state = {
     organizationId: "5e35c71607cf87e4497c41a9",
@@ -42,7 +49,6 @@ class Dashboard extends Component {
         console.log("line40on dashboard.js " + JSON.stringify(dataResults))
         this.setState({ upcomingprogram: dataResults.data })
       })
-
   }
   getUserCalendar = () => {
     API.getUserEventsProgramCalendar()
@@ -51,7 +57,6 @@ class Dashboard extends Component {
         this.setState({ calendar: res.data })
       })
   }
-
   getOrganizationsPromoEvents = (id) => {
     console.log("Line 40 dashboard " + id)
     API.getOrganizationsPromos(id)
@@ -63,64 +68,96 @@ class Dashboard extends Component {
     return (
       <div>
         <Nav />
-        <div className="container">
-          <h1 className="text-center dashboard"> Dashboard</h1>
-          <Row>
-            <Col size="6">
-
-              <Card title="Your upcoming events and programs:" >
-
-                {this.state.upcomingevent.map(upcomingEvents => (
-                  <Dropdowns
-                    name={upcomingEvents.name}
-                    description={upcomingEvents.description}
-                    dateStart={moment(upcomingEvents.dateStart).format('LLL')}
-                  />
-                ))}
-                {this.state.upcomingprogram.map(upcomingPrograms => (
-
-                  <Dropdowns
-                    name={upcomingPrograms.name}
-                    description={upcomingPrograms.description}
-                    dateStart={moment(upcomingPrograms.dateStart).format('LLL')}
-                  />
-
-                ))}
-
-              </Card>
-
-            </Col>
-            <Col size="6">
-              <Card title="Events you may be interested in:">
-                {this.state.promo.map(promoEvents => (
-                  <PromoDropdowns
-                    name={promoEvents.name}
-                    description={promoEvents.description}
-                    dateStart={moment(promoEvents.dateStart).format('LLL')}
-                    price={promoEvents.price}
-                    eventId={promoEvents._id}
-                    type="event"
-                  />
-                ))}
-              </Card>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col size="12">
-              <Headers heading="Your Programs and Events Calendar" />
-              <MyCalendars
-                events={this.state.calendar}
-              // programs={this.state.upcomingprogram}
+        <div style={styles.flex}>
+          <Card title="Your upcoming events and programs:" >
+            {this.state.upcomingevent.map(upcomingEvents => (
+              <Dropdowns
+                name={upcomingEvents.name}
+                description={upcomingEvents.description}
+                dateStart={moment(upcomingEvents.dateStart).format('LLL')}
               />
-            </Col>
-          </Row>
+            ))}
+            {this.state.upcomingprogram.map(upcomingPrograms => (
+              <Dropdowns
+                name={upcomingPrograms.name}
+                description={upcomingPrograms.description}
+                dateStart={moment(upcomingPrograms.dateStart).format('LLL')}
+              />
+            ))}
+          </Card>
+          <Card title="Events you may be interested in:">
+            {this.state.promo.map(promoEvents => (
+              <PromoDropdowns
+                name={promoEvents.name}
+                description={promoEvents.description}
+                dateStart={moment(promoEvents.dateStart).format('LLL')}
+                price={promoEvents.price}
+                eventId={promoEvents._id}
+                type="event"
+              />
+            ))}
+          </Card>
         </div>
-        <Footer />
-
+        <div style={styles.calendarContainer}>
+            <Headers heading="Your Programs and Events Calendar" />
+            <MyCalendars
+              events={this.state.calendar}
+              programs={this.state.upcomingprogram}
+            />
+          </div>
+          <Footer/>
       </div>
+      // <div>
+      //   <Nav />
+      //   <div className="container">
+      //     <h1 className="text-center dashboard"> Dashboard</h1>
+      //     <Row>
+      //       <Col size="6">
+      //         <Card title="Your upcoming events and programs:" >
+      //           {this.state.upcomingevent.map(upcomingEvents => (
+      //             <Dropdowns
+      //               name={upcomingEvents.name}
+      //               description={upcomingEvents.description}
+      //               dateStart={moment(upcomingEvents.dateStart).format('LLL')}
+      //             />
+      //           ))}
+      //           {this.state.upcomingprogram.map(upcomingPrograms => (
+      //             <Dropdowns
+      //               name={upcomingPrograms.name}
+      //               description={upcomingPrograms.description}
+      //               dateStart={moment(upcomingPrograms.dateStart).format('LLL')}
+      //             />
+      //           ))}
+      //         </Card>
+      //       </Col>
+      //       <Col size="6">
+      //         <Card title="Events you may be interested in:">
+      //           {this.state.promo.map(promoEvents => (
+      //             <PromoDropdowns
+      //               name={promoEvents.name}
+      //               description={promoEvents.description}
+      //               dateStart={moment(promoEvents.dateStart).format('LLL')}
+      //               price={promoEvents.price}
+      //               eventId={promoEvents._id}
+      //               type="event"
+      //             />
+      //           ))}
+      //         </Card>
+      //       </Col>
+      //     </Row>
+      //     <Row>
+      //       <Col size="12">
+      //         <Headers heading="Your Programs and Events Calendar" />
+      //         <MyCalendars
+      //           events={this.state.calendar}
+      //         // programs={this.state.upcomingprogram}
+      //         />
+      //       </Col>
+      //     </Row>
+      //   </div>
+      //   <Footer />
+      // </div>
     );
   }
 }
-
 export default Dashboard;

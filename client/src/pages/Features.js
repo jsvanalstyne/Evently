@@ -20,7 +20,7 @@ class Features extends Component {
         <FeaturesJumbo
           mainText="All of your events, togther in one place"
           smallText="We make life easier for club and league commissioners, administrators, coaches and volunteers. And we do it by bringing everything into one integrated solution. From setting up registration or invoicing to getting the word out about your club or last-minute field changes, we get you up and running fast, put you in control and help you do it all. What can we say, we’re the complete package"
-          buttontext="Contact us"
+          buttontext="Sign in"
         />
         <Container>
           <FeaturesCardGroup />

@@ -1,0 +1,27 @@
+.eventButton{
+   color: #5BC0EB;
+}
+.eventLists{
+    background-color: #E2E0E0;
+}
+
+
+@media only screen and (max-width: 320px) {
+    .eventList {
+      /* width: 20%;
+      min-width: 210px;
+      height: 300px;
+      /* margin: 0 auto; */
+      /* margin-right: 50px;
+      margin-left: 50px;
+      margin-top: 20px;
+      margin-bottom: 20px; */ 
+
+
+    }
+    .eventButton{
+        padding:2px 4px;
+        font-size:80%;
+        line-height: 1;
+    }
+  }

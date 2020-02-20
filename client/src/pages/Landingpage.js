@@ -17,7 +17,7 @@ class Landingpage extends Component {
           <Nav />
             <HomeJumbo 
               mainText="Welcome!"
-              smallText="This is some text that briefly describes what evently is about."
+              smallText="All of your events, together in one place."
             />
             <Footer></Footer>
         </Wrapper>
