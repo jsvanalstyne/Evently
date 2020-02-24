@@ -5,48 +5,158 @@ const oktaClient = require('./oktaClient');
 const verifyBlanketUser = require("../auth/authorization");
 const Users = require("../../controllers/API/Users");
 const Events = require("../../controllers/API/Events");
+// const Accounts = require("../../controllers/API/Accounts");
+const Programs = require("../../controllers/API/Programs");
+
 
 
 router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
-    // doing stuff with user information (this assumes that auth was successful)
-    // console.log( req.user)
-    let authId = req.user.id
-    // let authId = "5";
-    Users.findByAuthId(authId, function (results) {
-        console.log("line 17 " + results);
-        // res.json(results)
-
-        let userId = results[0]._id
+        let userId = req.user.id
         console.log(userId);
         Events.getGroupIdForUser(userId, function (data) {
-            console.log("line 25 " + data)
             let groupIDArray = data.map(group => group._id)
-            
-            console.log(groupIDArray + "line 27")
-            // for(var i=0; i<groupID.length; i++){
-            //     let groupIDs = groupID[i]._id
-            //     console.log("line 27 "+groupIDs);
             Events.getEventsForGroups(groupIDArray, function (events) {
+                console.log(events);
                 let userEventsArray = events.map(event => {
                    return { name: event.name,
                     dateStart: event.dateStart,
-                    dateEnd: event.dateEnd
+                    dateEnd: event.dateEnd,
+                    _id: event._id,
+                    description: event.description
                    }
                 })
+                    
+                   
                 
-                let practice = ["cat", "dog", "bird"]
-
+                console.log("line 38" + JSON.stringify(userEventsArray))
                 return res.json(userEventsArray);
             })
+        })
+})
 
-            // }
+router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
+   
+    let userId = req.user.id
+    console.log("line57 in users.js"+userId)
+    Programs.getGroupIdForUser(userId, function (data) {
+        // console.log("line 25 " + data)
+        let groupIDArray = data.map(group => group._id)
+        
+        // console.log(groupIDArray + "line 27")
+        
+        Programs.getProgramsForGroups(groupIDArray, function (program) {
+            console.log("line 63 in users.js "+ JSON.stringify(program))
+            let userProgramArray = program.map(programs => {
+               return { name: programs.name,
+                dateStart: programs.dateStart,
+                dateEnd: programs.dateEnd,
+                description: programs.description,
+                price: programs.price,
+                id: programs._id
+               }
+            });
+            return res.json(userProgramArray);
+        })
+    });
+});
 
 
+router.get("/account", verifyBlanketUser, (req, res) => {
+    let userRegistrationInfoArray=[];
+    let userObject = req.user
+    console.log( "line 50" + JSON.stringify(userObject));
+        
+        accountController.findByUserId(userObject.id, function(information){
+            console.log(information)
+          
+            let userAccountObject = {
+                street: information[0].street,
+                zipcode: information[0].zipcode,
+                stateCode: information[0].stateCode,
+                city: information[0].city      
+            }
+            let userRegistrationInfo =Object.assign(userAccountObject, userObject)
+            console.log(userRegistrationInfo);
+            userRegistrationInfoArray.push(userRegistrationInfo);
+            console.log("line 89" +userRegistrationInfoArray);
+            return res.json(userRegistrationInfoArray);
+        });
+});
+
+// });
+// router.get("/registeredprograms", verifyBlanketUser, (req, res) => {
+   
+//         let userId = req.user.id
+//         console.log("line57 in users.js"+userId)
+//         Programs.getGroupIdForUser(userId, function (data) {
+//             // console.log("line 25 " + data)
+//             let groupIDArray = data.map(group => group._id)
+            
+//             // console.log(groupIDArray + "line 27")
+            
+//             Programs.getProgramsForGroups(groupIDArray, function (program) {
+//                 console.log("line 63 in users.js "+ JSON.stringify(program))
+//                 let userProgramArray = program.map(programs => {
+//                    return { name: programs.name,
+//                     dateStart: programs.dateStart,
+//                     dateEnd: programs.dateEnd,
+//                     description: programs.description,
+//                     price: programs.price
+//                    }
+//                 });
+
+//                 return res.json(userProgramArray);
+//             })
+        
+//     });
+
+// })
+
+router.get("/calendar", verifyBlanketUser, (req, res) => {
+    let userEventsArray=[];
+    let userCalendarArray=[];
+    let userId = req.user.id
+    console.log("line57 in users.js"+userId)
+    Events.getGroupIdForUser(userId, function (data) {
+        let groupIDArray = data.map(group => group._id)
+        Events.getEventsForGroups(groupIDArray, function (events) {
+                userEventsArray = events.map(event => {
+               return { name: event.name,
+                dateStart: event.dateStart,
+                dateEnd: event.dateEnd,
+                description: event.description
+               }
+            });
+            console.log("line 93" + JSON.stringify(userEventsArray));
+            // return res.json(userEventsArray);
         })
 
-    })
+})
 
+    Programs.getGroupIdForUser(userId, function (data) {
+        // let calendarEventsArray=[];
+        // let userProgramArray={}
+        let groupIDArray = data.map(group => group._id)
+        Programs.getProgramsForGroups(groupIDArray, function (program) {
+            console.log("line 63 in users.js "+ JSON.stringify(program))
+            let userProgramArray = program.map(programs => {
+               return { name: programs.name,
+                dateStart: programs.dateStart,
+                dateEnd: programs.dateEnd,
+                description: programs.description,
+                price: programs.price
+               }
+            });
+            console.log("line 112 in users.js" +JSON.stringify(userProgramArray))
+             userCalendarArray = userEventsArray.concat(userProgramArray);
+            // console.log("line 113" + JSON.stringify(userCalendar))
+            // calendarEventsArray.push(userCalendar)
+            // console.log("line 118 in users.js "+ JSON.stringify(calendarEventsArray));
+            return res.json(userCalendarArray).status(200);
+        })
+    
+    });
 
 });
 
@@ -71,9 +181,10 @@ router.get("/information/:email", verifyBlanketUser, (req, res) => {
 
 
 router.post("/", (req, res) => {
+    console.log("we got5 in herer");
     // user object containing information for Okta account
     let user = req.body.user;
-    // account object to send to 
+    // account object to send to
     let account = req.body.account;
     // creating user in Okta
     oktaClient.createUser(user)
@@ -88,9 +199,9 @@ router.post("/", (req, res) => {
             // creating user in local db
             userController.create(createdUser, result => {
                 // adding the user's mongo id to the account it's associated
-                // with 
+                // with
                 account.userIds = [result._id]
-                // creating account in mongo with: 
+                // creating account in mongo with:
                 //    1. street
                 //    2. zipcode
                 //    3. city
@@ -107,13 +218,12 @@ router.post("/", (req, res) => {
             })
         })
         .catch(err => {
-            // returning failed message and error 
+            // returning failed message and error
             return res.json({
                 "message": "Could not create user",
                 "error": err
             }).status(400);
         });
-
 });
 
 module.exports = router;

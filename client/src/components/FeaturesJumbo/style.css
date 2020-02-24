@@ -1,0 +1,17 @@
+body {
+    background-color: #EFF1F3;
+}
+
+.feature-jumbo-bg {
+    background-image: url(../HomeJumbo/Sports.png);
+    text-justify: center;
+}
+
+.contact-features-btn {
+    background-color: #5BC0EB;
+}
+
+.feature-jumbo-text {
+    margin-left: 90px;
+}
+

@@ -3,7 +3,7 @@ import "./style.css";
 
 function Footer() {
   return (
-    <footer className="footer text-center sticky-bottom pt-3">
+    <footer className="footer text-center pt-3 custom-footer-color">
       <span>Evently &copy; 2020</span>
     </footer>
   );

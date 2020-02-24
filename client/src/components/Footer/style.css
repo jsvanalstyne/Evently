@@ -3,14 +3,19 @@
   background: #B8B8B8;
   /* text-align: center; */
   /* margin-top: 500px; */
+  /* position: relative; */
   
 }
-.footer span{
+/* .footer span{
  position:"relative";
-}
+} */
 /* .footer span {
   padding: 3px;
   background: #B8B8B8;
   min-height: 30px;
   /* margin-top: 500px; */
+
+  .custom-footer-color {
+    background-color: #028090;
+  }
 

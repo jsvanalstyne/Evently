@@ -10,13 +10,18 @@ var BillsSchema = new Schema({
     amountOwed: {
         type: Number
     },
-    // eventPaidFor: {
-    //     type: Schema.Types.ObjectId
-    // },
+    eventPaidFor: [{
+        type: Schema.Types.ObjectId,
+        ref: "Events"
+    }],
     dateIssued: {
         type: Date, 
         default: Date.now
     }, 
+    programPaidFor : [{
+        type: Schema.Types.ObjectId,
+        ref: "Programs"
+    }],
     dateExpectedFinal: {
         type: Date
     },
@@ -32,7 +37,8 @@ var BillsSchema = new Schema({
             }, 
             message: "Note must be at most 500 characters"
         }
-    }
+    },
+   
 });
 
 var Bills = mongoose.model("Bills", BillsSchema);

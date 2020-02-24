@@ -19,7 +19,8 @@ module.exports = {
             {"datePaid": Date.now},
             {"employeeId": "some employee"},
             {"wasMadeInPerson": false},
-            {"note": "paid"}
+            {"note": "paid"},
+            
             )
         .then(cb)
     }
