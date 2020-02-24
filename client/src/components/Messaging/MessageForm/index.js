@@ -6,7 +6,6 @@ const ObjectId = mongoose.Types.ObjectId
 
 function MessageForm(props) {
     const [message, setMessage] = useState("");
-    console.log(props);
     // send message for server to handle. if recieve status of 200, 
     // set the last message as sent, else, set as unsent
     const handleMessageSubmit = (event) => {
@@ -19,7 +18,6 @@ function MessageForm(props) {
             text: message
         }
         
-        console.log(props.socket.id);
         props.socket.emit("newMessage", newMessage);
 
     }

@@ -67,16 +67,11 @@ console.log(MONGODB_URI);
 mongoose.connect(MONGODB_URI);
 
 // Start the API server
-var server = app.listen(PORT, function() {
-    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+var server = app.listen(PORT)
 
-});
+const io = require("socket.io").listen(server);
 
-const io = require("socket.io");
-const socket = io(server);
-app.set("socket", socket);
-
-socket.on("connection", socket => {
+io.sockets.on("connection", socket => {
   console.log(`socket connected: ${socket.id}`)
   socket.emit("id", socket.id);
 
@@ -85,7 +80,7 @@ socket.on("connection", socket => {
   })
 
   socket.on("newMessage", message => {
-    console.log(message);
+    console.log(message)
     Conversations.getUsers(message.conversationId)
     .then(usersResponse => {
       Conversations.createMessage(message)
@@ -98,9 +93,10 @@ socket.on("connection", socket => {
                         console.log(err)
                     } else {
                         console.log(socketId);
-                        if(socketId) {
-                          console.log("found recipient socket");
-                            socket.to(socketId).emit("sentMessage", message);
+                        console.log(io.sockets.connected)
+                        let recipientSocket = io.sockets.connected[socketId]
+                        if(recipientSocket) {
+                          recipientSocket.emit("sentMessage", message);
                         }
                     }
                 })
@@ -117,9 +113,45 @@ socket.on("connection", socket => {
         console.log("some other error");
         console.log(error);
     })
-    socket.emit("sentMessage", message)
   })
-});
+}); 
+
+//   socket.on("newMessage", message => {
+//     console.log(message);
+//     Conversations.getUsers(message.conversationId)
+//     .then(usersResponse => {
+//       Conversations.createMessage(message)
+//       .then(result => {
+//         if(result.senderName) {
+//             for(let i = 0; i < usersResponse.userIds.length; i++) {
+//                 console.log(`current user: ${usersResponse.userIds[i]}`);
+//                 client.get(`socket${usersResponse.userIds[i]}`, (err, socketId) => {
+//                     if(err) {
+//                         console.log(err)
+//                     } else {
+//                         console.log(socketId);
+//                         console.log(socket.sockets.connected)
+//                         if(socket.sockets.connected) {
+//                           console.log("found recipient socket");
+//                           socket.broadcast.to(socketId).emit("sentMessage", message);
+//                         }
+//                     }
+//                 })
+//             }
+//         } else {
+//             console.log("could not write to db")
+//         }
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       })
+//     })
+//     .catch(error => {
+//         console.log("some other error");
+//         console.log(error);
+//     })
+//   })
+// });
 
 
 

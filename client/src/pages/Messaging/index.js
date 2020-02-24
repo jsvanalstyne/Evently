@@ -20,8 +20,7 @@ import socketClient from "socket.io-client";
 const PORT = process.env.PORT || "http://127.0.0.1:3030";
 // Conversation list component containing all conversations
 // that users are a part of
-let socket = socketClient(PORT);
-socket.connect();
+let socket = socketClient.connect(PORT);
 
 function Messaging() {
     const [conversations, setConversations] = useState([]);
@@ -43,77 +42,47 @@ function Messaging() {
     }
     
     useEffect(() => {
-        idListener();
     }, [])
 
-    // useEffect(() => {
-    //     idListener();
-    // })
-    socket.on("connect", () => {
-        console.log("connected " + socket.id)
+    useEffect(() => {
+        connectListener()
     })
 
-    const idListener = () => {
-        socket.on("id", socketId => {
-            console.log('we got in here 2');
-            getConversations();
-            const currSocketId = localStorage.getItem("socketId");
-            console.log(`curr socket Id: ${currSocketId}`);
-            console.log(`potentially new socket id: ${socketId}`);
-            if(currSocketId !== socketId) {
-                API.createSocketConnection(socketId)
-                .then(response => {
-                    console.log(response);
-                    if(response.status === 200) {
-                        localStorage.setItem("socketId", response.data.socketId)
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-            }
+    const connectListener = () => {
+        socket.on("connect", () => {
+            console.log("connected " + socket.id)
+            setSocketId(socket.id)
+            sentMessageListener()
         })
     }
 
-    const connectListener = () => {
-        // socket.on("connect", () => {
-        //     console.log("we're connected at: " + socket.id);
-    
-        //     const currSocketId = localStorage.getItem("socketId");
-        //     console.log(`curr socket Id: ${currSocketId}`);
-        //     console.log(`ppotentially new socket id: ${socket.id}`);
-        //     if(currSocketId !== socket.id) {
-        //         API.createSocketConnection(socket.id)
-        //         .then(response => {
-        //             console.log(response);
-        //             if(response.status === 200) {
-        //                 console.log("local should be set to: " + response.data.socketId);
-        //                 localStorage.setItem("socketId", response.data.socketId)
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.log(error);
-        //         })
-        //     }
-        //     // API.createSocketConnection(socket.id)
-        //     // .then(response => {
-        //     //     console.log(response);
-        //     // })
-        //     // .catch(error => {
-        //     //     console.log(error);
-        //     // })    
-        // });    
+    const setSocketId = (socketId) => {
+        getConversations();
+        const currSocketId = localStorage.getItem("socketId");
+        console.log(`curr socket Id: ${currSocketId}`);
+        console.log(`potentially new socket id: ${socketId}`);
+        if(currSocketId !== socketId) {
+            API.createSocketConnection(socketId)
+            .then(response => {
+                console.log(response);
+                if(response.status === 200) {
+                    localStorage.setItem("socketId", response.data.socketId)
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
     }
+
     const sentMessageListener = () => {
-        socket.once("sentMessage", sentMessage => {
-            console.log("we got in here");
+        socket.on("sentMessage", sentMessage => {
+            console.log("we got in here sent message listener");
             console.log(sentMessage);
             console.log(currConversation);
         })
     }
     
-
-
     socket.on("disconnect", reason => {
         console.log(reason);
         socket.connect();
@@ -125,7 +94,7 @@ function Messaging() {
 
     socket.on("reconnect", numTurn => {
         console.log(numTurn);
-        socket.connect();
+        // socket.connect();
     })
 
 
