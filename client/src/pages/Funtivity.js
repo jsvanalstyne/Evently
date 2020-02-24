@@ -10,9 +10,16 @@ import { isValidObjectId } from "mongoose";
 import Nav from "../components/Nav"
 import { Collapse, Button } from "react-bootstrap";
 var moment = require("moment");
-
+​
+const style = {
+    seeBtn: {
+        backgroundColor: "#5BC0EB",
+        color: "rgb(15, 15, 15)",
+        border: "rgb(15, 15, 15)",
+    }
+}
+​
 class Funtivity extends Component {
-
     state = {
         organizationid: "5e35c71607cf87e4497c41a9",
         programs: [],
@@ -23,7 +30,7 @@ class Funtivity extends Component {
         registeredprograms: [],
         registeredevents: []
     }
-
+​
     handleCollapse(name) {
         this.setState({ [name]: !this.state[name] })
     }
@@ -33,9 +40,9 @@ class Funtivity extends Component {
         this.getCalendar();
         this.getUserPrograms();
         this.getUserEvents();
-
+​
     }
-
+​
     getPrograms = () => {
         API.getAllPrograms(this.state.organizationid)
             .then(res => {
@@ -88,7 +95,7 @@ class Funtivity extends Component {
     determinePaidEvent = (id) => {
         return this.state.registeredevents.includes(id)
     }
-
+​
     render() {
         // this.state.programs.map(upcomingprograms => 
         //     console.log("TESTING:" + this.state.registeredprograms.includes(upcomingprograms._id)))
@@ -155,9 +162,10 @@ class Funtivity extends Component {
                                             </Row>
                                         </div>
                                     </Collapse>
-
+​
                                     <Button
                                         className="collapsedButton"
+                                        style={style.seeBtn}
                                         onClick={() => this.handleCollapse("programopen")}
                                         aria-expanded={this.state.programopen}
                                         aria-controls="program-collapse"
@@ -172,7 +180,7 @@ class Funtivity extends Component {
                         <Headers heading="Events" />
                         <div>
                             {this.state.events.length <= 3 ? this.state.events.map(upcomingevents => (
-
+​
                                 <FunCard
                                     registered={this.determinePaidEvent(upcomingevents._id)}
                                     key={upcomingevents._id}
@@ -225,9 +233,10 @@ class Funtivity extends Component {
                                             </Row>
                                         </div>
                                     </Collapse>
-
+​
                                     <Button
                                         className="collapsedButton"
+                                        style={style.seeBtn}
                                         onClick={() => this.handleCollapse("eventopen")}
                                         aria-expanded={this.state.eventopen}
                                         aria-controls="program-collapse"
@@ -238,7 +247,7 @@ class Funtivity extends Component {
                             }
                         </div>
                     </Border>
-
+​
                     
                     <Border>
                         <Headers heading=" Fun Calendar" />
@@ -249,13 +258,13 @@ class Funtivity extends Component {
                             </Col>
                         </Row>
                     </Border>
-
+​
                 </div>
                 <Footer/>
             </div>
         );
     }
-
+​
 }
 
 export default Funtivity;
