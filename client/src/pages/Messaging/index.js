@@ -12,7 +12,7 @@ import API from "../../utils/API"
 // importing ObjectId from mongoose
 import {ObjectId} from "mongoose"
 // importing react and necessary hooks
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import "./index.css"
 // importing client-side socket.io
 import socketClient from "socket.io-client";
@@ -22,49 +22,62 @@ const PORT = process.env.PORT || "http://127.0.0.1:3030";
 // that users are a part of
 let socket = socketClient.connect(PORT);
 
-function Messaging() {
-    const [conversations, setConversations] = useState([]);
-    const [currConversation, setCurrConversation] = useState({});
-    const [user, setUser] = useState({});
-    // get all conversations and default display messages
-    const getConversations = () => {
-        console.log("we got in here");
+
+class Messaging extends Component {
+    constructor() {
+        super()
+
+        this.state = {
+            conversations: [],
+            currConversation: {}, 
+            user: {}, 
+            socketId: 0
+        }
+    }
+
+    componentDidMount = () => {
+        this.idListener();
         API.getAllConversations()
         .then(result => {
-            setConversations(result.data.conversations);
-            setCurrConversation({
-                messages: result.data.messages, 
-                _id: result.data.conversations[0]._id, 
-                name: result.data.conversations[0].name, 
+            const { messages, conversations, user} = result.data
+
+            let currConversation = this.formatCurrConversation(messages, conversations)
+
+            this.setState({
+                conversations: conversations, 
+                currConversation: currConversation, 
+                user: user
             })
-            setUser(result.data.user);
-        });
-    }
-    
-    useEffect(() => {
-    }, [])
 
-    useEffect(() => {
-        connectListener()
-    })
-
-    const connectListener = () => {
-        socket.on("connect", () => {
-            console.log("connected " + socket.id)
-            setSocketId(socket.id)
-            sentMessageListener()
         })
     }
 
-    const setSocketId = (socketId) => {
-        getConversations();
+    componentWillUnmount = () => {
+        socket.close();
+    }
+
+    formatCurrConversation = (messages, conversations) => {
+        const currConversation = {
+            messages: messages, 
+            _id: conversations[0]._id, 
+            name: conversations[0].name
+        }
+
+        return currConversation
+    }
+
+    setConversations = (conversations) => {
+        this.setState({
+            conversations: conversations
+        })
+    }
+
+    setSocketId = (socketId) => {
         const currSocketId = localStorage.getItem("socketId");
-        console.log(`curr socket Id: ${currSocketId}`);
-        console.log(`potentially new socket id: ${socketId}`);
+        
         if(currSocketId !== socketId) {
             API.createSocketConnection(socketId)
             .then(response => {
-                console.log(response);
                 if(response.status === 200) {
                     localStorage.setItem("socketId", response.data.socketId)
                 }
@@ -75,84 +88,63 @@ function Messaging() {
         }
     }
 
-    const sentMessageListener = () => {
-        socket.on("sentMessage", sentMessage => {
-            console.log("we got in here sent message listener");
-            console.log(sentMessage);
-            console.log(currConversation);
+    updateCurrConversationMessages = newMessage => {
+        this.setState(prevState => {
+            let {messages, _id, name} = prevState.currConversation;
+            let newMessages = [...messages, newMessage];
+            
+            return {
+                currConversation: {
+                    messages: newMessages, 
+                    _id: _id, 
+                    name: name
+                }
+            }
         })
     }
-    
-    socket.on("disconnect", reason => {
-        console.log(reason);
-        socket.connect();
-    })
 
-    socket.on("connect_error", error => {
-        console.log(error);
-    })
-
-    socket.on("reconnect", numTurn => {
-        console.log(numTurn);
-        // socket.connect();
-    })
-
-
-    const setMessages = newMessage => {
-        let newMessages = currConversation.messages.concat(newMessage);
-
-        setCurrConversation({...currConversation, messages: newMessages})
+    sentMessageListener = () => {
+        socket.on("sentMessage", sentMessage => {
+            if(sentMessage.conversationId == this.state.currConversation._id) {
+                this.updateCurrConversationMessages(sentMessage)
+            }
+        })
     }
 
-    const getNewConversation = (conversationId) => {
-        if(conversationId !== currConversation._id) {
-            API.getMessagesByConversation(conversationId)
-            .then(response => {
-                if(response.status === 200 && response.data.messages.length > 0) {
-                    setCurrConversation({
-                        name: response.data.messages[0].conversationId.name, 
-                        _id: conversationId, 
-                        messages: response.data.messages
-                    })
-                } else {
-                    API.getConversationById(conversationId)
-                    .then(response => {
-                        setCurrConversation({
-                            name: response.data.conversation.name, 
-                            _id: conversationId, 
-                            messages: []
-                        })
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        console.log("error");
-                    })
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        }
+    reconnectListener = () => {
+        socket.on("reconnect", numTurn => {
+            socket.connect();
+        })
     }
-    return (
+
+    idListener = () => {
+        socket.on("id", socketId => {
+            this.setSocketId(socketId)
+            this.sentMessageListener()
+        })
+    }
+
+    render() {
+        return (
             <div style={{display: "flex", borderBottom: "1px solid rgb(33, 33, 33)"}}>
                 <div style={{height: "100vh", width: "20vw"}}>
                     <div className="conversation-list">
                         <div className="conversation-header-and-modal-container">
                             <h4 className="conversation-header">Conversations</h4>
                             <ConversationForm 
-                                userId={user.id}
-                                setConversations={setConversations}
+                                userId={this.state.user.id}
+                                conversations={this.state.conversations}
+                                setConversations={this.setConversations}
                             />
                         </div> 
-                        {conversations ? conversations.map(conversation => {
+                        {this.state.conversations ? this.state.conversations.map(conversation => {
                             return (
                                 <div className="conversation-container" key={conversation._id}> 
                                     <a 
-                                     onClick={() => getNewConversation(conversation._id)}
+                                     // onClick={() => getNewConversation(conversation._id)}
                                      className="conversation-title" 
                                      conversationid={conversation.id}
-                                    >{conversation.name}
+                                     >{conversation.name}
                                     </a>
                                 </div>
                             )
@@ -160,15 +152,16 @@ function Messaging() {
                     </div>
                 </div>
                 <div style={{height: "100vh", width: "80vw", backgroundColor: "rgba(33, 33, 33, 0.6)"}}>
-                    <ConversationHeader conversationName={currConversation.name}/>
+                    <ConversationHeader conversationName={this.state.currConversation.name}/>
                     <MessageContainer 
-                        currConversation={currConversation}                        
-                        user={user}
+                        currConversation={this.state.currConversation}                        
+                        user={this.state.user}
                         socket={socket}
                     />
                 </div>
             </div>
-    );
+        );
+    }
 }
 
 export default Messaging;

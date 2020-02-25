@@ -96,7 +96,7 @@ io.sockets.on("connection", socket => {
                         console.log(io.sockets.connected)
                         let recipientSocket = io.sockets.connected[socketId]
                         if(recipientSocket) {
-                          recipientSocket.emit("sentMessage", message);
+                          recipientSocket.emit("sentMessage", result);
                         }
                     }
                 })
