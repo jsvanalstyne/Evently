@@ -42,6 +42,9 @@ class Messaging extends Component {
             const { messages, conversations, user} = result.data
 
             let currConversation = this.formatCurrConversation(messages, conversations)
+            let formattedConversations = conversations.map(conv => {
+                return conv.hasNewMessage = false;
+            })
 
             this.setState({
                 conversations: conversations, 
@@ -103,11 +106,38 @@ class Messaging extends Component {
         })
     }
 
+    getConversation = conversationId => {
+        for(const conversation of this.state.conversations) {
+            if(conversation._id == conversationId) {
+                return conversation;
+            }
+        }
+
+        return null;
+    }
+
     sentMessageListener = () => {
         socket.on("sentMessage", sentMessage => {
             if(sentMessage.conversationId == this.state.currConversation._id) {
                 this.updateCurrConversationMessages(sentMessage)
+
+                return;
             }
+
+            let sentConversation = this.getConversation(sentMessage.conversationId)
+
+            if(sentConversation) {
+                sentConversation.hasNewMessage = true;
+
+                let filteredConversations = this.state.conversations.filter(conv => {
+                    return conv._id != sentConversation._id
+                })
+
+                this.setState({
+                    conversations: [sentConversation, ...filteredConversations]
+                })
+            }
+            
         })
     }
 
@@ -121,6 +151,21 @@ class Messaging extends Component {
         socket.on("id", socketId => {
             this.setSocketId(socketId)
             this.sentMessageListener()
+        })
+    }
+
+    setCurrConversation = conversation => {
+        conversation.hasNewMessage = false;
+        
+        API.getMessagesByConversation(conversation._id)
+        .then(response => {
+            this.setState({
+                currConversation: {
+                    messages: response.data.messages, 
+                    _id: conversation._id, 
+                    name: conversation.name
+                }
+            })
         })
     }
 
@@ -138,11 +183,13 @@ class Messaging extends Component {
                             />
                         </div> 
                         {this.state.conversations ? this.state.conversations.map(conversation => {
+                            let convClass = conversation.hasNewMessage ? "conversation-title new-message" : "conversation-title"
+
                             return (
                                 <div className="conversation-container" key={conversation._id}> 
                                     <a 
-                                     // onClick={() => getNewConversation(conversation._id)}
-                                     className="conversation-title" 
+                                     onClick={() => this.setCurrConversation(conversation)}
+                                     className={convClass}
                                      conversationid={conversation.id}
                                      >{conversation.name}
                                     </a>

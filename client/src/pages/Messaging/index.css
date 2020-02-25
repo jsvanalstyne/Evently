@@ -18,11 +18,6 @@
     padding: 10px;
 }
 
-.new-message {
-    font-weight: 800;
-    color: red;
-}
-
 .conversation-container:hover {
     background-color: rgba(225, 225, 225);
 }
@@ -30,4 +25,9 @@
 .conversation-title {
     font-size: 16px;
     font-weight: 600;
+}
+
+.new-message {
+    font-weight: 800;
+    font-size: 18px;
 }
