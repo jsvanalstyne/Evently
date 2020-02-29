@@ -1,0 +1,15 @@
+.side-nav-container {
+    padding-top: 20px;
+    width: 20%;
+    height: 100vh;
+    min-width: 180px;
+    background-color: #1F363D;
+    color: white;
+}
+
+@media screen and (max-width: 540px) {
+    .side-nav-container {
+        width: 80px;
+        text-align: center;
+    }
+}
