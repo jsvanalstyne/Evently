@@ -27,7 +27,6 @@ export default withAuth(class Nav extends Component {
     }
 
     render() {
-        console.log(this.state.authenticated);
         return (
             <nav className="navbar navbar-expand-lg navbar-dark custom-nav-color">{this.props.children}
                 <a className="navbar-brand landing-title" href="/">Evently</a>

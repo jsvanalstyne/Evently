@@ -11,8 +11,6 @@ import ConversationForm from "../../components/Messaging/ConversationForm";
 import Nav from "../../components/Nav"
 // importing messaging api for resource server interactions
 import API from "../../utils/API"
-// importing ObjectId from mongoose
-import {ObjectId} from "mongoose"
 // importing react and necessary hooks
 import React, { Component } from "react";
 import "./index.css"
@@ -37,7 +35,10 @@ class Messaging extends Component {
     }
 
     componentDidMount = () => {
-        this.idListener();
+        this.socket = socketClient.connect(PORT);
+        
+        this.connectListener();
+
         API.getAllConversations()
         .then(result => {
             const { messages, conversations, user} = result.data
@@ -75,7 +76,7 @@ class Messaging extends Component {
 
     setSocketId = (socketId) => {
         const currSocketId = localStorage.getItem("socketId");
-        
+
         if(currSocketId !== socketId) {
             API.createSocketConnection(socketId)
             .then(response => {
@@ -141,13 +142,14 @@ class Messaging extends Component {
 
     reconnectListener = () => {
         socket.on("reconnect", numTurn => {
+            console.log(numTurn)
             socket.connect();
         })
     }
 
-    idListener = () => {
-        socket.on("id", socketId => {
-            this.setSocketId(socketId)
+    connectListener = () => {
+        this.socket.on("connect", () => {
+            this.setSocketId(socket.id)
             this.sentMessageListener()
         })
     }

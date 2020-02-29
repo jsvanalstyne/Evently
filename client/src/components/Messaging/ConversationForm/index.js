@@ -36,7 +36,9 @@ function ConversationForm(props) {
         API.getUserByEmail(recipient)
         .then(response => {
             if(response.data.user) {
-                setRecipients(prevRecipients => prevRecipients.concat(response.data.user));
+                let newRecipients = [response.data.user, ...recipients];
+                
+                setRecipients(newRecipients);
 
                 setRecipient("");
                 setRecipientMessage("");
@@ -59,7 +61,6 @@ function ConversationForm(props) {
     const handleConversationSubmit = (event) => {
         event.preventDefault();
         if(recipients.length < 1) {
-
             return setConversationMessage("Must enter at least one recipient");
         }
 
@@ -99,7 +100,7 @@ function ConversationForm(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="conversation-form-container">
-                        <form className="conversation-form" onSubmit={handleConversationSubmit}>
+                        <form className="conversation-form">
                             <p>{conversationMessage}</p>
                             <Input 
                                 type="input"
@@ -126,10 +127,11 @@ function ConversationForm(props) {
                                             deleteRecipient={deleteRecipient} 
                                             name={`${recipient.firstName} ${recipient.lastName}`}
                                             id={recipient._id}
+                                            key={recipient._id}
                                            />
                                 })}
                             </div>
-                            <Button variant="primary">Submit</Button>
+                            <Button onClick={handleConversationSubmit} variant="primary">Submit</Button>
                         </form>
                     </div>
                 </Modal.Body>

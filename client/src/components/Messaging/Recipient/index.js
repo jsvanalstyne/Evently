@@ -1,15 +1,14 @@
-// import React from "react";
-// import "./index.css";
+import React from "react";
+import "./index.css";
 
-// function Recipient(props) {
+function Recipient(props) {
 
-//     console.log(props);
-//     return (
-//         <div>
-//             <p style={{display: "inline"}}>{props.name}</p>
-//             <button style={{display: "inline"}} onClick={event => props.deleteRecipient(event, props.id)}>x</button>
-//         </div>
-//     )
-// }
+    return (
+        <div className="recipient-container">
+            <p className="recipient-name-display">{props.name}</p>
+            <button className="delete-recipient-button" onClick={event => props.deleteRecipient(event, props.id)}>x</button>
+        </div>
+    )
+}
 
-// export default Recipient;
+export default Recipient;

@@ -58,99 +58,16 @@ defaultClient.basePath = 'https://connect.squareupsandbox.com';
 // MONGODB_URI=mongodb://user:userpassword1@ds157276.mlab.com:57276/heroku_b1dcvdgd
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Balls"
-console.log(MONGODB_URI);
 mongoose.connect(MONGODB_URI);
 
 // Start the API server
 var server = app.listen(PORT)
 
 const io = require("socket.io").listen(server);
+const socketHelpers = require("./routes/socket/socket-helpers");
 
 io.sockets.on("connection", socket => {
-  console.log(`socket connected: ${socket.id}`)
-  socket.emit("id", socket.id);
+  socketHelpers.disconnectListener(socket)
 
-  socket.on("disconnect", () => {
-    console.log("socket: " + socket.id + " disconnected");
-  })
-
-  socket.on("newMessage", message => {
-    console.log(message)
-    Conversations.getUsers(message.conversationId)
-    .then(usersResponse => {
-      Conversations.createMessage(message)
-      .then(result => {
-        if(result.senderName) {
-            for(let i = 0; i < usersResponse.userIds.length; i++) {
-                console.log(`current user: ${usersResponse.userIds[i]}`);
-                client.get(`socket${usersResponse.userIds[i]}`, (err, socketId) => {
-                    if(err) {
-                        console.log(err)
-                    } else {
-                        console.log(socketId);
-                        console.log(io.sockets.connected)
-                        let recipientSocket = io.sockets.connected[socketId]
-                        if(recipientSocket) {
-                          recipientSocket.emit("sentMessage", result);
-                        }
-                    }
-                })
-            }
-        } else {
-            console.log("could not write to db")
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    })
-    .catch(error => {
-        console.log("some other error");
-        console.log(error);
-    })
-  })
+  socketHelpers.newMessageListener(socket, client, io)
 }); 
-
-//   socket.on("newMessage", message => {
-//     console.log(message);
-//     Conversations.getUsers(message.conversationId)
-//     .then(usersResponse => {
-//       Conversations.createMessage(message)
-//       .then(result => {
-//         if(result.senderName) {
-//             for(let i = 0; i < usersResponse.userIds.length; i++) {
-//                 console.log(`current user: ${usersResponse.userIds[i]}`);
-//                 client.get(`socket${usersResponse.userIds[i]}`, (err, socketId) => {
-//                     if(err) {
-//                         console.log(err)
-//                     } else {
-//                         console.log(socketId);
-//                         console.log(socket.sockets.connected)
-//                         if(socket.sockets.connected) {
-//                           console.log("found recipient socket");
-//                           socket.broadcast.to(socketId).emit("sentMessage", message);
-//                         }
-//                     }
-//                 })
-//             }
-//         } else {
-//             console.log("could not write to db")
-//         }
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       })
-//     })
-//     .catch(error => {
-//         console.log("some other error");
-//         console.log(error);
-//     })
-//   })
-// });
-
-
-
-
-
-
-// MONGODB_URI=mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd

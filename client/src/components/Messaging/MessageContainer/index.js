@@ -15,8 +15,7 @@ class MessageList extends Component {
     }
 
     scrollToBottom = (behavior) => {
-        console.log("got in the scroll method")
-        console.log(this.messagesEnd)
+
         this.messagesEnd.scrollIntoView(behavior);
     }
 

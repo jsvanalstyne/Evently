@@ -13,3 +13,9 @@
 .add-sign {
     font-size: 10px;
 }
+
+.recipients-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}

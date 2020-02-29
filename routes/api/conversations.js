@@ -61,7 +61,7 @@ router.get("/messages/:id", auth, (req, res) => {
 })
 
 
-router.post("/create", auth, getUsers, (req, res) => {
+router.post("/create", auth, (req, res) => {
     Conversations.createConversation(req.body.conversation)
     .then(result => {
         if(result.name) {
