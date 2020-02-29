@@ -7,6 +7,8 @@ import MessageForm from "../../components/Messaging/MessageForm";
 import ConversationHeader from "../../components/Messaging/ConversationHeader";
 // importing conversation form to create conversations
 import ConversationForm from "../../components/Messaging/ConversationForm";
+//importing navbar 
+import Nav from "../../components/Nav"
 // importing messaging api for resource server interactions
 import API from "../../utils/API"
 // importing ObjectId from mongoose
@@ -31,7 +33,6 @@ class Messaging extends Component {
             conversations: [],
             currConversation: {}, 
             user: {}, 
-            socketId: 0
         }
     }
 
@@ -42,9 +43,6 @@ class Messaging extends Component {
             const { messages, conversations, user} = result.data
 
             let currConversation = this.formatCurrConversation(messages, conversations)
-            let formattedConversations = conversations.map(conv => {
-                return conv.hasNewMessage = false;
-            })
 
             this.setState({
                 conversations: conversations, 
@@ -156,7 +154,7 @@ class Messaging extends Component {
 
     setCurrConversation = conversation => {
         conversation.hasNewMessage = false;
-        
+
         API.getMessagesByConversation(conversation._id)
         .then(response => {
             this.setState({
@@ -171,11 +169,13 @@ class Messaging extends Component {
 
     render() {
         return (
+            <div>
+            <Nav />
             <div style={{display: "flex", borderBottom: "1px solid rgb(33, 33, 33)"}}>
-                <div style={{height: "100vh", width: "20vw"}}>
+                <div style={{height: "91vh", width: "20vw", minWidth: "160px"}}>
                     <div className="conversation-list">
                         <div className="conversation-header-and-modal-container">
-                            <h4 className="conversation-header">Conversations</h4>
+                            <h5 className="conversation-header">Conversations</h5>
                             <ConversationForm 
                                 userId={this.state.user.id}
                                 conversations={this.state.conversations}
@@ -186,8 +186,9 @@ class Messaging extends Component {
                             let convClass = conversation.hasNewMessage ? "conversation-title new-message" : "conversation-title"
 
                             return (
-                                <div className="conversation-container" key={conversation._id}> 
+                                <div className="conversation-container" key={conversation._id}># 
                                     <a 
+                                     style={{marginLeft: "10px", color: "#666565"}}
                                      onClick={() => this.setCurrConversation(conversation)}
                                      className={convClass}
                                      conversationid={conversation.id}
@@ -198,7 +199,7 @@ class Messaging extends Component {
                         }) : <p>lame</p>}
                     </div>
                 </div>
-                <div style={{height: "100vh", width: "80vw", backgroundColor: "rgba(33, 33, 33, 0.6)"}}>
+                <div style={{height: "90vh", width: "80vw", backgroundColor: "#fff", opacity: "0.6)"}}>
                     <ConversationHeader conversationName={this.state.currConversation.name}/>
                     <MessageContainer 
                         currConversation={this.state.currConversation}                        
@@ -206,6 +207,7 @@ class Messaging extends Component {
                         socket={socket}
                     />
                 </div>
+            </div>
             </div>
         );
     }

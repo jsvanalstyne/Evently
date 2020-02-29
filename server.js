@@ -26,15 +26,10 @@ const redis = require("redis");
 let redisURL = process.env.REDIS_URL || {host: "127.0.0.1"}
 const client = redis.createClient(redisURL);
 
-// const client = redis.createClient({
-//   host: "127.0.0.1",
-//   port: 6379
-// });
 
 client.on("connect", () => {
   console.log("redis connected");
   app.set("cache", client);
-  // app.use("cache", client);
 });
 
 client.on("error", err => {

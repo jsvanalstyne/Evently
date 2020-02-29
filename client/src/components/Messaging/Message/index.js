@@ -10,9 +10,9 @@ import "./index.css";
 function Message(props) {
     return (
         <div className="message-container">
-            <div className="photo-container">
+            {/* <div className="photo-container">
                 <img className="photo-id" src="https://google.com" ttt={`${props.senderName} id photo`}/>
-            </div>
+            </div> */}
             <div className="name-and-message-container">
                 <div className="name-display-container">
                     <h4 className="name-display">{`${props.senderName}`}</h4>

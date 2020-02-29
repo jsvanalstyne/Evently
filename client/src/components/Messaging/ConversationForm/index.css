@@ -1,17 +1,15 @@
 .modal-button {
     border-radius: 50%;
-    /* width: 20px;
-    height: 20px; */
+    width: 20px;
+    height: 20px;
     background-color: transparent;
-    color: white;
-    border: 1px solid white;
+    color: #666565;
+    border: 1px solid #666565;
     margin-left: 10px;
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 .add-sign {
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
+    font-size: 10px;
 }

@@ -27,7 +27,7 @@
 .name-display {
     font-size: 18px;
     font-weight: 700;
-    color: white;
+    color: #666565;
     display: inline-block;
     margin: 0px;
 }
@@ -35,13 +35,13 @@
 .time-sent-display {
     font-size: 12px;
     font-weight: 200;
-    color: rgb(225, 225, 225);
+    color: #666565;
     display: inline-block;
     margin: 0 0 0 10px;
 }
 
 .text-display {
     font-size: 18px;
-    font-weight: 300;
-    color: rgb(225, 225, 225);
+    font-weight: 400;
+    color: #666565
 }

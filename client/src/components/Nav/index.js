@@ -50,6 +50,10 @@ export default withAuth(class Nav extends Component {
                                 text={"Dashboard"}
                             />
                             <NavLink
+                                link="/messaging"
+                                text="Messaging"
+                            />
+                            <NavLink
                                 link={"/account"}
                                 text={"My Account"}
                             />

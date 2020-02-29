@@ -20,6 +20,8 @@ function MessageForm(props) {
         
         props.socket.emit("newMessage", newMessage);
 
+        setMessage("");
+
     }
 
     return (
@@ -35,9 +37,9 @@ function MessageForm(props) {
                     placeholder="Message"
                 ></input>
             </form>
-            <div className="message-toolbar">
+            {/* <div className="message-toolbar">
                 <p>dsfasdf</p>
-            </div>
+            </div> */}
         </div>
         </div> 
     )

@@ -10,7 +10,6 @@ const auth = require("../auth/authorization.js");
 const getLiveUsers = require("./chat.js")
 
 
-
 router.post("/create", auth, getLiveUsers, (req, res) => {
     const socket = req.app.get("socket");
     const cache = req.app.get("cache");
