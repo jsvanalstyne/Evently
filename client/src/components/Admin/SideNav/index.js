@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import SideNavLink from "./SideNavLink";
 
-const imagePathPrefixes = ["Calendar", "Users", "Events", "Programs", "Analytics"]
+const imagePathPrefixes = ["Home", "Calendar", "Users", "Events", "Programs", "Analytics"]
 
 function SideNav() {
 

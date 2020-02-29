@@ -9,6 +9,7 @@ import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react'
 import Login from "./components/auth/Login";
 import Account from "./pages/Account"
 import Messaging from "./pages/Messaging";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function onAuthRequired({history}) {
   history.push("/login")
@@ -32,6 +33,7 @@ function App() {
         <SecureRoute exact path="/funtivity" component={Funtivity}/>
         <Route path="/implicit/callback" component={ImplicitCallback}/>
         <Route path="/login" render={() => <Login baseUrl="https://dev-844753.okta.com"/>}/>
+        <Route paht="/admin/home" component={AdminDashboard} />
         <SecureRoute path="/pay" component={Payment}/>
         <SecureRoute path="/messaging" component={Messaging}/>
       </Security>
