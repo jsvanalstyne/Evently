@@ -9,7 +9,8 @@ var TasksSchema = new Schema({
 
     employeeIds: [{
         type: Schema.Types.ObjectId, 
-        required: [true, "Must enter at least one employee Id"]
+        required: [true, "Must enter at least one employee Id"], 
+        ref: "Employees"
     }], 
 
     description: {
@@ -23,7 +24,7 @@ var TasksSchema = new Schema({
 
     endTime: {
         type: Date, 
-        default: new Date(oldDateObj.getTime() + 15 * 60000)
+        default: Date.now() - 15 * 60000
     }
 });
 

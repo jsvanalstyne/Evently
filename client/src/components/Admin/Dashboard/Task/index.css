@@ -1,0 +1,28 @@
+.task-container {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #028090;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.task-name-display {
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.task-description-display {
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 2.5px;
+}
+
+.task-duration-display {
+    color: #ddd;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import SideNavLink from "./SideNavLink";
+import SideNavLink from "../SideNavLink";
 
 const imagePathPrefixes = ["Home", "Calendar", "Users", "Events", "Programs", "Analytics"]
 

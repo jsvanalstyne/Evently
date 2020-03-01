@@ -52,11 +52,6 @@ oauth2.accessToken = accessToken;
 // production: https://connect.squareup.com
 defaultClient.basePath = 'https://connect.squareupsandbox.com';
 
-// Connect to the Mongo DB
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Balls");
-// mongodb://user:userpassword1@ds157276.mlab.com:57276/heroku_b1dcvdgd
-// MONGODB_URI=mongodb://user:userpassword1@ds157276.mlab.com:57276/heroku_b1dcvdgd
-
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Balls"
 mongoose.connect(MONGODB_URI);
 

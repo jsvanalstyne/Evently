@@ -233,6 +233,7 @@ export default {
 
     getUserBills: function (){
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+        
         return axios({
             method: "GET",
             url: "/api/bills",
@@ -241,6 +242,20 @@ export default {
                 "Accept": "application/json",
                 "Authorization": "Bearer " + token
             }
+        })
+    }, 
+
+    getTasksByWeek: (startTime, endtTime) => {
+        // const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET",
+            url: "/api/tasks/by-week/" + startTime + "/" + endtTime,
+            // headers: {
+            //     "Content-Type": "application/json",
+            //     "Accept": "application/json",
+            //     "Authorization": "Bearer " + token
+            // }
         })
     }
 

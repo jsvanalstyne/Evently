@@ -7,6 +7,7 @@ const users = require("./users");
 const conversations = require("./conversations");
 const messages = require("./messages");
 const bills = require("./bills");
+const tasks = require("./tasks");
 
  
 
@@ -18,5 +19,6 @@ router.use("/users", users);
 router.use("/conversations", conversations);
 router.use("/messages", messages);
 router.use("/bills", bills);
+router.use("/tasks", tasks);
 
 module.exports= router;

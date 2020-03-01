@@ -1,0 +1,44 @@
+.dashboard-schedule-container {
+    width: 30%;
+    background-color: rgb(225, 225, 225);
+    color: #333;
+}
+
+.year-month-heading-container {
+    padding: 20px;
+    text-align: center
+}
+
+.year-month-display {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.day-of-week-slide {
+    display: flex;
+    padding: 0 20px;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.week-control-slide {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.week-control-slide p {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+}
+
+.schedule-body {
+    padding: 20px;
+
+}

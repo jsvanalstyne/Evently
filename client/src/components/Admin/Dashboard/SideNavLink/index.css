@@ -7,7 +7,7 @@
 }
 
 .side-nav-link-container:hover {
-    opacity: 0.8;
+    opacity: 0.5;
     border-bottom: 1px solid #D1D1D1;
     border-top: 1px solid #D1D1D1;
 }
