@@ -42,3 +42,23 @@
     padding: 20px;
 
 }
+
+.show-create-task-form {
+    width: 25px;
+    height: 25px;
+    color: #028090;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.show-create-task-form span {
+    margin: 0;
+    padding: 0;
+}

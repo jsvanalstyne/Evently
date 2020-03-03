@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DayAndDateDisplay from "../DayAndDateDisplay";
 import Task from "../Task";
+import CreateTaskForm from "../CreateTaskForm"
 import API from "../../../../utils/API.js";
 import moment from "moment";
 import "./index.css";
@@ -9,8 +10,6 @@ import "./index.css";
 class Schedule extends Component {
     constructor() {
         super();
-
-        this.weekDays = moment.weekdays();
 
         this.state = {
             weeks: new Map(),
@@ -40,7 +39,7 @@ class Schedule extends Component {
                     currDay: moment().day() == 0 ? 6 : moment.day() - 1, 
                     showBody: true
                 }
-            }, () => console.log(this.state))
+            })
         })
     }
 
@@ -49,7 +48,6 @@ class Schedule extends Component {
 
         if(currWeek) {
             return currWeek.map((day, i) => {
-
                 return (
                     <DayAndDateDisplay 
                      dayOfWeek={day.dayOfWeek} 
@@ -95,11 +93,17 @@ class Schedule extends Component {
         })
     }
 
+    getMonthAndYearDisplay = () => {
+        let dateAsString = this.state.currWeek.toString();
+        
+        return `${dateAsString.split(" ")[1]} ${dateAsString.split(" ")[3]}`;
+    }
+
     render = () => {
         return (
             <div className="dashboard-schedule-container">
                 <div className="year-month-heading-container">
-                    <h3 className="year-month-display">February 2020</h3>
+                    <h3 className="year-month-display">{this.getMonthAndYearDisplay()}</h3>
                 </div>
                 <div className="day-of-week-slide">
                     <button className="week-control-slide" onClick={() => this.getNewWeek(-7)}>
@@ -113,11 +117,16 @@ class Schedule extends Component {
                 {
                     this.state.showBody ? 
                     <div className="schedule-body">
+                        <button className="show-create-task-form" onClick={() => this.setState({showBody: false})}>
+                            <span>+</span>
+                        </button>
                         {this.getTaskDisplays()}
                     </div> :
-                    <form className="create-task-form">
-
-                    </form>
+                    <CreateTaskForm 
+                        close={() => this.setState({showBody: true})}
+                        currWeek={this.state.currWeek}
+                        currDay={this.state.currDay}
+                    />
                 }
             </div>
         )

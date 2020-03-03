@@ -10,14 +10,14 @@
     color: #333;
     font-size: 18px;
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 2.5px;
 }
 
 .task-description-display {
     color: #333;
     font-size: 14px;
     font-weight: 400;
-    margin-bottom: 2.5px;
+    margin-bottom: 5px;
 }
 
 .task-duration-display {
