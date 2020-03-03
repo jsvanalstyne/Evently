@@ -6,9 +6,12 @@ var ConversationsSchema = new Schema({
     userIds: [{
         type: Schema.Types.ObjectId, 
         ref: "Users", 
-        required: [true, "Must enter valid user Id"], 
-        unique: true
+        required: [true, "Must enter valid user Id"]
+        // unique: true
     }], 
+    name: {
+        type: String
+    },
     lastUpdated: {
         type: Date, 
         default: Date.now

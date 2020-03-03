@@ -29,10 +29,40 @@ export default {
     },
     getUserInformationFromDb: function () {
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+        console.log("line 32 "+ token);
 
         return axios({
             method: "GET",
             url: "/api/users/information",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    }, 
+    getAllConversations: function() {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET",
+            url: "/api/conversations/all",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    },
+    createConversation: function(conversation) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "POST", 
+            url: "/api/conversations/create", 
+            data: {
+                "conversation": conversation
+            },
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -103,13 +133,58 @@ export default {
         console.log("inside calendar");
         return axios.get("/api/events/allevents/" + id);
     
+    }, 
+    getUserByEmail: function(email) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "GET", 
+            url: "/api/users/information/" + email, 
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
     },
-    getUserPrograms: function(){
+    getUserPrograms: function() {
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
 
         return axios({
             method: "GET",
             url: "/api/users/registeredprograms",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    }, 
+    createMessage: function(message) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+
+        return axios({
+            method: "POST", 
+            url: "/api/messages/create", 
+            data: {
+                "message": message
+            },
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    }, 
+    createSocketConnection: function(socketId, conversationId) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken;
+
+        return axios({
+            method: "POST", 
+            url: "/api/conversations/create-connection",
+            data: {
+                "socketId": socketId
+            },
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -129,6 +204,34 @@ export default {
             }
         })
     },
+    getMessagesByConversation: function(conversationId) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken;
+
+        return axios({
+            method: "GET", 
+            url: "/api/conversations/messages/" + conversationId, 
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    }, 
+    
+    getConversationById: function(conversationId) {
+        const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken;
+
+        return axios({
+            method: "GET", 
+            url: "/api/conversations/one/" + conversationId, 
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+    },
+
     getUserBills: function (){
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
         return axios({
@@ -139,7 +242,7 @@ export default {
                 "Accept": "application/json",
                 "Authorization": "Bearer " + token
             }
-        }) 
+        })
     }
 
 

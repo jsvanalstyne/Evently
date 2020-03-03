@@ -1,0 +1,21 @@
+.modal-button {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    color: #666565;
+    border: 1px solid #666565;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.add-sign {
+    font-size: 10px;
+}
+
+.recipients-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}

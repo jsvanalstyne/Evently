@@ -4,14 +4,17 @@ const verifyBlanketUser = require("../auth/authorization");
 const programController = require("../../controllers/API/Programs")
 const userController = require("../../controllers/API/Users")
 
-const auth = require("../auth/authorization.js")
+const anonCache = require("../cache/no-auth");
 
 
-router.get("/:organizationid", verifyBlanketUser, (req, res) => {
+router.get("/:organizationid", verifyBlanketUser, anonCache, (req, res) => {
+    let cache = req.app.get("cache");
+    console.log("line 13: " + req.url);
     let id = req.params.organizationid
     // console.log("events id:" + id)
     eventController.getEventsByOrganization(id, function(results) {
         // console.log("results: " + results);
+        cache.setex(req.originalUrl, 3600, JSON.stringify(results));
         return res.json(results)
     } )
 })
@@ -43,11 +46,16 @@ router.delete("/removal/:eventId", verifyBlanketUser, (req, res) => {
     })
 
 })
-router.get("/promos/:organizationid", verifyBlanketUser, (req, res) => {
+router.get("/promos/:organizationid", verifyBlanketUser, anonCache, (req, res) => {
+    let cache  = req.app.get("cache");
+
     let id = req.params.organizationid
+
     // console.log("line events id:" + id)
     eventController.getEventsByOrganization(id, function(results) {
         // console.log("line 18 results: " + results[0]);
+        cache.setex(req.url, 3600, JSON.stringify(results))
+
         return res.json({"results": results}).status(200);
     });
 })
@@ -55,7 +63,11 @@ router.get("/promos/:organizationid", verifyBlanketUser, (req, res) => {
 
 
 // getEventsByOrganization
-router.get("/allevents/:organizationid", (req, res) => {
+router.get("/allevents/:organizationid", anonCache, (req, res) => {
+    let cache = req.app.get("cache");
+    console.log("line 58 ");
+    console.log(req.query)
+
     let id = req.params.organizationid
     let organizationPrograms = []
     let organizationEvents=[];
@@ -72,6 +84,9 @@ router.get("/allevents/:organizationid", (req, res) => {
         })
         organizationCalendarArray = organizationEvents.concat(organizationPrograms);
         console.log("line 44 in events.js" + JSON.stringify(organizationCalendarArray))
+
+        cache.setex(req.url, 3600, JSON.stringify(organizationCalendarArray))
+
         return res.json(organizationCalendarArray).status(200);
     })
 

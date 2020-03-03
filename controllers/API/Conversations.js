@@ -5,20 +5,19 @@ const ObjectId = require("mongoose").Types.ObjectId;
 module.exports = {
     // ------------------ GET ------------------
     // Find all users associated with a conversation
-    getUsers: (conversationId, cb) => {
+    getUsers: async (conversationId, cb) => {
         conversationId = ObjectId(conversationId);
 
-        Conversations.findById(conversationId)
-        .then(cb)
+        return Conversations.findById(conversationId)
     }, 
     // Find all conversations associated with 
     // a single user
     getConversationsByUser: (userId, cb) => {
         userId = ObjectId(userId);
 
-        Conversations.find({"userIds": userId})
-        .sort({"lastUpdated": 1})
-        .then(cb)
+        return Conversations.find({"userIds": userId})
+        .populate("Users")
+        .sort({"lastUpdated": -1})
     },
     // Finds a conversation based on user Ids
     // associated with that conversation
@@ -26,18 +25,22 @@ module.exports = {
         let userIdsAsObjectIds = userIds.map(userId => ObjectId(userId));
 
         Conversations.find({"userIds": userIdsAsObjectIds})
-        .sort({"lastUpdated": 1})
+        .sort({"lastUpdated": -1})
         .then(cb)
+    },
+    getConversationById: (conversationId) => {
+        conversationId = ObjectId(conversationId);
+
+        return Conversations.findById(conversationId);
     },
     // Find all messages (with users) associated with the conversation
     // that they're a part of
-    getMessagesByConversation: (conversationId, cb) => {
+    getMessagesByConversation: (conversationId) => {
         conversationId = ObjectId(conversationId);
 
-        Messages.find({"conversationId": conversationId})
-        .sort({"dateSent": -1})
-        .populate("Users")
-        .then(cb)
+        return Messages.find({"conversationId": conversationId})
+        .sort({"dateSent": 1})
+        .populate("conversationId")
     },
     // ------------------ POST ------------------
     // Adds a message to the database 
@@ -47,16 +50,14 @@ module.exports = {
     //      is associated with
     //   3. text: text from the message
     createMessage: (message, cb) => {
-        Messages.create(message)
-        .then(cb)
+        return Messages.create(message)
     },
     // Adds a conversation to the database 
     // Conversation object contains: 
     //   1. userIds: Ids of users associated with the conver-
     //      sation
-    createConversation: (conversation, cb) => {
-        Conversations.create(conversation)
-        .then(cb)
+    createConversation: (conversation) => {
+        return Conversations.create(conversation)
     },
     // ------------------ PUT ------------------
     // Finds one message based on id, changes

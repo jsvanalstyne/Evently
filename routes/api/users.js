@@ -10,7 +10,6 @@ const Programs = require("../../controllers/API/Programs");
 
 
 
-
 router.get("/information", verifyBlanketUser, (req, res) => {
     console.log("inside get route for users")
         let userId = req.user.id
@@ -159,6 +158,25 @@ router.get("/calendar", verifyBlanketUser, (req, res) => {
     
     });
 
+});
+
+router.get("/information/:email", verifyBlanketUser, (req, res) => {
+    Users.findByEmail(req.params.email)
+    .then(results => {
+        if(results < 1) {
+            return res.json({
+                "message": "could not find user", 
+            }).status(404);
+        }
+        console.log(results[0]);
+        return res.json({"user": results[0]}).status(200);
+    })
+    .catch(error => {
+        return res.json({
+            "message": "could not get find user",
+            "error": error
+        })
+    })
 })
 
 
@@ -172,7 +190,6 @@ router.post("/", (req, res) => {
     oktaClient.createUser(user)
         .then(newUser => {
             // user to be added to local db
-            console.log(newUser.id);
             let createdUser = {
                 "authId": newUser.id, 
                 "firstName": user.profile.firstName, 

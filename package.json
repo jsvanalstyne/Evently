@@ -33,6 +33,7 @@
     "mongoose-seed": "^0.6.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "redis": "^3.0.2",
+    "socket.io": "^2.3.0",
     "square-connect": "^2.20200122.0"
   }
 }

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import NavLink from "../NavLink";
-import SignUpBtn from "../SignUpBtn";
 import SignupModal from "../SignupModal"
-import SignUpForm from '../SignUpForm';
 import "./style.css";
 import Logout from "../Logout";
 import { withAuth } from '@okta/okta-react';
@@ -29,7 +27,6 @@ export default withAuth(class Nav extends Component {
     }
 
     render() {
-        console.log(this.state.authenticated);
         return (
             <nav className="navbar navbar-expand-lg navbar-dark custom-nav-color">{this.props.children}
                 <a className="navbar-brand landing-title" href="/">Evently</a>
@@ -50,6 +47,10 @@ export default withAuth(class Nav extends Component {
                             <NavLink
                                 link={"/dashboard"}
                                 text={"Dashboard"}
+                            />
+                            <NavLink
+                                link="/messaging"
+                                text="Messaging"
                             />
                             <NavLink
                                 link={"/account"}

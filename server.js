@@ -5,16 +5,17 @@ require('dotenv').config();
 const mongoose = require("mongoose");
 const routes = require("./routes/index");
 const app = express();
+const bodyParser = require("body-parser")
 const PORT = process.env.PORT || 3030;
-
+const Conversations = require("./controllers/API/Conversations.js")
 // Square pay stuff
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
 const accessToken = process.env.PAY_TOKEN;
 
 // Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -25,20 +26,16 @@ const redis = require("redis");
 let redisURL = process.env.REDIS_URL || {host: "127.0.0.1"}
 const client = redis.createClient(redisURL);
 
-// const client = redis.createClient({
-//   host: "127.0.0.1",
-//   port: 6379
-// });
 
 client.on("connect", () => {
   console.log("redis connected");
   app.set("cache", client);
-  // app.use("cache", client);
 });
 
 client.on("error", err => {
   console.log(err);
 });
+
 // Add routes, both API and view
 app.use(routes);
 
@@ -61,11 +58,16 @@ defaultClient.basePath = 'https://connect.squareupsandbox.com';
 // MONGODB_URI=mongodb://user:userpassword1@ds157276.mlab.com:57276/heroku_b1dcvdgd
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Balls"
-console.log(MONGODB_URI);
 mongoose.connect(MONGODB_URI);
-// Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
 
-// MONGODB_URI=mongodb://user2020:userpassword2020@ds157276.mlab.com:57276/heroku_b1dcvdgd
+// Start the API server
+var server = app.listen(PORT)
+
+const io = require("socket.io").listen(server);
+const socketHelpers = require("./routes/socket/socket-helpers");
+
+io.sockets.on("connection", socket => {
+  socketHelpers.disconnectListener(socket)
+
+  socketHelpers.newMessageListener(socket, client, io)
+}); 

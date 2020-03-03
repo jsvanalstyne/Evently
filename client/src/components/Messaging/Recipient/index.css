@@ -1,0 +1,25 @@
+.recipient-container {
+    color: white;
+    display: flex;
+    margin-right: 15px;
+}
+
+.recipient-name-display {
+    background-color: #2a5968;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 5px;
+}
+
+.delete-recipient-button {
+    background-color: #028090;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+    width: 30px;
+    margin-left: 2.5px;
+}

@@ -10,9 +10,6 @@ const redirectUri = `${window.location.origin}/`;
 
 // Basic component with logout button
 export default withAuth(class Logout extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   logout = async () => {
     // Read idToken before local session is cleared

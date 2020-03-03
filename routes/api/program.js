@@ -1,18 +1,19 @@
 const router = require("express").Router();
 const programController = require("../../controllers/API/Programs");
 const verifyBlanketUser = require("../auth/authorization");
-const auth = require("../auth/authorization.js")
 const userController = require("../../controllers/API/Users")
+const anonCache = require("../cache/no-auth.js")
 // router.route("/")
 //     .get(programController.getProgramsByOrganization,)
 //     .post(programController.create)
 
-router.get("/:organizationid", verifyBlanketUser,(req, res) =>{
-
+router.get("/:organizationid", verifyBlanketUser, anonCache, (req, res) =>{
+    let cache = req.app.get("cache");
     let id = req.params.organizationid
     // console.log("id: "+id)
     programController.getProgramsByOrganization(id, function(results){
         // console.log("line 11" +results);
+        cache.set(req.originalUrl, 3600, JSON.stringify(results))
         return res.json(results);
     })
 });
