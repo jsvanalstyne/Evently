@@ -28,6 +28,7 @@ class MessageList extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className="curr-conversation-container">
                 <div className="message-list-container">

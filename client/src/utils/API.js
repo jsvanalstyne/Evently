@@ -29,6 +29,7 @@ export default {
     },
     getUserInformationFromDb: function () {
         const token = JSON.parse(localStorage.getItem("okta-token-storage")).idToken.idToken
+        console.log("line 32 "+ token);
 
         return axios({
             method: "GET",

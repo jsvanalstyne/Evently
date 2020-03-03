@@ -41,9 +41,16 @@ class Messaging extends Component {
 
         API.getAllConversations()
         .then(result => {
+            console.log (result)
             const { messages, conversations, user} = result.data
-
-            let currConversation = this.formatCurrConversation(messages, conversations)
+            var currConversation;
+            if(!conversations) {
+                currConversation = {}
+            } else {
+                currConversation = this.formatCurrConversation(messages, conversations)
+            }
+            
+            
 
             this.setState({
                 conversations: conversations, 

@@ -17,7 +17,8 @@ router.get("/all", auth, (req, res) => {
     .then(conversations => {
         if(conversations.length < 1) {
             return res.json({
-                "message": "This user has no conversations yet"
+                "message": "This user has no conversations yet",
+                "user": req.user
             })
             .status(404);
         }
@@ -62,8 +63,12 @@ router.get("/messages/:id", auth, (req, res) => {
 
 
 router.post("/create", auth, (req, res) => {
+    console.log(req.body.conversation);
+    
     Conversations.createConversation(req.body.conversation)
     .then(result => {
+            console.log(result);
+
         if(result.name) {
             return res.json({
                 "message": "conversation created successfully", 
@@ -72,12 +77,14 @@ router.post("/create", auth, (req, res) => {
             .status(200);
         } else {
             return res.json({
-                "message": "Could not create conversation"
+                "message": "Could not create conversation",
+                "result": result
             })
             .status(404);
         }
     })
     .catch(error => {
+        console.log(error);
         return res.json({
             "message": "Could not create conversation"
         })
