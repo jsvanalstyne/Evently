@@ -11,6 +11,7 @@ module.exports = {
             "employeeIds": employeeId, 
             "startTime": {$gte: startTime, $lte: endTime}
         })
+        .sort({"startTime": 1})
         
     }, 
 
