@@ -87,7 +87,8 @@ router.post("/create", auth, (req, res) => {
         console.log(error);
         return res.json({
             "message": "Could not create conversation", 
-            "error": error
+            "error": error, 
+            "conversation": req.body.conversation
         })
         .status(404);
     })
