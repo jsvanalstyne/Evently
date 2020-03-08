@@ -80,7 +80,7 @@ function ConversationForm(props) {
 
                 handleClose();
             } else {
-                console.log(reponse)
+                console.log(response)
                 setConversationMessage(response.data.message);
             }
         })
