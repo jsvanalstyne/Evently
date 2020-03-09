@@ -67,7 +67,7 @@ router.post("/create", auth, (req, res) => {
     
     Conversations.createConversation(req.body.conversation)
     .then(result => {
-            console.log(result);
+        console.log(result);
 
         if(result.name) {
             return res.json({

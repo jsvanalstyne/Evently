@@ -74,13 +74,14 @@ function ConversationForm(props) {
         
         API.createConversation(conversation)
         .then(response => {
+            console.log(response)
+            
             if(response.data.message === "conversation created successfully") {
                 let conversations = [response.data.conversation, ...props.conversations]
                 props.setConversations(conversations)
 
                 handleClose();
             } else {
-                console.log(response)
                 setConversationMessage(response.data.message);
             }
         })
