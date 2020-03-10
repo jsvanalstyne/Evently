@@ -21,6 +21,8 @@ const PORT = process.env.PORT || "http://127.0.0.1:3030";
 console.log(PORT);
 // Conversation list component containing all conversations
 // that users are a part of
+let socket = socketClient.connect("/");
+
 
 class Messaging extends Component {
     constructor() {
@@ -34,12 +36,13 @@ class Messaging extends Component {
     }
 
     componentDidMount = () => {
-        this.socket = socketClient.connect("/");
+        // this.socket = socketClient.connect(PORT);
         
         this.connectListener();
 
         API.getAllConversations()
         .then(result => {
+            console.log (result)
             const { messages, conversations, user} = result.data
             var currConversation;
             if(!conversations) {
@@ -48,6 +51,8 @@ class Messaging extends Component {
                 currConversation = this.formatCurrConversation(messages, conversations)
             }
             
+            
+
             this.setState({
                 conversations: conversations, 
                 currConversation: currConversation, 
