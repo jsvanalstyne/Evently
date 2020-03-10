@@ -35,7 +35,7 @@ class Messaging extends Component {
     }
 
     componentDidMount = () => {
-        this.socket = socketClient.connect("/api/");
+        this.socket = socketClient.connect("https://evently2020.herokuapp.com/api/");
         
         this.connectListener();
 
