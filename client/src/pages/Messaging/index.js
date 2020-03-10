@@ -18,10 +18,9 @@ import "./index.css"
 import socketClient from "socket.io-client";
 // cereating socket at local host for testing
 const PORT = process.env.PORT || "http://127.0.0.1:3030";
-console.log(PORT);
 // Conversation list component containing all conversations
 // that users are a part of
-let socket = socketClient.connect("/");
+// let socket = socketClient.connect(PORT);
 
 
 class Messaging extends Component {
@@ -36,15 +35,15 @@ class Messaging extends Component {
     }
 
     componentDidMount = () => {
-        // this.socket = socketClient.connect(PORT);
+        this.socket = socketClient.connect("/api/");
         
         this.connectListener();
 
         API.getAllConversations()
         .then(result => {
-            console.log (result)
             const { messages, conversations, user} = result.data
             var currConversation;
+            
             if(!conversations) {
                 currConversation = {}
             } else {
@@ -63,7 +62,7 @@ class Messaging extends Component {
     }
 
     componentWillUnmount = () => {
-        socket.close();
+        this.socket.close();
     }
 
     formatCurrConversation = (messages, conversations) => {
@@ -124,7 +123,7 @@ class Messaging extends Component {
     }
 
     sentMessageListener = () => {
-        socket.on("sentMessage", sentMessage => {
+        this.socket.on("sentMessage", sentMessage => {
             if(sentMessage.conversationId == this.state.currConversation._id) {
                 this.updateCurrConversationMessages(sentMessage)
 
@@ -149,15 +148,15 @@ class Messaging extends Component {
     }
 
     reconnectListener = () => {
-        socket.on("reconnect", numTurn => {
+        this.socket.on("reconnect", numTurn => {
             console.log(numTurn)
-            socket.connect();
+            this.socket.connect();
         })
     }
 
     connectListener = () => {
         this.socket.on("connect", () => {
-            this.setSocketId(socket.id)
+            this.setSocketId(this.socket.id)
             this.sentMessageListener()
         })
     }
@@ -214,7 +213,7 @@ class Messaging extends Component {
                     <MessageContainer 
                         currConversation={this.state.currConversation}                        
                         user={this.state.user}
-                        socket={socket}
+                        socket={this.socket}
                     />
                 </div>
             </div>
